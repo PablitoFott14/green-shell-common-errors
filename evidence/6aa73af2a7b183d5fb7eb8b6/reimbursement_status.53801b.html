@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mileage Reimbursement Status — Noor Al-Bazzaz</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5c5c5c; --line:#d9d9d9; --bg:#f7f6f3;
+    --paid:#0a7d34; --unpaid:#b3261e; --pending:#8a5a00;
+    --paidbg:#e8f5ec; --unpaidbg:#fbeae9; --pendingbg:#fdf4e3;
+    --accent:#1f3a5f;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);margin:0;line-height:1.5;font-size:16px}
+  .wrap{max-width:860px;margin:0 auto;padding:36px 26px 70px}
+  header{border-bottom:3px solid var(--accent);padding-bottom:16px;margin-bottom:8px}
+  h1{font-size:25px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px}
+  h2{font-size:19px;margin:34px 0 10px;color:var(--accent)}
+  p{margin:10px 0}
+  .cards{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px}
+  .card{flex:1 1 340px;border:1px solid var(--line);border-radius:10px;background:#fff;
+    padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .card h3{margin:0 0 2px;font-size:17px}
+  .claimno{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--muted)}
+  .badge{display:inline-block;font-weight:700;font-size:13px;letter-spacing:.3px;
+    padding:4px 11px;border-radius:999px;margin:10px 0 6px;text-transform:uppercase}
+  .b-unpaid{color:var(--unpaid);background:var(--unpaidbg);border:1px solid #eccac7}
+  .b-pending{color:var(--pending);background:var(--pendingbg);border:1px solid #ecd9ac}
+  .b-paid{color:var(--paid);background:var(--paidbg);border:1px solid #bfe0c9}
+  table{border-collapse:collapse;width:100%;margin:12px 0;background:#fff;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#efeee9;font-weight:600}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .kv{width:100%;font-size:14.5px;border:none;margin:6px 0}
+  .kv td{border:none;padding:3px 0}
+  .kv td:first-child{color:var(--muted);width:46%}
+  .flag{background:var(--unpaidbg)}
+  .ok{color:var(--paid);font-weight:600}
+  .no{color:var(--unpaid);font-weight:600}
+  .deadline{font-weight:700}
+  .note{background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:6px;padding:14px 18px;margin:16px 0}
+  .draft{background:#fbfbf9;border:1px dashed #b9b9b9;border-radius:8px;padding:16px 18px;
+    font-size:14px;white-space:pre-wrap;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .small{font-size:13px;color:var(--muted)}
+  ul{margin:8px 0 8px 2px;padding-left:20px}
+  li{margin:5px 0}
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:12px;
+    font-size:12.5px;color:var(--muted)}
+  @media print{body{background:#fff}.card,table,.note,.draft{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Mileage Reimbursement Status — Two Everett Trips</h1>
+  <div class="sub">Prepared for Noor Al-Bazzaz (CTP-0418) &middot; Reviewed 28 August 2026 &middot;
+  Checking account ending 3061, Yakima Federal &middot; updated with 12 June pay statement (DD-2026-0612)</div>
+</header>
+
+<p>You filed two mileage claims for driving your own car to Everett — one in May, one in August.
+Marguerite approved both and HR called them &ldquo;acknowledged and complete.&rdquo; The question is whether the
+money actually reached you. Because the policy folds mileage into your normal paycheck as a non&#8209;taxable
+line (<em>no separate deposit</em>), the only way to tell is whether a given paycheck came in
+<strong>higher than your usual $2,354.00</strong>. Here is each claim, kept separate.</p>
+
+<div class="cards">
+  <div class="card">
+    <h3>Claim 1 &mdash; May trip</h3>
+    <div class="claimno">CHT-EXP-2605-114 &middot; travelled 26 May 2026</div>
+    <div class="badge b-unpaid">Not reached &mdash; was due, now overdue</div>
+    <table class="kv">
+      <tr><td><strong>Reached your account?</strong></td><td class="no">No</td></tr>
+      <tr><td><strong>Was it due by 28 Aug?</strong></td><td>Yes &mdash; due 12 June</td></tr>
+      <tr><td>Amount owed</td><td>290 mi &times; $0.72 = <strong>$208.80</strong></td></tr>
+      <tr><td>Approved by Marguerite</td><td>eve. 28 May 2026</td></tr>
+      <tr><td>Due on paycheck</td><td><strong>12 June 2026</strong></td></tr>
+      <tr><td>That deposit was</td><td class="no">$2,354.00 (not $2,562.80)</td></tr>
+      <tr class="flag"><td>Discrepancy deadline (&sect;5.2)</td><td class="deadline">10 September 2026</td></tr>
+      <tr class="flag"><td>Passed as of 28 Aug 2026?</td><td class="deadline"><span class="ok">No</span> &mdash; 13 days left</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Claim 2 &mdash; August trip</h3>
+    <div class="claimno">CHT-EXP-2608-203 &middot; travelled 12 Aug 2026</div>
+    <div class="badge b-pending">Not reached &mdash; but not yet due</div>
+    <table class="kv">
+      <tr><td><strong>Reached your account?</strong></td><td class="no">No</td></tr>
+      <tr><td><strong>Was it due by 28 Aug?</strong></td><td>No &mdash; due 4 Sept</td></tr>
+      <tr><td>Amount owed</td><td>290 mi &times; $0.72 = <strong>$208.80</strong></td></tr>
+      <tr><td>Approved by Marguerite</td><td>eve. 13 Aug 2026</td></tr>
+      <tr><td>Due on paycheck</td><td><strong>4 September 2026</strong></td></tr>
+      <tr><td>That deposit</td><td>hasn&rsquo;t happened yet</td></tr>
+      <tr><td>Deadline to tell Payroll</td><td class="deadline">3 December 2026</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2>The determination (as of 28 August 2026)</h2>
+<p>Two separate questions. <strong>Did the money reach your account?</strong> is a matter of fact — checked
+against your deposits. <strong>Was it due yet?</strong> is a matter of policy timing. They are not the same,
+so they are answered in separate columns below. The verdict comes from combining them.</p>
+<table>
+  <tr>
+    <th>Claim</th>
+    <th>Reached your account?<br><span class="small">(receipt — a fact)</span></th>
+    <th>Due by 28 Aug?<br><span class="small">(policy timing)</span></th>
+    <th>Verdict</th>
+  </tr>
+  <tr>
+    <td>May &mdash; CHT-EXP-2605-114</td>
+    <td class="no">No.<br><span class="small">The 12 June pay statement (DD-2026-0612) shows net $2,354.00 with no &ldquo;Mileage Reimbursement&rdquo; line; the matching bank deposit is $2,354.00, not $2,562.80. Every paycheck since is also $2,354.00.</span></td>
+    <td>Yes &mdash; due 12 June 2026.</td>
+    <td class="no"><strong>Did not reach you, and it was owed.</strong> A real shortfall / missed payment, now confirmed by the pay statement for the due date itself. Recoverable only until 10 Sept.</td>
+  </tr>
+  <tr>
+    <td>Aug &mdash; CHT-EXP-2608-203</td>
+    <td class="no">No.<br><span class="small">No paycheck yet carries it; the 4 Sept paycheck hasn&rsquo;t posted.</span></td>
+    <td>No &mdash; not due until 4 Sept 2026.</td>
+    <td class="b-pending"><strong>Has not reached you, but is not yet a miss.</strong> Undetermined until the 4 Sept paycheck posts; re-check then.</td>
+  </tr>
+</table>
+<p><strong>In plain terms:</strong> as of 28 August, <em>neither</em> reimbursement has actually reached your
+account. For the <strong>May</strong> claim that is a failure — it was due on 12 June and never came, so it is
+genuinely missing and you should act before 10 September. For the <strong>August</strong> claim the same
+&ldquo;not reached&rdquo; fact is <em>expected</em>, because it isn&rsquo;t owed until your 4 September
+paycheck; if that paycheck shows $2,354.00 with no &ldquo;Mileage Reimbursement&rdquo; line, it will then have
+missed too, and your window runs to 3 December 2026.</p>
+
+<div class="note" style="border-left-color:var(--unpaid)">
+  <strong>Deadline on the one overdue, unpaid claim &mdash; May (CHT-EXP-2605-114).</strong>
+  Under policy &sect;5.2 you have 90 days from the due payroll date (12 June 2026) to notify Payroll in writing.
+  <ul>
+    <li><strong>Exact discrepancy deadline: 10 September 2026.</strong></li>
+    <li><strong>Had it passed as of 28 August 2026? No.</strong> The window was still open, with 13 days
+    remaining. After 10 September the claim is administratively closed under &sect;5.3 and cannot be reopened,
+    even though HR marked it &ldquo;acknowledged and approved.&rdquo;</li>
+  </ul>
+  <span class="small">The August claim (CHT-EXP-2608-203) is not overdue &mdash; it isn&rsquo;t due until
+  4 September 2026 &mdash; so no discrepancy deadline is running for it yet; if it misses, its own deadline
+  would be 3 December 2026.</span>
+</div>
+
+<h2>Why &ldquo;due&rdquo; means 12 June and 4 September</h2>
+<p>Policy &sect;4.2 says approved mileage appears on the <strong>second</strong> regular (biweekly) payroll
+date <em>after</em> your program manager approves it — not the first, and not a separate deposit (&sect;4.1).
+Your payroll lands on alternating Fridays.</p>
+<table>
+  <tr><th>Claim</th><th>Approved (Marguerite)</th><th>1st payday after</th><th>2nd payday = <strong>due</strong></th></tr>
+  <tr><td>May &mdash; CHT-EXP-2605-114</td><td>eve. Fri 28 May 2026</td><td>Fri 29 May</td><td><strong>Fri 12 June 2026</strong></td></tr>
+  <tr><td>Aug &mdash; CHT-EXP-2608-203</td><td>eve. Thu 13 Aug 2026</td><td>Fri 21 Aug</td><td><strong>Fri 4 Sept 2026</strong></td></tr>
+</table>
+<p class="small">Marguerite&rsquo;s approval emails are timestamped just after midnight UTC, which is the previous
+evening in Yakima (&ldquo;sorry for the hour&rdquo;) — 28 May and 13 Aug respectively. Even on the strictest
+alternative reading (counting from the following morning), the May due date would slip only to 26 June and its
+deadline to ~24 September — so acting before 10 September is safe under every interpretation.</p>
+
+<h2>The evidence — your Chinook paycheck deposits</h2>
+<p>Every regular payroll deposit into checking&nbsp;3061 has been identical. None carries the extra $208.80
+that a reimbursement would add.</p>
+<table>
+  <tr><th>Pay date</th><th class="num">Deposit</th><th>Reimbursement included?</th></tr>
+  <tr><td>29 May 2026</td><td class="num">$2,354.00</td><td>&mdash;</td></tr>
+  <tr><td><strong>12 June 2026</strong> &larr; May claim due here</td><td class="num">$2,354.00</td><td class="no">No &mdash; pay stmt DD-2026-0612 confirms net $2,354.00, no mileage line</td></tr>
+  <tr><td>26 June 2026</td><td class="num">$2,354.00</td><td class="no">No</td></tr>
+  <tr><td>10 July 2026</td><td class="num">$2,354.00</td><td class="no">No</td></tr>
+  <tr><td>24 July 2026</td><td class="num">$2,354.00</td><td class="no">No</td></tr>
+  <tr><td>7 Aug 2026</td><td class="num">$2,354.00</td><td class="no">No</td></tr>
+  <tr><td>21 Aug 2026</td><td class="num">$2,354.00</td><td>&mdash; (Aug claim not due until 4 Sept)</td></tr>
+  <tr><td><strong>4 Sept 2026</strong> &larr; Aug claim due here</td><td class="num">not yet paid</td><td class="b-pending">Check this one</td></tr>
+</table>
+<p class="small">A paid reimbursement would have shown as a single deposit of <strong>$2,562.80</strong>
+($2,354.00 + $208.80) and a &ldquo;Mileage Reimbursement&rdquo; line on the matching pay statement. Your
+29 May, <strong>12 June</strong>, and 21 Aug pay statements all show plain $2,354.00 net with no such line
+&mdash; and the 12 June statement (DD-2026-0612) is the one for the exact payday the May claim was due, so it
+settles that claim directly rather than by inference. (The one-off $3,593.88 on 13 March was profit share,
+unrelated.)</p>
+
+<div class="note">
+  <strong>Important — being &ldquo;acknowledged&rdquo; does not protect you.</strong> HR&rsquo;s note that both
+  claims are &ldquo;acknowledged and complete&rdquo; only means a claim number was assigned (&sect;3.3) and
+  approval is on file. Policy &sect;5.3 is explicit: after 90 days the claim is administratively closed and
+  cannot be reopened, <em>&ldquo;no exception&hellip; for claims that were acknowledged as received or recorded
+  as approved.&rdquo;</em> The responsibility to confirm payment and to report a miss in writing is yours
+  (&sect;5.1&ndash;5.2). So the May claim really can be lost if you let 10 September pass.</div>
+
+<h2>What to do</h2>
+<ul>
+  <li><strong>Now (before 10 Sept):</strong> email Payroll in writing about the <strong>May claim</strong>
+  (CHT&#8209;EXP&#8209;2605&#8209;114) — that it was approved 28 May, was due on the 12 June payslip, and never
+  appeared. A draft is below.</li>
+  <li><strong>After your 4 Sept paycheck:</strong> open that pay statement. If net is $2,354.00 with no Mileage
+  Reimbursement line, add the <strong>August claim</strong> (CHT&#8209;EXP&#8209;2608&#8209;203) to Payroll the
+  same way; you have until 3 December for it. If it shows $2,562.80, that one landed — you&rsquo;re done.</li>
+  <li>Keep this written notice; the date you send it is what stops the clock (&sect;5.2).</li>
+</ul>
+
+<h2>Draft email to Payroll (May claim)</h2>
+<div class="draft">To: hr@chinooktp.com
+Subject: Missing mileage reimbursement — CHT-EXP-2605-114 (due 12 June payslip)
+
+Hello Payroll,
+
+Per policy CTP-HR-014 &sect;5.2, I&rsquo;m reporting a missing mileage reimbursement in writing.
+
+  Claim:            CHT-EXP-2605-114
+  Travel:           Everett, 26 May 2026 (290 miles, $208.80 at $0.72/mi)
+  PM approval:      Marguerite Delacroix, evening of 28 May 2026
+  Due on payslip:   2nd payroll after approval = 12 June 2026 (&sect;4.2)
+
+My 12 June pay statement (Check No. DD-2026-0612) shows net $2,354.00 with no
+&ldquo;Mileage Reimbursement&rdquo; line, the bank deposit was $2,354.00 (not $2,562.80),
+and every paycheck since has been the same, so the $208.80 was never paid. Please
+correct this on an upcoming payroll.
+
+I&rsquo;m sending this before the 90-day deadline (10 September 2026). I&rsquo;ll follow up
+separately on the August claim (CHT-EXP-2608-203) once my 4 September paycheck posts.
+
+Thank you,
+Noor Al-Bazzaz — CTP-0418</div>
+
+<footer>
+Sources: CTP-HR-014 Rev. 2026-01 (&sect;&sect;2.1, 4.1&ndash;4.2, 5.1&ndash;5.3); HR emails 27 May, 17 Aug 2026;
+Marguerite Delacroix approvals 29 May &amp; 14 Aug 2026 (UTC); Yakima Federal checking 3061 deposit history;
+Chinook earnings statements 29 May, 12 June (DD-2026-0612) &amp; 21 Aug 2026. Amounts and dates verified as of 28 August 2026.
+This is a personal summary to help you contact Payroll, not an official company determination.
+</footer>
+
+</div>
+<script>
+/* Added by the Common Errors viewer. Not part of the task: it marks the passage the example points at. */
+(function () {
+  var T = ["Claim 1 — May trip", "Reached your account?"];
+  var SKIP = {SCRIPT: 1, STYLE: 1, TEMPLATE: 1, NOSCRIPT: 1, MARK: 1};
+  var all = [], at = 0, found = 0;
+  function textTarget(t) {
+    var exact = t.charAt(0) === "=", s = exact ? t.slice(1) : t, hits = [];
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.parentNode && SKIP[n.parentNode.nodeName] ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (node) {
+      var i = exact ? (node.data.trim() === s ? node.data.indexOf(s) : -1) : node.data.indexOf(s);
+      if (i < 0) return;
+      var r = document.createRange();
+      r.setStart(node, i); r.setEnd(node, i + s.length);
+      var m = document.createElement("mark");
+      m.style.cssText = "background:#ffe066;color:#111;outline:1.5px solid #ff4d63;border-radius:2px;padding:0 1px";
+      r.surroundContents(m);
+      hits.push(m);
+    });
+    return hits;
+  }
+  /* Scroll only this page, never the viewer around it: scrollIntoView would
+     move the dialog too and push the file name and the note out of sight. */
+  function reveal(el) {
+    var p = el.parentElement;
+    while (p && p !== document.body && p !== document.documentElement) {
+      var cs = getComputedStyle(p);
+      if (/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight > p.clientHeight) {
+        p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - p.clientHeight / 3;
+      }
+      p = p.parentElement;
+    }
+    window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - window.innerHeight / 3);
+  }
+  function post() {
+    try {
+      parent.postMessage({ceEvidence: document.title || "page", found: found, of: T.length,
+                          marks: all.length, at: at}, "*");
+    } catch (e) {}
+  }
+  /* The passage on show gets a heavier ring, so stepping is visible on a busy page. */
+  function go(i) {
+    if (!all.length) { post(); return; }
+    at = ((i % all.length) + all.length) % all.length;
+    all.forEach(function (el, k) {
+      el.style.boxShadow = k === at ? "0 0 0 3px #ff4d63, 0 0 0 8px rgba(255,77,99,.35)" : "";
+    });
+    reveal(all[at]);
+    post();
+  }
+  function mark() {
+    T.forEach(function (t) {
+      var hits = [];
+      if (t.indexOf("css:") === 0) {
+        hits = Array.prototype.slice.call(document.querySelectorAll(t.slice(4)));
+        hits.forEach(function (el) { el.style.outline = "4px solid #ff4d63"; el.style.outlineOffset = "4px"; });
+      } else {
+        hits = textTarget(t);
+      }
+      if (hits.length) found++;
+      all = all.concat(hits);
+    });
+    all.sort(function (a, b) { return a.compareDocumentPosition(b) & 4 ? -1 : 1; });
+    go(0);
+  }
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (d && typeof d.ceStep === "number" && e.source === parent) go(d.ceStep === 0 ? at : at + d.ceStep);
+  });
+  window.addEventListener("load", function () { setTimeout(mark, 300); });
+})();
+</script></body>
+</html>

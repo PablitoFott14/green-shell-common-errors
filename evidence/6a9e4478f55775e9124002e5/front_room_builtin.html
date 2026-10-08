@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Front-room built-in — cut list &amp; scribe plan</title>
+<style>
+ :root{--ink:#1f2430;--mut:#5c6474;--line:#d9dbe1;--accent:#2f5d8a;--warn:#b23b2e;}
+ *{box-sizing:border-box} body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:#eef0f3;line-height:1.5}
+ .wrap{max-width:1040px;margin:0 auto;padding:28px 22px 80px;background:#fff}
+ h1{font-size:26px;margin:0 0 4px} h2{font-size:20px;margin:34px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent);color:var(--accent)}
+ h3{font-size:16px;margin:20px 0 6px}
+ p,li{font-size:14.5px} .sub{color:var(--mut);margin-top:0}
+ table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.5px}
+ th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+ th{background:#eef3f8} td.c,th.c{text-align:center} .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,Consolas,monospace}
+ .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+ .card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fbfcfe}
+ .kv{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:4px 0} .kv b{font-variant-numeric:tabular-nums}
+ .flag{background:#fdf3f0;border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:10px 0}
+ .ok{background:#eef7ef;border-left:4px solid #3a7d44;padding:10px 14px;border-radius:6px;margin:10px 0}
+ .note{background:#f4f7fb;border-left:4px solid var(--accent);padding:10px 14px;border-radius:6px;margin:10px 0}
+ .ans{background:#fff5e6;border:1px solid #e6b800;border-left:5px solid #e6a000;padding:12px 16px;border-radius:8px;margin:12px 0}
+ svg.sheet, svg.wall{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px;margin:8px 0}
+ .sheet text.pl{font:600 34px sans-serif;fill:#1f2430} .sheet text.pls{font:600 27px sans-serif;fill:#1f2430}
+ .sheet text.dim{font:600 26px ui-monospace,monospace;fill:#2f5d8a} .sheet text.axis{font:600 40px sans-serif;fill:#444}
+ .sheet text.note2, svg .note2{font:500 30px sans-serif;fill:#5c6474} .sheet text.dmg{font:700 30px sans-serif;fill:#b00}
+ .wall text.wl{font:600 44px sans-serif;fill:#333} .wall text.wls{font:500 34px sans-serif;fill:#555}
+ .wall text.bl{font:700 40px sans-serif;fill:#1f2430} .wall text.bls{font:500 30px sans-serif;fill:#444}
+ ol li,ul li{margin:4px 0} .legend span{display:inline-block;margin-right:14px;font-size:12.5px}
+ .sw{display:inline-block;width:12px;height:12px;border:1px solid #444;vertical-align:middle;margin-right:4px;border-radius:2px}
+ .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:10px}
+</style></head>
+<body><svg width="0" height="0"><defs>
+<pattern id="hatch" width="28" height="28" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+<rect width="28" height="28" fill="#f7dede"/><line x1="0" y1="0" x2="0" y2="28" stroke="#b00" stroke-width="6"/>
+</pattern></defs></svg><div class="wrap">
+
+<h1>Front-room built-in — cut list, scribe plan &amp; cutting diagrams</h1>
+<p class="sub">Wall between the corner and the door · 18 mm birch ply to Halvard's shop rules · all dimensions in mm · rev H, 2026-09-07</p>
+
+<div class="ans"><b>Rev H — 18 mm notebook back, out of the three boards Halvard has.</b> With no 6 mm anywhere, the notebook back is
+18 mm — and it now <b>nests into the three boards</b> (built-in + paper drawer + back all fit, damaged corner kept clear). To make
+the room, I dropped the one <b>optional spare “general” tower shelf</b> (not needed — notebooks and plates keep their shelves). The
+back is <b>three butted 18 mm boards</b> behind the two notebook shelves; you can see them placed in the Sheet 1–3 diagrams. Nothing
+else about the design changes. <b>No 4th board, nothing to buy</b> (bar a scrap of hardboard for the drawer bottom).</div>
+
+<div class="note"><b>Read me first.</b> The wall is out of square, so the box is built true and sized to the tightest part of the
+opening; the irregularity is taken up by scribed parts only (ceiling strip, two end fillers, notched plinth). All figures are from
+the photo measurements (ground truth).</div>
+
+<h2>1 · The wall as measured</h2>
+<div class="grid2">
+<div><svg class="wall" viewBox="0 0 2185 2740" xmlns="http://www.w3.org/2000/svg">
+<polygon points="90,90 2095,90 2065,2490 90,2480" fill="#fde9e4" stroke="#c0504d" stroke-width="8"/>
+<line x1="90" y1="2405" x2="2065" y2="2415" stroke="#c0504d" stroke-width="3" stroke-dasharray="14 10"/>
+<line x1="90" y1="1290" x2="2090" y2="1290" stroke="#999" stroke-width="3" stroke-dasharray="12 10"/>
+<rect x="1510" y="1335" width="70" height="110" fill="#fff" stroke="#333" stroke-width="4"/>
+<text x="1545" y="1560" class="wl" text-anchor="middle">light switch</text>
+<text x="1545" y="1605" class="wls" text-anchor="middle">550 from corner · 1100 up</text>
+<rect x="560" y="390" width="360" height="300" fill="none" stroke="#b06a00" stroke-width="4" stroke-dasharray="16 10"/>
+<text x="740" y="555" class="wls" text-anchor="middle" fill="#b06a00">patched /<tspan x="740" dy="40">hollow — no fixings</tspan></text>
+<text x="1092" y="60" class="wl" text-anchor="middle">ceiling width 2005</text>
+<text x="1077" y="2545" class="wl" text-anchor="middle">floor width 1975</text>
+<text x="1090" y="1270" class="wls" text-anchor="middle" fill="#666">mid width 2000</text>
+<text x="60" y="1290" class="wl" text-anchor="middle" transform="rotate(-90 60 1290)">door side 2390</text>
+<text x="2150" y="1290" class="wl" text-anchor="middle" transform="rotate(-90 2150 1290)">corner side 2400</text>
+<text x="98" y="2396" class="wls" fill="#c0504d">skirting 75 high · ~8 proud</text>
+<text x="1092" y="2690" class="note2" text-anchor="middle">Front elevation. Schematic — out-of-square exaggerated; figures are the real measured mm.</text>
+</svg></div>
+<div class="card">
+<h3>Measured figures (photos = ground truth)</h3>
+<div class="kv"><span>Width at floor (narrowest)</span><b>1975</b></div>
+<div class="kv"><span>Width at mid height</span><b>2000</b></div>
+<div class="kv"><span>Width at ceiling (widest)</span><b>2005</b></div>
+<div class="kv"><span>Height at door side (left)</span><b>2390</b></div>
+<div class="kv"><span>Height at corner side (right)</span><b>2400</b></div>
+<div class="kv"><span>Skirting</span><b>75 high · ~8 proud</b></div>
+<div class="kv"><span>Light switch</span><b>550 from corner · 1100 up</b></div>
+<p class="sub" style="margin-top:8px">Opening is 30 wider at the top than the floor (≈15/side); ceiling falls 10 door→corner. Both inside the scribe allowances.</p>
+</div>
+</div>
+
+<h2>2 · Materials &amp; the rules I built to</h2>
+<div class="grid2">
+<div class="card"><h3>Halvard's shop sheet</h3><ul>
+<li><b>Stock:</b> 18 mm birch ply, 2500 × 1250.</li>
+<li><b>Kerf 3 mm</b> between every part.</li>
+<li><b>Sides that meet plaster:</b> cut oversize, scribe on site.</li>
+<li><b>Top to ceiling:</b> 20 mm scribe strip, separate part.</li>
+<li><b>Shelves over 800 clear span:</b> add a divider.</li>
+<li><b>Back:</b> 6 mm ply in a groove — <i>void (no 6 mm); back is 18 mm now.</i></li>
+<li><b>Plinth 100 high,</b> notched for skirting.</li>
+<li><b>No fixings into patched plaster.</b></li>
+</ul></div>
+<div class="card"><h3>Plywood on hand (confirmed)</h3><ul>
+<li><b>Exactly three 18 mm boards</b> (2500 × 1250) — nothing else.</li>
+<li><b>One is the damaged board</b> (~300 × 400 knocked corner) → Sheet 3, damage kept in the waste.</li>
+<li><b>No 6 mm</b> — used up on the go-kart.</li>
+<li><b>Nothing to buy:</b> the whole job nests into the three boards.</li>
+</ul></div>
+</div>
+<div class="ok"><b>Material verdict (checked by nesting every part).</b> Built-in + paper drawer + the 18 mm notebook back all fit on the
+<b>three boards</b>, with the damaged corner reserved — verified: no overlaps, nothing off-sheet. The only concession was dropping the
+spare general shelf. Non-ply extras: a scrap of hardboard for the drawer bottom. <b>No fourth board.</b></div>
+
+<h2>3 · What it has to hold &amp; the layout</h2>
+<div class="grid2">
+<div><svg class="wall" viewBox="0 0 2415 2680" xmlns="http://www.w3.org/2000/svg">
+<rect x="240" y="20" width="1935" height="60" fill="#f6d7d7" stroke="#333" stroke-width="4"/>
+<text x="1207.5" y="60" class="bls" text-anchor="middle">CEILING SCRIBE STRIP (separate part, scribed to ceiling)</text>
+<line x1="220" y1="2440" x2="205" y2="90" stroke="#8a5a00" stroke-width="5" stroke-dasharray="16 10"/>
+<polygon points="240,2440 220,2440 205,90 240,90" fill="#ffe1b0" stroke="#333" stroke-width="3"/>
+<text x="145" y="520" class="bls" transform="rotate(-90 145 520)" text-anchor="middle" fill="#8a5a00">door frame</text>
+<line x1="2195" y1="2440" x2="2210" y2="90" stroke="#8a5a00" stroke-width="5" stroke-dasharray="16 10"/>
+<polygon points="2175,2440 2195,2440 2210,90 2175,90" fill="#ffe1b0" stroke="#333" stroke-width="3"/>
+<text x="2275" y="520" class="bls" transform="rotate(90 2275 520)" text-anchor="middle" fill="#8a5a00">corner (return wall)</text>
+<rect x="240" y="90" width="1935" height="2350" fill="#fbf7ee" stroke="#333" stroke-width="6"/>
+<rect x="240" y="2340" width="1935" height="100" fill="#f6d7d7" stroke="#333" stroke-width="4"/>
+<text x="1207.5" y="2400" class="bls" text-anchor="middle">PLINTH 100 high — notched 75×8 for skirting</text>
+<rect x="240" y="90" width="18" height="2250" fill="#cfe3f2" stroke="#333" stroke-width="4"/>
+<rect x="2157" y="90" width="18" height="2250" fill="#cfe3f2" stroke="#333" stroke-width="4"/>
+<rect x="1468" y="90" width="18" height="2250" fill="#cfe3f2" stroke="#333" stroke-width="4"/>
+<rect x="258" y="2322" width="1899" height="18" fill="#d7efd7" stroke="#333" stroke-width="4"/>
+<rect x="258" y="90" width="1899" height="18" fill="#d7efd7" stroke="#333" stroke-width="4"/>
+<rect x="258" y="2150" width="1210" height="172" fill="#ffd2a6" stroke="#333" stroke-width="4"/>
+<text x="863.0" y="2205" class="bls" text-anchor="middle">PAPER DRAWER</text>
+<text x="863.0" y="2265" class="bls" text-anchor="middle">deep — projects to 680 (see §8)</text>
+<rect x="258" y="922" width="1210" height="18" fill="#d7efd7" stroke="#333" stroke-width="4"/>
+<text x="863.0" y="920" class="bls" text-anchor="middle">DESK DECK</text>
+<rect x="854" y="108" width="18" height="814" fill="#e8dcf5" stroke="#333" stroke-width="4"/>
+<rect x="258" y="472" width="596" height="18" fill="#fdeecb" stroke="#333" stroke-width="4"/>
+<rect x="872" y="472" width="596" height="18" fill="#fdeecb" stroke="#333" stroke-width="4"/>
+<rect x="1486" y="1320" width="671" height="802" fill="#dff0e6" stroke="#3a7d44" stroke-width="3" stroke-dasharray="14 9"/>
+<rect x="1486" y="2122" width="671" height="18" fill="#f4c7a0" stroke="#333" stroke-width="4"/>
+<rect x="1486" y="1722" width="671" height="18" fill="#fdeecb" stroke="#333" stroke-width="4"/>
+<rect x="1486" y="1320" width="671" height="18" fill="#fdeecb" stroke="#333" stroke-width="4"/>
+<rect x="1486" y="2140" width="671" height="182" fill="#fbe3cf" stroke="none"/>
+<text x="863.0" y="1540" class="bl" text-anchor="middle">DESK WELL (open above drawer)</text>
+<text x="863.0" y="1600" class="bls" text-anchor="middle">drafting table stands here</text>
+<text x="1821.5" y="290" class="bl" text-anchor="middle">RIGHT TOWER</text>
+<text x="1821.5" y="350" class="bls" text-anchor="middle">open (general)</text>
+<text x="1821.5" y="1540" class="bls" text-anchor="middle">NOTEBOOKS</text>
+<text x="1821.5" y="1920" class="bls" text-anchor="middle">NOTEBOOKS</text>
+<text x="1821.5" y="1260" class="bls" text-anchor="middle">18 mm back (green)</text>
+<text x="1821.5" y="2235" class="bls" text-anchor="middle">PLATE STORE</text>
+<text x="1821.5" y="2280" class="bls" text-anchor="middle">6 plates, flat</text>
+<text x="854" y="260" class="bls" text-anchor="middle">upper cabinets</text>
+<text x="230" y="1290" class="bls" text-anchor="middle">SCRIBE</text>
+<text x="230" y="1340" class="bls" text-anchor="middle">FILLER</text>
+<text x="2187" y="1290" class="bls" text-anchor="middle">SCRIBE</text>
+<text x="2187" y="1340" class="bls" text-anchor="middle">FILLER</text>
+<text x="1207.5" y="2510" class="note2" text-anchor="middle">Built-in front elevation. Green dashed = the only back (18 mm) behind the two notebook shelves. Everything else open to the wall. Not to fine scale.</text>
+</svg></div>
+<div class="card">
+<h3>Programme</h3>
+<div class="kv"><span>Drafting table</span><b>1200 × 800 × 760</b></div>
+<p class="sub" style="margin:2px 0 8px">Stands in the desk bay, in front of the deep drawer base.</p>
+<div class="kv"><span>Bound notebooks (standing)</span><b>235 × 165</b></div>
+<p class="sub" style="margin:2px 0 8px">Two fixed tower shelves — <b>the only backed section (18 mm)</b>.</p>
+<div class="kv"><span>Printing plates (flat)</span><b>5 × ≈180×230 + 1 × ≈90×62</b></div>
+<p class="sub" style="margin:2px 0 8px">Flat bay at the tower foot (fixed shelf), open-backed.</p>
+<div class="kv"><span>Big flat paper</span><b>635 × 965</b></div>
+<p class="sub" style="margin:2px 0 0">Deep drawer in the desk-bay base (§8), open-backed.</p>
+</div>
+</div>
+
+<h3>Notebook capacity — two more seasons</h3>
+<p>Calendar: field season R1–R8 (20 Aug = “eighth run”, 1 May opener). One notebook/run → 8/season; two more = +16 over the current ~8.
+The two notebook shelves (~52 at 25 mm/spine over 671 wide) cover it. Openings 390 deep, ≥250 high. These two shelves are the backed section.</p>
+
+<h2>4 · Cut list — the built-in (18 mm birch, 3 boards)</h2>
+<p class="sub">“From” = which board each part is cut from in the nest below (some parts share a board).</p>
+<table><thead><tr><th>Part</th><th class="c">Qty</th><th>Size (mm)</th><th>Notes</th><th class="c">Board</th></tr></thead><tbody><tr><td>Gable L (door side)</td><td class='c'>1</td><td class='mono'>2250 × 400</td><td>Vertical end panel; door filler scribes.</td><td class='c'>3</td></tr>
+<tr><td>Gable R (corner side)</td><td class='c'>1</td><td class='mono'>2250 × 400</td><td>Vertical end panel; corner filler scribes.</td><td class='c'>3</td></tr>
+<tr><td>Main divider</td><td class='c'>1</td><td class='mono'>2250 × 400</td><td>Desk well | tower, full height.</td><td class='c'>1</td></tr>
+<tr><td>Scribe filler — door end</td><td class='c'>1</td><td class='mono'>2250 × 50</td><td>Closes door-side gap; scribed.</td><td class='c'>3</td></tr>
+<tr><td>Scribe filler — corner end</td><td class='c'>1</td><td class='mono'>2250 × 50</td><td>Closes corner-side gap; scribed.</td><td class='c'>3</td></tr>
+<tr><td>Top panel</td><td class='c'>1</td><td class='mono'>1899 × 400</td><td>Housed into both gables.</td><td class='c'>1</td></tr>
+<tr><td>Bottom panel</td><td class='c'>1</td><td class='mono'>1899 × 400</td><td>Sits on plinth.</td><td class='c'>1</td></tr>
+<tr><td>Desk deck</td><td class='c'>1</td><td class='mono'>1210 × 390</td><td>Caps the desk well at 1500.</td><td class='c'>2</td></tr>
+<tr><td>Desk apron (front + back)</td><td class='c'>2</td><td class='mono'>1210 × 80</td><td>Stiffen the desk deck.</td><td class='c'>2</td></tr>
+<tr><td>Upper-left divider</td><td class='c'>1</td><td class='mono'>814 × 390</td><td>Keeps upper spans ≤ 596.</td><td class='c'>1</td></tr>
+<tr><td>Upper-left shelf</td><td class='c'>2</td><td class='mono'>596 × 380</td><td>One per upper bay (adjustable).</td><td class='c'>2</td></tr>
+<tr><td>Plate shelf (fixed)</td><td class='c'>1</td><td class='mono'>671 × 390</td><td>Fixed low → flat plate bay.</td><td class='c'>2</td></tr>
+<tr><td>Notebook shelf (fixed)</td><td class='c'>2</td><td class='mono'>671 × 390</td><td>The two notebook shelves — backed. (The old spare 'general' shelf is dropped to free ply.)</td><td class='c'>2</td></tr>
+<tr><td>Ceiling scribe strip</td><td class='c'>1</td><td class='mono'>1935 × 80</td><td>Scribed to ceiling.</td><td class='c'>3</td></tr>
+<tr><td>Plinth front rail</td><td class='c'>1</td><td class='mono'>1935 × 100</td><td></td><td class='c'>3</td></tr>
+<tr><td>Plinth back rail</td><td class='c'>1</td><td class='mono'>1935 × 100</td><td>Notch 75 × 8 for skirting.</td><td class='c'>3</td></tr>
+<tr><td>Plinth foot/cross member</td><td class='c'>4</td><td class='mono'>364 × 100</td><td>Ladder-frame the plinth.</td><td class='c'>1/2</td></tr></tbody></table>
+<h3>Paper drawer — 18 mm, from the same three boards</h3>
+<table><thead><tr><th>Part</th><th class="c">Qty</th><th>Size (mm)</th><th>Notes</th><th class="c">Board</th></tr></thead><tbody><tr><td>Paper-drawer front (false front)</td><td class='c'>1</td><td class='mono'>1050 × 150</td><td>Overlays the desk-bay opening.</td><td class='c'>2</td></tr>
+<tr><td>Drawer back</td><td class='c'>1</td><td class='mono'>985 × 85</td><td></td><td class='c'>2</td></tr>
+<tr><td>Drawer deep side</td><td class='c'>2</td><td class='mono'>680 × 170</td><td>Carry the slides; cantilever forward.</td><td class='c'>1/3</td></tr>
+<tr><td>Drawer box side</td><td class='c'>2</td><td class='mono'>650 × 110</td><td>On the slides.</td><td class='c'>2</td></tr>
+<tr><td>Front support leg</td><td class='c'>2</td><td class='mono'>170 × 100</td><td>Prop the front tips of the deep sides.</td><td class='c'>1</td></tr></tbody></table>
+<h3>The one back — 18 mm, notebook section only</h3>
+<table><thead><tr><th>Part</th><th class="c">Qty</th><th>Size (mm)</th><th>Notes</th><th class="c">Board</th></tr></thead><tbody><tr><td>Notebook back — board</td><td class='c'>3</td><td class='mono'>2×(247×620) + 1×(171×620)</td><td><b>18 mm</b>, three butted vertical boards making the 671-wide back behind the two notebook shelves (screwed/glued to shelves + gable/divider). Everything else open to the wall.</td><td class='c'>2</td></tr></tbody></table>
+<h3>Drawer bottom (non-ply)</h3>
+<table><thead><tr><th>Part</th><th class="c">Qty</th><th>Size (mm)</th><th>Notes</th><th class="c">From</th></tr></thead><tbody><tr><td>Drawer bottom</td><td class='c'>1</td><td class='mono'>985 × 650</td><td><b>3–4 mm hardboard / thin MDF</b> — flat panel, not ply. Cheap off-cut.</td><td class='c'>hardboard/MDF</td></tr></tbody></table>
+
+<h2>5 · Cutting diagrams — the three boards</h2>
+<p class="legend">
+<span><i class="sw" style="background:#cfe3f2"></i>verticals</span>
+<span><i class="sw" style="background:#d7efd7"></i>horizontals/decks</span>
+<span><i class="sw" style="background:#fdeecb"></i>shelves</span>
+<span><i class="sw" style="background:#e8dcf5"></i>divider</span>
+<span><i class="sw" style="background:#f6d7d7"></i>rails/plinth/strip</span>
+<span><i class="sw" style="background:#ffe1b0"></i>scribe filler</span>
+<span><i class="sw" style="background:#f4c7a0"></i>plate shelf</span>
+<span><i class="sw" style="background:#ffd2a6"></i>paper drawer</span>
+<span><i class="sw" style="background:#bfe3d0"></i>notebook back</span>
+</p>
+<p class="sub">Nested to fit three boards — parts are grouped by best fit, not by type, so find each by its label. <b>Sheet 3 is the
+damaged board</b>; rotate it so the knocked corner lands in the red-hatched waste. The three green <b>notebook-back</b> boards are on
+the sheet(s) shown in the cut list.</p>
+<svg class="sheet" viewBox="0 0 2620 1490" xmlns="http://www.w3.org/2000/svg">
+<rect x="60" y="60" width="2500" height="1250" fill="#fbf7ee" stroke="#333" stroke-width="6"/>
+<rect x="60" y="60" width="2250" height="400" fill="#cfe3f2" stroke="#444" stroke-width="4"/>
+<text x="1185.0" y="256.0" class="pls" text-anchor="middle">Main divider</text>
+<text x="1185.0" y="290.0" class="dim" text-anchor="middle">2250×400</text>
+<rect x="60" y="463" width="1899" height="400" fill="#d7efd7" stroke="#444" stroke-width="4"/>
+<text x="1009.5" y="659.0" class="pls" text-anchor="middle">Top</text>
+<text x="1009.5" y="693.0" class="dim" text-anchor="middle">1899×400</text>
+<rect x="60" y="866" width="1899" height="400" fill="#d7efd7" stroke="#444" stroke-width="4"/>
+<text x="1009.5" y="1062.0" class="pls" text-anchor="middle">Bottom</text>
+<text x="1009.5" y="1096.0" class="dim" text-anchor="middle">1899×400</text>
+<rect x="1962" y="463" width="390" height="814" fill="#e8dcf5" stroke="#444" stroke-width="4"/>
+<text x="2157.0" y="866.0" class="pls" text-anchor="middle" transform="rotate(-90 2157.0 870.0)">UL divider</text>
+<text x="2191.0" y="870.0" class="dim" text-anchor="middle" transform="rotate(-90 2191.0 870.0)">390×814</text>
+<rect x="2355" y="60" width="170" height="680" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="2440.0" y="396.0" class="pls" text-anchor="middle" transform="rotate(-90 2440.0 400.0)">Drawer deep side</text>
+<text x="2474.0" y="400.0" class="dim" text-anchor="middle" transform="rotate(-90 2474.0 400.0)">170×680</text>
+<rect x="2355" y="743" width="100" height="364" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="2405.0" y="921.0" class="pls" text-anchor="middle" transform="rotate(-90 2405.0 925.0)">Foot</text>
+<text x="2439.0" y="925.0" class="dim" text-anchor="middle" transform="rotate(-90 2439.0 925.0)">100×364</text>
+<rect x="2458" y="743" width="100" height="364" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="2508.0" y="921.0" class="pls" text-anchor="middle" transform="rotate(-90 2508.0 925.0)">Foot</text>
+<text x="2542.0" y="925.0" class="dim" text-anchor="middle" transform="rotate(-90 2542.0 925.0)">100×364</text>
+<rect x="2355" y="1110" width="100" height="170" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="2405.0" y="1191.0" class="pls" text-anchor="middle" transform="rotate(-90 2405.0 1195.0)">Leg</text>
+<text x="2439.0" y="1195.0" class="dim" text-anchor="middle" transform="rotate(-90 2439.0 1195.0)">100×170</text>
+<rect x="2458" y="1110" width="100" height="170" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="2508.0" y="1191.0" class="pls" text-anchor="middle" transform="rotate(-90 2508.0 1195.0)">Leg</text>
+<text x="2542.0" y="1195.0" class="dim" text-anchor="middle" transform="rotate(-90 2542.0 1195.0)">100×170</text>
+<text x="1310.0" y="42" class="axis" text-anchor="middle">2500 mm</text>
+<text x="42" y="685.0" class="axis" text-anchor="middle" transform="rotate(-90 42 685.0)">1250 mm</text>
+<text x="60" y="1380" class="note2">18 mm — Sheet 1 of 3. 3 mm kerf allowed between parts.</text>
+</svg>
+<svg class="sheet" viewBox="0 0 2620 1490" xmlns="http://www.w3.org/2000/svg">
+<rect x="60" y="60" width="2500" height="1250" fill="#fbf7ee" stroke="#333" stroke-width="6"/>
+<rect x="60" y="60" width="390" height="1210" fill="#d7efd7" stroke="#444" stroke-width="4"/>
+<text x="255.0" y="661.0" class="pls" text-anchor="middle" transform="rotate(-90 255.0 665.0)">Desk deck</text>
+<text x="289.0" y="665.0" class="dim" text-anchor="middle" transform="rotate(-90 289.0 665.0)">390×1210</text>
+<rect x="453" y="60" width="1210" height="80" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="1058.0" y="96.0" class="pls" text-anchor="middle">Desk apron</text>
+<text x="1058.0" y="130.0" class="dim" text-anchor="middle">1210×80</text>
+<rect x="453" y="143" width="1210" height="80" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="1058.0" y="179.0" class="pls" text-anchor="middle">Desk apron</text>
+<text x="1058.0" y="213.0" class="dim" text-anchor="middle">1210×80</text>
+<rect x="453" y="226" width="1050" height="150" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="978.0" y="297.0" class="pls" text-anchor="middle">Drawer front</text>
+<text x="978.0" y="331.0" class="dim" text-anchor="middle">1050×150</text>
+<rect x="1506" y="226" width="985" height="85" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="1998.5" y="264.5" class="pls" text-anchor="middle">Drawer back</text>
+<text x="1998.5" y="298.5" class="dim" text-anchor="middle">985×85</text>
+<rect x="453" y="379" width="390" height="671" fill="#f4c7a0" stroke="#444" stroke-width="4"/>
+<text x="648.0" y="710.5" class="pls" text-anchor="middle" transform="rotate(-90 648.0 714.5)">Plate shelf</text>
+<text x="682.0" y="714.5" class="dim" text-anchor="middle" transform="rotate(-90 682.0 714.5)">390×671</text>
+<rect x="846" y="379" width="390" height="671" fill="#fdeecb" stroke="#444" stroke-width="4"/>
+<text x="1041.0" y="710.5" class="pls" text-anchor="middle" transform="rotate(-90 1041.0 714.5)">Notebook shelf</text>
+<text x="1075.0" y="714.5" class="dim" text-anchor="middle" transform="rotate(-90 1075.0 714.5)">390×671</text>
+<rect x="1239" y="379" width="390" height="671" fill="#fdeecb" stroke="#444" stroke-width="4"/>
+<text x="1434.0" y="710.5" class="pls" text-anchor="middle" transform="rotate(-90 1434.0 714.5)">Notebook shelf</text>
+<text x="1468.0" y="714.5" class="dim" text-anchor="middle" transform="rotate(-90 1468.0 714.5)">390×671</text>
+<rect x="1666" y="60" width="650" height="110" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="1991.0" y="111.0" class="pls" text-anchor="middle">Drawer box side</text>
+<text x="1991.0" y="145.0" class="dim" text-anchor="middle">650×110</text>
+<rect x="453" y="1053" width="650" height="110" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="778.0" y="1104.0" class="pls" text-anchor="middle">Drawer box side</text>
+<text x="778.0" y="1138.0" class="dim" text-anchor="middle">650×110</text>
+<rect x="1106" y="1053" width="620" height="247" fill="#bfe3d0" stroke="#444" stroke-width="4"/>
+<text x="1416.0" y="1172.5" class="pls" text-anchor="middle">Notebook back</text>
+<text x="1416.0" y="1206.5" class="dim" text-anchor="middle">620×247</text>
+<rect x="1632" y="314" width="247" height="620" fill="#bfe3d0" stroke="#444" stroke-width="4"/>
+<text x="1755.5" y="620.0" class="pls" text-anchor="middle" transform="rotate(-90 1755.5 624.0)">Notebook back</text>
+<text x="1789.5" y="624.0" class="dim" text-anchor="middle" transform="rotate(-90 1789.5 624.0)">247×620</text>
+<rect x="1882" y="314" width="620" height="171" fill="#bfe3d0" stroke="#444" stroke-width="4"/>
+<text x="2192.0" y="395.5" class="pls" text-anchor="middle">Notebook back</text>
+<text x="2192.0" y="429.5" class="dim" text-anchor="middle">620×171</text>
+<rect x="1882" y="488" width="596" height="380" fill="#fdeecb" stroke="#444" stroke-width="4"/>
+<text x="2180.0" y="674.0" class="pls" text-anchor="middle">UL shelf</text>
+<text x="2180.0" y="708.0" class="dim" text-anchor="middle">596×380</text>
+<rect x="1882" y="871" width="596" height="380" fill="#fdeecb" stroke="#444" stroke-width="4"/>
+<text x="2180.0" y="1057.0" class="pls" text-anchor="middle">UL shelf</text>
+<text x="2180.0" y="1091.0" class="dim" text-anchor="middle">596×380</text>
+<rect x="1729" y="937" width="100" height="364" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="1779.0" y="1115.0" class="pls" text-anchor="middle" transform="rotate(-90 1779.0 1119.0)">Foot</text>
+<text x="1813.0" y="1119.0" class="dim" text-anchor="middle" transform="rotate(-90 1813.0 1119.0)">100×364</text>
+<rect x="453" y="1166" width="364" height="100" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="635.0" y="1212.0" class="pls" text-anchor="middle">Foot</text>
+<text x="635.0" y="1246.0" class="dim" text-anchor="middle">364×100</text>
+<text x="1310.0" y="42" class="axis" text-anchor="middle">2500 mm</text>
+<text x="42" y="685.0" class="axis" text-anchor="middle" transform="rotate(-90 42 685.0)">1250 mm</text>
+<text x="60" y="1380" class="note2">18 mm — Sheet 2 of 3. 3 mm kerf allowed between parts.</text>
+</svg>
+<svg class="sheet" viewBox="0 0 2620 1490" xmlns="http://www.w3.org/2000/svg">
+<rect x="60" y="60" width="2500" height="1250" fill="#fbf7ee" stroke="#333" stroke-width="6"/>
+<rect x="60" y="380" width="2250" height="400" fill="#cfe3f2" stroke="#444" stroke-width="4"/>
+<text x="1185.0" y="576.0" class="pls" text-anchor="middle">Gable L</text>
+<text x="1185.0" y="610.0" class="dim" text-anchor="middle">2250×400</text>
+<rect x="60" y="783" width="2250" height="400" fill="#cfe3f2" stroke="#444" stroke-width="4"/>
+<text x="1185.0" y="979.0" class="pls" text-anchor="middle">Gable R</text>
+<text x="1185.0" y="1013.0" class="dim" text-anchor="middle">2250×400</text>
+<rect x="60" y="1186" width="2250" height="50" fill="#ffe1b0" stroke="#444" stroke-width="4"/>
+<text x="1185.0" y="1207.0" class="pls" text-anchor="middle">Scribe filler</text>
+<text x="1185.0" y="1241.0" class="dim" text-anchor="middle">2250×50</text>
+<rect x="60" y="1239" width="2250" height="50" fill="#ffe1b0" stroke="#444" stroke-width="4"/>
+<text x="1185.0" y="1260.0" class="pls" text-anchor="middle">Scribe filler</text>
+<text x="1185.0" y="1294.0" class="dim" text-anchor="middle">2250×50</text>
+<rect x="60" y="60" width="1935" height="80" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="1027.5" y="96.0" class="pls" text-anchor="middle">Ceiling strip</text>
+<text x="1027.5" y="130.0" class="dim" text-anchor="middle">1935×80</text>
+<rect x="60" y="143" width="1935" height="100" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="1027.5" y="189.0" class="pls" text-anchor="middle">Plinth front rail</text>
+<text x="1027.5" y="223.0" class="dim" text-anchor="middle">1935×100</text>
+<rect x="60" y="246" width="1935" height="100" fill="#f6d7d7" stroke="#444" stroke-width="4"/>
+<text x="1027.5" y="292.0" class="pls" text-anchor="middle">Plinth back rail</text>
+<text x="1027.5" y="326.0" class="dim" text-anchor="middle">1935×100</text>
+<rect x="2313" y="380" width="170" height="680" fill="#ffd2a6" stroke="#444" stroke-width="4"/>
+<text x="2398.0" y="716.0" class="pls" text-anchor="middle" transform="rotate(-90 2398.0 720.0)">Drawer deep side</text>
+<text x="2432.0" y="720.0" class="dim" text-anchor="middle" transform="rotate(-90 2432.0 720.0)">170×680</text>
+<rect x="2160" y="60" width="400" height="320" fill="url(#hatch)" stroke="#b00" stroke-width="5"/>
+<text x="2360.0" y="212.0" class="dmg" text-anchor="middle">DAMAGED</text>
+<text x="2360.0" y="250.0" class="dmg" text-anchor="middle">~300×400</text>
+<text x="1310.0" y="42" class="axis" text-anchor="middle">2500 mm</text>
+<text x="42" y="685.0" class="axis" text-anchor="middle" transform="rotate(-90 42 685.0)">1250 mm</text>
+<text x="60" y="1380" class="note2">18 mm — Sheet 3 of 3 = the DAMAGED board (knocked corner kept clear, top-right). 3 mm kerf allowed between parts.</text>
+</svg>
+
+<h2>6 · How to scribe the edges that meet the wall &amp; ceiling</h2>
+<p>Build the box dead square. At 1935 wide it drops in with ~20 mm each side at the floor; side and ceiling gaps close with three scribed parts.</p>
+<h3>6.1 · End gaps → door frame &amp; corner (scribe fillers)</h3>
+<p>The opening is 30 wider at the ceiling, so each end has a wedge gap ~20 (floor) → 35 (ceiling). A 18 mm gable edge can't fill that — a <b>scribe filler</b> does.</p>
+<ol>
+<li>Each filler = <b>2250 × 50</b>, glued to the gable's front outer edge, proud into the gap.</li>
+<li>Carcass plumb, ~20 gap each side at floor; clamp filler flush; scribe to the largest overhang (~35 at ceiling).</li>
+<li>Cut, back-bevel 3–5°, plane to the line, refit; fix into the gable — <b>never the plaster.</b></li>
+</ol>
+<h3>6.2 · Top → ceiling (separate strip)</h3>
+<ol><li>Carcass top 2350; ceiling 2390→2400. The 1935 × 80 strip laps up, scribed to the ceiling (≥20 allowance).</li></ol>
+<h3>6.3 · Bottom → skirting (notched plinth)</h3>
+<ol><li>Skirting 75 high, ~8 proud; plinth back rail notched 75 × 8 to tuck over it.</li></ol>
+
+<h2>7 · Fixing, services &amp; open items</h2>
+<div class="flag"><b>Light switch behind the right tower</b> (550 from corner, 1100 up). Move it, surface-mount it, or cut the notebook back &amp; leave that shelf out — confirm with the sparky.</div>
+<ul>
+<li><b>Boards:</b> three, confirmed — and that is exactly what the whole job needs (built-in + drawer + 18 mm back), damaged board included.</li>
+<li><b>Dropped:</b> the one spare general tower shelf, to free ply for the back. Notebooks (2 shelves) and plates (1) are unaffected.</li>
+<li><b>No 6 mm anywhere</b> — only back is the 18 mm notebook back; the rest open to the wall; drawer bottom is hardboard/MDF.</li>
+<li><b>No fixings into the patched area.</b> Anchor via ceiling strip into joists and door-side gable into the frame stud.</li>
+</ul>
+
+<h2>8 · Big flat paper — deep drawer in the desk bay</h2>
+<div class="grid2">
+<div><svg class="wall" viewBox="0 0 1830 2680" xmlns="http://www.w3.org/2000/svg">
+<line x1="90" y1="130" x2="1690" y2="130" stroke="#c0504d" stroke-width="4"/>
+<line x1="90" y1="2490" x2="1690" y2="2490" stroke="#c0504d" stroke-width="4"/>
+<text x="1390" y="120" class="wls">ceiling</text>
+<text x="1390" y="2530" class="wls">floor</text>
+<line x1="90" y1="130" x2="90" y2="2490" stroke="#888" stroke-width="6"/>
+<text x="82" y="1340" class="wls" transform="rotate(-90 82 1340)" text-anchor="middle">wall</text>
+<polygon points="90,150 490,150 490,2200 770,2200 770,2490 90,2490" fill="#fbf7ee" stroke="#333" stroke-width="5"/>
+<rect x="120" y="2220" width="620" height="250" fill="#ffd2a6" stroke="#333" stroke-width="4"/>
+<text x="430" y="2315" class="bls" text-anchor="middle">PAPER DRAWER</text>
+<text x="430" y="2355" class="bls" text-anchor="middle">paper 635 deep, flat</text>
+<rect x="790" y="1730" width="800" height="760" fill="none" stroke="#2f5d8a" stroke-width="4" stroke-dasharray="16 10"/>
+<text x="1190" y="2100" class="bls" text-anchor="middle" fill="#2f5d8a">drafting table</text>
+<text x="1190" y="2140" class="bls" text-anchor="middle" fill="#2f5d8a">800 deep · 760 high</text>
+<line x1="90" y1="230" x2="490" y2="230" stroke="#2f5d8a" stroke-width="3"/>
+<text x="290" y="210" class="wls" text-anchor="middle" fill="#2f5d8a">upper 400 deep</text>
+<line x1="90" y1="2540" x2="770" y2="2540" stroke="#2f5d8a" stroke-width="3"/>
+<text x="430" y="2575" class="wls" text-anchor="middle" fill="#2f5d8a">base 680 deep (fits 635 paper)</text>
+<text x="910" y="210" class="note2">Side section — the desk bay steps out to 680 at the base so the flat paper fits; the table stands in front.</text>
+</svg></div>
+<div class="card">
+<h3>How it fits</h3>
+<div class="kv"><span>Paper (Mohawk 25×38″)</span><b>635 × 965</b></div>
+<div class="kv"><span>Drawer interior</span><b>985 w × 650 d × ~90 h</b></div>
+<div class="kv"><span>Desk-bay base depth</span><b>680 (steps out)</b></div>
+<p class="sub" style="margin-top:8px">Drawer on full-extension slides carried by two <b>deep side brackets</b> (680 × 170) screwed to the desk-bay gable and the main divider, propped at the front by two <b>legs</b>. No deep bottom panel and no long rail — that keeps every plywood part inside the off-cuts. Flat hardboard/MDF bottom. Open to the wall.</p>
+</div>
+</div>
+
+<div class="foot">Built from: IMG_4371/4378/4379/4380/4381 (wall &amp; skirting), the 2026-08-22 sketch, notebooks.jpg, IMG_4392 (plates),
+Recording&nbsp;3 (plywood), Halvard's shop-rules note + his board/6 mm update, the calendar field-season (R1–R8), and Hollander's
+order #1104822 (paper 25×38 in). Rev H: 18 mm notebook back nested into the three boards; spare general shelf dropped. All parts in mm; verify on site.</div>
+</div></body></html>

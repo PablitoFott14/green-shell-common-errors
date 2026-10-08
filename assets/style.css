@@ -517,3 +517,11 @@ audio.evmedia{max-height:none;background:transparent;border:0}
   .ovh{padding:10px 12px}
   .ovline .ovwide{display:none}
 }
+
+/* examples carried over from the Red Shell course: labelled as Red Shell wherever they show */
+.rs{display:inline-block;margin-right:8px;padding:1px 7px 0;border:1px solid var(--red-d);border-radius:5px;background:var(--red-bg);
+  color:#ff9aa8;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;vertical-align:1px}
+.ovmeta .oc.rs{margin-right:0;font-size:10.5px}
+.rsnote{margin:10px 0 12px;padding:11px 15px;border-left:4px solid var(--red);background:var(--red-bg);border-radius:0 10px 10px 0;
+  color:var(--ink2);font-size:14px;line-height:1.5;max-width:92ch}
+.rsnote b{color:var(--ink)}

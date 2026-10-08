@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Move Decision Dashboard — HAT2 vs. Regional Ops (SE)</title>
+<style>
+  :root{
+    --bg:#0e1524; --panel:#161f33; --panel2:#1d283f; --ink:#e8eef7; --muted:#9fb0c9;
+    --line:#2a3752; --stay:#f0a848; --reg:#3fb984; --reg2:#59d3a0; --danger:#ef6b6b;
+    --accent:#5aa9ff; --chip:#243350;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#0b1120,#0e1524 40%);color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;line-height:1.45;}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 22px 70px;}
+  header.top h1{font-size:24px;margin:0 0 4px;letter-spacing:.2px}
+  header.top .sub{color:var(--muted);font-size:14px}
+  .tag{display:inline-block;background:var(--chip);border:1px solid var(--line);color:var(--muted);
+    font-size:11px;padding:2px 8px;border-radius:20px;margin-right:6px;margin-top:4px}
+  .tag.live{color:#8fe6bd;border-color:rgba(63,185,132,.4);background:rgba(63,185,132,.1)}
+  h2{font-size:16px;margin:30px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line);
+    text-transform:uppercase;letter-spacing:1px;color:#cdd9ec}
+  .grid{display:grid;gap:14px}
+  .kpis{grid-template-columns:repeat(4,1fr)}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px;position:relative;overflow:hidden}
+  .kpi .lab{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  .kpi .val{font-size:21px;font-weight:700;margin-top:6px}
+  .kpi .cmp{font-size:12px;color:var(--muted);margin-top:6px}
+  .kpi .chip{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;margin-top:8px}
+  .up{background:rgba(63,185,132,.16);color:var(--reg2);border:1px solid rgba(63,185,132,.35)}
+  .down{background:rgba(239,107,107,.16);color:#ff9a9a;border:1px solid rgba(239,107,107,.35)}
+  .kpi.stayband{border-top:3px solid var(--stay)}
+  .kpi.regband{border-top:3px solid var(--reg)}
+  .two{grid-template-columns:1fr 1fr}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  tbody tr:hover{background:rgba(90,169,255,.06)}
+  td.num{font-variant-numeric:tabular-nums}
+  tr.sub td{color:var(--muted);font-size:12px;border-bottom:1px dashed var(--line)}
+  tr.total td{font-weight:700;border-top:1px solid var(--line)}
+  .stayc{color:var(--stay)} .regc{color:var(--reg2)}
+  .muted{color:var(--muted)}
+  .controls{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end;background:var(--panel2);
+    border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .ctl{display:flex;flex-direction:column;gap:6px;min-width:240px;flex:1}
+  .ctl label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  input[type=range]{width:100%;accent-color:var(--reg)}
+  select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px}
+  .ctlval{font-size:13px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:2px 0 10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:14px;height:3px;border-radius:2px;display:inline-block}
+  .sw.dot{height:10px;width:10px;border-radius:50%}
+  .insight{background:linear-gradient(180deg,#16233b,#141d30);border:1px solid var(--line);
+    border-left:4px solid var(--accent);border-radius:10px;padding:14px 16px;margin-top:12px;font-size:14px}
+  .insight b{color:#fff}
+  .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700}
+  .pill.g{background:rgba(47,158,107,.2);color:var(--reg2);border:1px solid rgba(47,158,107,.4)}
+  .pill.r{background:rgba(239,107,107,.2);color:#ff9a9a;border:1px solid rgba(239,107,107,.4)}
+  .pill.w{background:rgba(200,137,47,.2);color:#e7b25c;border:1px solid rgba(200,137,47,.4)}
+  .gapwrap{display:flex;gap:14px;flex-wrap:wrap}
+  .gapbox{flex:1;min-width:200px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-align:center}
+  .gapbox .n{font-size:26px;font-weight:800;margin-top:4px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:14px}
+  details summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
+  details ul{margin:10px 0 4px;padding-left:18px;font-size:13px;color:#c4d2e8}
+  details li{margin:4px 0}
+  .foot{color:#6f7f9a;font-size:11px;margin-top:26px;text-align:center}
+  svg{width:100%;height:auto;display:block}
+  .chartcard h3{margin:0 0 2px;font-size:14px}
+  .chartcard .cap{font-size:12px;color:var(--muted);margin-bottom:6px}
+  @media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Career Move Decision Dashboard</h1>
+    <div class="sub">Operations Manager @ HAT2 (Marchand Logistics) &nbsp;vs.&nbsp; Regional Operations Manager, Southeast (+$22,000)</div>
+    <div style="margin-top:8px">
+      <span class="tag live">● Live from FinTrack payroll &amp; Ally balances</span>
+      <span class="tag">Offer from Corwin Steadman · 7/14</span>
+      <span class="tag">Wedding: Sat 2027-05-22 · Southern Oaks</span>
+      <span class="tag">Runway to the day: Sep 2026 → 5/22/2027</span>
+    </div>
+  </header>
+
+  <!-- ===================== STRATEGIC SUMMARY ===================== -->
+  <style>
+    .verdict{background:linear-gradient(180deg,#171f31,#12192a);border:1px solid var(--line);
+      border-top:4px solid var(--accent);border-radius:14px;padding:20px 22px;margin-top:20px}
+    .verdict h2{margin:0 0 4px;border:0;padding:0;font-size:22px;letter-spacing:.3px;color:#fff;text-transform:none}
+    .verdict .lede{color:#c4d2e8;font-size:14.5px;margin:6px 0 16px}
+    .noyes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .ny{border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:var(--panel)}
+    .ny.no{border-top:3px solid var(--stay)} .ny.yes{border-top:3px solid var(--reg)}
+    .ny h4{margin:0 0 8px;font-size:14px;color:#e8eef7}
+    .ny ul{margin:0;padding-left:16px;font-size:13px;color:#b9c6dc} .ny li{margin:5px 0}
+    .ny .big{font-size:20px;font-weight:800;margin:2px 0 8px}
+    .bottomline{margin-top:16px;background:rgba(90,169,255,.09);border:1px solid rgba(90,169,255,.32);
+      border-radius:10px;padding:13px 16px;font-size:14px;color:#e8eef7}
+    .conds{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+    .cond{border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:var(--panel)}
+    .cond h4{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:#9fb0c9}
+    .cond .row{display:flex;gap:9px;align-items:flex-start;margin:9px 0;font-size:13px;color:#c4d2e8}
+    .cond .row .bx{flex:0 0 auto;width:16px;height:16px;border:1.5px solid var(--reg);border-radius:4px;margin-top:2px}
+    .cond .row b{color:#fff}
+    @media(max-width:760px){.noyes,.conds{grid-template-columns:1fr}}
+  </style>
+  <div class="verdict">
+    <h2>The Cost of the No</h2>
+    <div class="lede">The strategic read on Corwin's offer, pulling together every figure on this page — the tax-real take-home, the directive's costs, the wedding-fund math, and the school-and-custody collisions.</div>
+
+    <div style="background:rgba(63,185,132,.10);border:1px solid rgba(63,185,132,.34);border-radius:12px;padding:16px 20px;margin:2px 0 18px;display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline">
+      <div style="font-size:40px;font-weight:800;color:#59d3a0;line-height:1;font-variant-numeric:tabular-nums">$846.15</div>
+      <div style="flex:1;min-width:250px">
+        <div style="font-weight:700;color:#e8eef7;font-size:14.5px">What is actually left to you at the wedding</div>
+        <div class="muted" style="font-size:13px;margin-top:3px">The full nine-month cushion the raise buys — <b>after</b> the wedding is paid to the last dollar ($18,607.40), the house savings are back at the old $650/mo rate, and the directive's $530/mo travel costs are out. Take this job on Corwin's terms and this is what the whole exercise nets your household by 5/22/27. It is the number Adaeze will ask about.</div>
+      </div>
+    </div>
+
+    <div class="noyes">
+      <div class="ny no">
+        <h4>If you say NO — stay at HAT2 ($82K)</h4>
+        <div class="big stayc">You forgo +$8,237/yr</div>
+        <ul>
+          <li><b>What it costs you:</b> the raise's <i>true</i> value after the Wed–Fri directive — <b>+$686/mo</b> adjusted, not the headline $1,216. Over the 9 months to the wedding, ~<b>$6,178</b>.</li>
+          <li>You still have to find the <b>$1,731.60</b> wedding shortfall elsewhere, and the house fund stays throttled at <b>$250/mo</b> until 6/1/27.</li>
+          <li><b>What it protects:</b> all <b>74</b> carline mornings and all <b>21</b> Poplarville handovers, your presence through the engagement, and <b>no $530/mo</b> leak.</li>
+          <li>It is <b>reversible</b> — a "not now," not a closed door on regional work.</li>
+        </ul>
+      </div>
+      <div class="ny yes">
+        <h4>If you say YES — Regional SE ($104K)</h4>
+        <div class="big regc">You net +$686/mo — and give up a lot for it</div>
+        <ul>
+          <li><b>What it buys:</b> closes the <b>$1,731.60</b> wedding gap and restores the <b>$650/mo</b> house pace — but the wedding only just funds by <b>5/22/27</b>, with a razor-thin <b>$846.15</b> cushion (the figure above).</li>
+          <li><b>What it costs:</b> <b>$530/mo</b> ($200 care + $150 handovers + $180 meals) skimmed straight off the raise, and the mandated <b>Wed–Fri</b> travel collides with <b>100%</b> of carline mornings and handovers — ~5 nights/week away in the run-up to the wedding.</li>
+          <li>The net financial gain (~$686/mo) is <b>smaller than the wedding gap it's meant to fix</b>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottomline">
+      <b>Bottom line —</b> the "No" is cheap and the "Yes" is expensive <i>right now</i>. Walking away forgoes ~<b>$686/mo</b>, and the one hard number it leaves open — the <b>$1,731.60</b> wedding gap — is roughly <b>2.5 months</b> of that same delta, or a modest trim to an already-shrinking guest list (186 → 140 → 118). Against that, taking it surrenders every parenting touchpoint on the calendar and five nights a week at home during your engagement. The math says <b>decline now</b> — but keep the door open, because the picture flips cleanly in 2028.
+    </div>
+
+    <h3 style="margin:20px 0 2px;font-size:15px;color:#fff">What would make a 2028 regional offer a sensible "Yes"</h3>
+    <div class="lede" style="margin:4px 0 0">All of the following would need to be true — the deal breaks on any single one.</div>
+    <div class="conds">
+      <div class="cond">
+        <h4>Operational — every one must hold</h4>
+        <div class="row"><span class="bx"></span><div><b>Travel never falls on a Thursday or Friday.</b> The rotation sits entirely Mon–Wed, holding carline collisions at <b>0</b> (not 74) and handovers at <b>0</b> (not 21).</div></div>
+        <div class="row"><span class="bx"></span><div><b>A standing custody backup with Terrance covers every other-Friday Poplarville handover</b> whether or not you are in town.</div></div>
+        <div class="row"><span class="bx"></span><div><b>Before-school care is arranged and paid for outside the raise</b> — not skimmed out of it.</div></div>
+      </div>
+      <div class="cond">
+        <h4>Financial — every one must hold</h4>
+        <div class="row"><span class="bx"></span><div><b>After every travel cost, the offer leaves you at least $1,500/mo better off than today.</b> That is the floor — under it, you are selling your Thursdays for nothing.</div></div>
+        <div class="row"><span class="bx"></span><div><b>The base written in the offer is at least $118,714.39.</b> Anchored on today's <b>$82,000</b> (not a guess at 2028 pay): your $1,500/mo floor + the $530/mo costs = $2,030/mo = $24,360/yr in-pocket; grossed up at your 33.65% marginal rate ($24,360 ÷ 0.6635) = a $36,714.39 raise; on top of $82,000 = <b>$118,714.39</b>. A step that size can nick the 24% federal bracket, so treat it as the floor, not the target.</div></div>
+        <div class="row"><span class="bx"></span><div><b>You start no earlier than 22 November 2027 — six months to the day after the wedding on 22 May 2027.</b> The wedding must be paid in full (by 22 May 2027) and house savings back at $650/mo (they resume 1 June 2027), with those six months used to rebuild a 3–6 month emergency buffer, so the $530/mo leak is absorbable rather than destabilizing. Any start before 22 November 2027 fails this condition.</div></div>
+      </div>
+    </div>
+    <div class="muted" style="font-size:11.5px;margin-top:12px">Executive summary of the analysis below — figures are estimates from the notes, calendar, directive, and your connected accounts, not formal advice.</div>
+  </div>
+
+  <!-- ===================== GROSS KPIs ===================== -->
+  <h2>Base pay — gross (the number Corwin quoted)</h2>
+  <div class="grid kpis" id="grossRow" style="grid-template-columns:repeat(3,1fr)"></div>
+
+  <!-- ===================== NET KPIs ===================== -->
+  <h2>Take-home — read from your paychecks</h2>
+  <div class="grid kpis" id="kpiRow"></div>
+
+  <!-- ===================== BUILD-UP ===================== -->
+  <h2>How the regional figure is built — baseline + what the raise nets</h2>
+  <div class="panel">
+    <table id="buildTable">
+      <thead><tr><th>Component</th><th>Per pay / rate</th><th>Annual</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="insight" id="buildInsight"></div>
+  </div>
+
+  <!-- ===================== DIRECTIVE COSTS ===================== -->
+  <h2>Regional travel directive (MLG-DIR-26-88) — costs that come off the raise</h2>
+  <div class="panel">
+    <div class="insight" style="border-left-color:var(--danger);margin-top:0">
+      <b>Directive MLG-DIR-26-88</b> (Corwin Steadman, effective Aug 17 2026) requires on-site visits
+      <b>strictly Wednesday–Friday</b> — arrive 08:30 Wed, depart no earlier than 17:00 Fri; Mon/Tue are home-site
+      days only — and caps meals &amp; incidentals at <b>exactly $45/day</b>. That locks travel to Wed/Thu/Fri
+      (hitting every Thu &amp; Fri carline and every Fri handover) and creates recurring out-of-pocket costs.
+    </div>
+    <table id="costTable"></table>
+    <div class="grid kpis" id="costKpis" style="grid-template-columns:repeat(3,1fr);margin-top:14px"></div>
+  </div>
+
+  <!-- ===================== INTERACTIVE CONTROLS ===================== -->
+  <h2>Deploy the raise — interactive plan</h2>
+  <div class="controls">
+    <div class="ctl">
+      <label for="houseSlider">Of the net raise, direct to HOUSE top-up each month</label>
+      <input type="range" id="houseSlider" min="0" max="1216" step="8" value="400">
+      <div class="ctlval" id="houseSliderVal"></div>
+    </div>
+    <div class="ctl" style="max-width:220px">
+      <label for="startSel">Raise takes effect</label>
+      <select id="startSel">
+        <option value="0" selected>September 2026 (9 transfers)</option>
+        <option value="1">October 2026 (8 transfers)</option>
+      </select>
+      <div class="ctlval muted">Notes said "Aug/Sept" start</div>
+    </div>
+    <div class="ctl" style="max-width:260px">
+      <div class="ctlval muted" style="font-size:12px">
+        Baseline transfers are unchanged: <b>$900/mo</b> to wedding, and the throttled
+        <b>$250/mo</b> to house (your calendar restores $650 only on <b>2027-06-01</b>,
+        after the wedding). The slider allocates only the <b>extra</b> cash the raise nets.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid kpis" id="planKpis" style="margin-top:14px"></div>
+  <div class="insight" id="planInsight"></div>
+
+  <!-- ===================== GAP: MINE vs YOURS ===================== -->
+  <h2>Wedding gap — your figure vs. the calculated one</h2>
+  <div class="panel">
+    <div class="gapwrap">
+      <div class="gapbox">
+        <div class="muted" style="font-size:12px">YOUR NOTE (pre-call)</div>
+        <div class="n stayc" id="gapYou">≈ $1,700</div>
+        <div class="muted" style="font-size:12px">handwritten "short ~$1,700"</div>
+      </div>
+      <div class="gapbox">
+        <div class="muted" style="font-size:12px">CALCULATED (real balance)</div>
+        <div class="n regc" id="gapCalc">—</div>
+        <div class="muted" style="font-size:12px" id="gapCalcSub"></div>
+      </div>
+      <div class="gapbox">
+        <div class="muted" style="font-size:12px">YOU WERE OFF BY</div>
+        <div class="n" id="gapDiff">—</div>
+        <div class="muted" style="font-size:12px">nice mental math</div>
+      </div>
+    </div>
+    <div class="insight" id="gapInsight"></div>
+  </div>
+
+  <!-- ===================== CHARTS ===================== -->
+  <h2>Fund trajectories to the wedding day (5/22/2027)</h2>
+  <div class="grid two">
+    <div class="panel chartcard">
+      <h3>Wedding fund balance vs. committed costs</h3>
+      <div class="cap">Ally …2260 · opening balance $8,775.80 · commitments $18,607.40</div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--stay)"></i>Stay ($82K)</span>
+        <span><i class="sw" style="background:var(--reg)"></i>Regional ($104K)</span>
+        <span><i class="sw" style="background:var(--danger)"></i>Commitments</span>
+      </div>
+      <svg id="wedChart" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="panel chartcard">
+      <h3>House fund balance</h3>
+      <div class="cap">Ally …2278 · opening balance $13,942.60</div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--stay)"></i>Stay — $250/mo</span>
+        <span><i class="sw" style="background:var(--reg)"></i>Regional — restored $650/mo only</span>
+        <span><i class="sw" style="background:#8fe6bd"></i>+ spillover if banked here</span>
+      </div>
+      <svg id="houseChart" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+
+  <!-- ===================== TRAJECTORY TABLE ===================== -->
+  <h2>Month-by-month trajectory (balances, to the cent)</h2>
+  <div class="panel">
+    <table id="trajTable">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Wedding · Stay</th>
+          <th>Wedding · Regional</th>
+          <th>House · Stay</th>
+          <th>House · Regional (restored only)</th>
+          <th>Spillover (banked separately)</th>
+          <th>Wedding status (Regional)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- ===================== NON-FINANCIAL ===================== -->
+  <h2>Beyond the numbers</h2>
+  <div class="grid two">
+    <div class="panel">
+      <div style="font-weight:700;margin-bottom:6px">Travel load <span class="pill r">Wed–Fri mandated</span></div>
+      <p class="muted" style="margin:0;font-size:13.5px">
+        Directive MLG-DIR-26-88 fixes travel to <b>Wed–Fri every week</b> — not the flexible block I first
+        modeled. It is <b>no longer cash-neutral</b>: with lodging direct-billed but meals capped at $45/day,
+        and with every Thu/Fri carline and every Fri handover now covered by others, it costs
+        <b>$530/mo</b> ($200 care + $150 handovers + $180 meals), which is taken off the raise above.
+      </p>
+    </div>
+    <div class="panel">
+      <div style="font-weight:700;margin-bottom:6px">Recommendation snapshot</div>
+      <p class="muted" style="margin:0;font-size:13.5px" id="recoText"></p>
+    </div>
+  </div>
+
+  <!-- ===================== SCHEDULE CONFLICT ===================== -->
+  <style>
+    .matrixwrap{overflow:auto}
+    table.matrix{font-size:12px;border-collapse:collapse;width:100%;min-width:660px}
+    table.matrix th{padding:6px 4px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;border:1px solid var(--line)}
+    table.matrix td{border:1px solid var(--line);padding:0;text-align:center}
+    table.matrix td.wk{padding:4px 8px;text-align:left;color:var(--muted);white-space:nowrap;font-size:11px}
+    table.matrix td.cf{font-weight:700;color:#6f7f9a;min-width:34px}
+    table.matrix td.cf.bad{color:#ff9a9a}
+    .cell{height:42px;min-width:56px}
+    .cell .dn{font-size:12px;color:#c4d2e8}
+    .cell .mk{font-size:9px;letter-spacing:1px;color:var(--muted);min-height:11px}
+    .cell.off{background:#0d1420}.cell.off .dn{color:#39445a}
+    .cell.closedmark{background:#0d1420}.cell.closedmark .dn{color:#5a6b86;text-decoration:line-through}
+    .cell.car{background:rgba(240,168,72,.16)}
+    .cell.ho{background:rgba(90,169,255,.14)}
+    .cell.trav{background:rgba(90,169,255,.09)}
+    .cell.hit{background:rgba(239,107,107,.30);outline:2px solid var(--danger);outline-offset:-2px}
+    .cell.hit .mk{color:#ffd0d0}.cell.hit .dn{color:#fff}
+    .wdbtns{display:flex;gap:8px;flex-wrap:wrap}
+    .wdbtns button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer;font-size:12px}
+    .wdbtns button:hover{border-color:var(--accent)}
+    .wdchks{display:flex;gap:14px;flex-wrap:wrap}
+    .wdchks label{display:flex;align-items:center;gap:5px;font-size:13px;color:#cdd9ec}
+    .mcal{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+    .mct{font-size:12px;font-weight:700;margin-bottom:6px;color:#cdd9ec}
+    .mcal .dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:9px;color:var(--muted);margin-bottom:3px}
+    .mcal .dow span{text-align:center}
+    .dcs{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+    .dc{position:relative;height:23px;display:flex;align-items:center;justify-content:center;font-size:10px;border-radius:4px;background:#0f1626;color:#8aa0bd}
+    .dc.empty{background:transparent}
+    .dc.off{color:#39445a;background:#0c1320}
+    .dc.closedmark{color:#6b7891;background:#0c1320}
+    .dc.car{background:rgba(240,168,72,.22);color:#f0d3a8}
+    .dc.trav{background:rgba(90,169,255,.16)}
+    .dc.hit{background:rgba(239,107,107,.42);color:#fff;font-weight:700}
+    .dc .ring{position:absolute;inset:1px;border:1.5px solid #ff9a9a;border-radius:50%;pointer-events:none}
+  </style>
+
+  <h2>Schedule conflict — regional travel vs. Jaylen's school &amp; custody calendar</h2>
+  <div class="controls">
+    <div class="ctl" style="min-width:280px">
+      <label>Which weekdays are travel days? (60–70% ≈ 3/week)</label>
+      <div class="wdchks">
+        <label><input type="checkbox" class="wdchk" value="1">Mon</label>
+        <label><input type="checkbox" class="wdchk" value="2">Tue</label>
+        <label><input type="checkbox" class="wdchk" value="3" checked>Wed</label>
+        <label><input type="checkbox" class="wdchk" value="4" checked>Thu</label>
+        <label><input type="checkbox" class="wdchk" value="5" checked>Fri</label>
+      </div>
+    </div>
+    <div class="ctl" style="min-width:280px">
+      <label>Presets (regional travel block)</label>
+      <div class="wdbtns">
+        <button data-p="1,2,3">Front-loaded · Mon–Wed</button>
+        <button data-p="2,3,4">Mid-week · Tue–Thu</button>
+        <button data-p="3,4,5">Mandated · Wed–Fri (MLG-DIR-26-88)</button>
+      </div>
+    </div>
+    <div class="ctl" style="max-width:260px">
+      <div class="ctlval muted" style="font-size:12px">
+        Carline is <b>7:15–7:35 AM</b> (Thu &amp; Fri). Handovers are <b>Fri afternoons in Poplarville</b>
+        (13:30–15:30) with Terrance. Travel days are yours to set — the whole conflict count turns on
+        whether the block hits Thursday/Friday.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid kpis" id="schedKpis" style="margin-top:14px"></div>
+  <div class="insight" id="schedInsight"></div>
+
+  <div class="panel" style="margin-top:14px">
+    <div style="font-weight:700;margin-bottom:8px;font-size:13px">Collisions by travel pattern</div>
+    <table id="presetTable">
+      <thead><tr><th>Travel block</th><th>Carline collisions</th><th>Handover collisions</th><th>Mornings missed</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="muted" style="font-size:12px;margin-top:8px">Every carline morning is a Thu/Fri and every handover a Fri — so a block touching neither is clean; one touching both is worst-case.</div>
+  </div>
+
+  <h2>Week-by-week matrix (school year · Aug 6 2026 → May 21 2027)</h2>
+  <div class="legend" style="margin-bottom:8px">
+    <span><i class="sw" style="background:rgba(240,168,72,.6)"></i>C = carline morning</span>
+    <span><i class="sw" style="background:rgba(90,169,255,.6)"></i>H = handover (Poplarville)</span>
+    <span><i class="sw" style="background:#5aa9ff"></i>T = travel day</span>
+    <span><i class="sw" style="background:var(--danger)"></i>collision</span>
+    <span class="muted">* = highlighted but school closed</span>
+  </div>
+  <div class="panel matrixwrap">
+    <table class="matrix">
+      <thead><tr><th>Week of</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Conf.</th></tr></thead>
+      <tbody id="matrixBody"></tbody>
+    </table>
+  </div>
+
+  <h2>Conflict calendar</h2>
+  <div class="grid" id="calGrid" style="grid-template-columns:repeat(3,1fr)"></div>
+
+  <details>
+    <summary>Data sources &amp; assumptions (click to expand)</summary>
+    <ul>
+      <li><b>Recorded take-home:</b> Your Marchand Logistics paycheck lands <b>$2,491.72</b> net, semi-monthly (15th &amp; month-end = 24/yr) into Hancock Whitney …4417 — read directly from FinTrack. Current annual net = 24 × $2,491.72 = <b>$59,801.28</b>. The mid-July step-up from $2,418.80 to $2,491.72 is already reflected.</li>
+      <li><b>Regional net is not re-modeled:</b> it is your recorded baseline <b>plus</b> the net of the $22,000 raise only. The raise is taxed at its marginal rate — Federal 22% + Mississippi 4% + FICA 7.65% = <b>33.65%</b> — so it adds <b>$14,597/yr</b> ($1,216.42/mo). Nothing on the $104,000 salary is synthetically re-derived.</li>
+      <li><b>Fund balances are real, to the cent:</b> Wedding fund Ally …2260 = <b>$8,775.80</b>; House fund Ally …2278 = <b>$13,942.60</b>. Both are balances, carried exactly — the house line is a balance, not an accumulation.</li>
+      <li><b>House stays throttled:</b> Your 2026-05-05 budget note cut house transfers $650→$250 "until 2027-06-01." So in the Stay track house adds $250/mo the whole window; only the raise can restore $650 sooner.</li>
+      <li><b>Commitments:</b> $18,607.40 committed wedding costs, your own figure from the call notes.</li>
+      <li><b>Horizon:</b> curves run to the actual wedding date, Saturday <b>2027-05-22</b>, over 9 monthly transfers (Sep 2026 → May 2027).</li>
+      <li><b>Held constant / excluded from the job delta:</b> the Hattiesburg Public School District deposits (~$3,412.90/mo) and the Marchand annual site bonus ($4,746.24) are unchanged by this decision, so they are left out to isolate the promotion's effect.</li>
+      <li><b>Schedule conflict (from IMG_0814):</b> carline mornings = every school-day Thursday &amp; Friday (7:15–7:35 AM) — a handover circle overlays a carline day, it never cancels it. Custody handovers = the standing every-other-weekend exchange (Fri, Poplarville 13:30–15:30), carried on its Aug 7 rhythm through the whole school year (21 in all), including the four that land on breaks. Closures are read literally off the footer: Labor Day (Sep 7), Fall Break (Oct 9–12), Thanksgiving (Nov 23–27), Winter Break (Dec 21–Jan 5), MLK (Jan 18), Presidents' (Feb 15), Spring Break (Mar 15–19), and Good Friday / Easter as two <b>separate</b> days (Mar 29 and Apr 2 — so Apr 1 is a school day). That leaves <b>74 carline mornings</b> (38 Thu, 36 Fri) and <b>21 handovers</b>. Travel days aren't on the calendar — you pick them; a collision is an event on a travel weekday. Since every event is Thu/Fri, collisions run 0 (Mon–Wed), 38 mornings (adds Thu), or 74 mornings + 21 handovers (adds Fri).</li>
+      <li><b>Marginal note:</b> 2026 MS flat rate 4.0%; both salaries are under the Social Security wage base. A salary-based 401(k) match/deferral could route part of the raise to retirement rather than checking — savings, not tax.</li>
+    </ul>
+  </details>
+
+  <div class="foot">
+    Live figures pulled from FinTrack (payroll + Ally balances) and your calendar. Estimates only — not tax or financial advice.
+  </div>
+</div>
+
+<script>
+/* ============ REAL, RECORDED INPUTS ============ */
+const REC = {
+  netPerPay: 2491.72,       // recorded Marchand net paycheck (semi-monthly)
+  periods: 24,              // 15th + month-end
+  weddingStart: 8775.80,    // Ally ...2260 balance (exact)
+  houseStart: 13942.60,     // Ally ...2278 balance (exact)
+  weddingBase: 900,         // monthly wedding transfer
+  houseThrottled: 250,      // throttled monthly house transfer (until 2027-06-01)
+  houseTarget: 650,         // pre-throttle house rate
+  commitments: 18607.40,    // committed wedding costs (your note)
+  yourGap: 1700,            // your handwritten "short ~$1,700"
+  raiseGross: 22000,
+  months:['Sep 2026','Oct 2026','Nov 2026','Dec 2026','Jan 2027','Feb 2027','Mar 2027','Apr 2027','May 22']
+};
+
+/* ---- baseline + net of raise (no synthetic $104k model) ---- */
+const baselineNet = REC.netPerPay * REC.periods;          // 59,801.28
+const mFed=0.22, mMS=0.04, mFica=0.0765;                  // marginal on the raise
+const taxFed=REC.raiseGross*mFed, taxMS=REC.raiseGross*mMS, taxFica=REC.raiseGross*mFica;
+const raiseTax=taxFed+taxMS+taxFica;                      // 7,403
+const raiseNet=REC.raiseGross-raiseTax;                   // 14,597
+const marginal=raiseTax/REC.raiseGross;                   // 0.3365
+const regionalNet=baselineNet+raiseNet;                   // 74,398.28
+const deltaMo=raiseNet/12;                                // 1,216.4167  (raise net of tax, before travel costs)
+const curMo=baselineNet/12, regMo=regionalNet/12;
+
+/* ---- Directive MLG-DIR-26-88 (Wed–Fri mandatory travel, $45/day M&IE cap): real costs off the raise ---- */
+const COST={care:200, handover:150, meals:180};           // $/mo, from the mandated schedule
+const costMo=COST.care+COST.handover+COST.meals;          // 530 / mo
+const costYr=costMo*12;                                    // 6,360 / yr
+const adjDeltaMo=deltaMo-costMo;                           // 686.4167 — TRUE adjusted monthly delta
+const adjRaiseNet=raiseNet-costYr;                         // 8,237 / yr
+const adjRegionalNet=baselineNet+adjRaiseNet;             // 68,038.28
+const adjRegMo=adjRegionalNet/12;                         // 5,669.86
+
+/* ---------------- formatting ---------------- */
+const $=id=>document.getElementById(id);
+const usd=(n,d=2)=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const usd0=n=>'$'+n.toLocaleString('en-US',{maximumFractionDigits:0});
+const pct=(n,d=2)=>(n*100).toFixed(d)+'%';
+
+/* ---------------- gross KPI cards ---------------- */
+function grossCards(){
+  const rows=[
+    {band:'stayband',lab:'Base pay — Stay (HAT2)',val:usd0(82000),cmp:'Operations Manager, Marchand'},
+    {band:'regband',lab:'Base pay — Regional (SE)',val:usd0(104000),cmp:'Regional Operations Manager',chip:'up',chipTxt:'+'+usd0(22000)+' gross'},
+    {band:'regband',lab:'Raise added (gross)',val:'+'+usd0(22000),cmp:'the figure Corwin said on the call',chip:'up',chipTxt:'+26.8% over $82K'},
+  ];
+  $('grossRow').innerHTML=rows.map(r=>`
+    <div class="kpi ${r.band}">
+      <div class="lab">${r.lab}</div>
+      <div class="val">${r.val}</div>
+      <div class="cmp">${r.cmp}</div>
+      ${r.chip?`<span class="chip ${r.chip}">${r.chipTxt}</span>`:''}
+    </div>`).join('');
+}
+
+/* ---------------- KPI cards ---------------- */
+function kpiCards(){
+  const rows=[
+    {band:'stayband',lab:'Recorded net paycheck',val:usd(REC.netPerPay),cmp:'semi-monthly · Marchand HAT2'},
+    {band:'stayband',lab:'Net take-home now (annual)',val:usd(baselineNet),cmp:'24 × recorded paycheck',chip:'',},
+    {band:'regband',lab:'Net take-home Regional (annual)',val:usd(regionalNet),cmp:'baseline + net of raise',chip:'up',chipTxt:'+'+usd0(raiseNet)+'/yr'},
+    {band:'regband',lab:'Net monthly',val:usd(regMo),cmp:'now: '+usd(curMo),chip:'up',chipTxt:'+'+usd0(deltaMo)+'/mo'},
+  ];
+  $('kpiRow').innerHTML=rows.map(r=>`
+    <div class="kpi ${r.band}">
+      <div class="lab">${r.lab}</div>
+      <div class="val">${r.val}</div>
+      <div class="cmp">${r.cmp}</div>
+      ${r.chip?`<span class="chip ${r.chip}">${r.chipTxt}</span>`:''}
+    </div>`).join('');
+}
+
+/* ---------------- build-up table ---------------- */
+function buildTable(){
+  const b=$('buildTable').querySelector('tbody');
+  b.innerHTML=`
+    <tr><td>Recorded Marchand paycheck (net)</td><td class="num">${usd(REC.netPerPay)} × 24</td><td class="num">${usd(baselineNet)}</td></tr>
+    <tr class="sub"><td colspan="3">Add only what the $22,000 raise nets (marginal ${pct(marginal)}):</td></tr>
+    <tr class="sub"><td>Gross raise</td><td class="num">$82,000 → $104,000</td><td class="num">+${usd(REC.raiseGross)}</td></tr>
+    <tr class="sub"><td>Federal income tax</td><td class="num">22% marginal</td><td class="num">−${usd(taxFed)}</td></tr>
+    <tr class="sub"><td>Mississippi income tax</td><td class="num">4.0%</td><td class="num">−${usd(taxMS)}</td></tr>
+    <tr class="sub"><td>FICA (SS + Medicare)</td><td class="num">7.65%</td><td class="num">−${usd(taxFica)}</td></tr>
+    <tr><td>Net added by the raise</td><td class="num regc">keeps ${pct(1-marginal)}</td><td class="num regc">+${usd(raiseNet)}</td></tr>
+    <tr class="total"><td>Regional net take-home (annual)</td><td class="num"></td><td class="num">${usd(regionalNet)}</td></tr>
+    <tr class="total"><td>Regional net take-home (monthly)</td><td class="num"></td><td class="num">${usd(regMo)}</td></tr>`;
+  $('buildInsight').innerHTML=
+    `Your take-home is <b>read from the paycheck</b> (${usd(REC.netPerPay)} × 24 = <b>${usd(baselineNet)}</b>), `+
+    `then the raise is layered on: $22,000 gross keeps <b>${pct(1-marginal)}</b> after a ${pct(marginal)} marginal `+
+    `bite, so <b>+${usd(raiseNet)}/yr</b> (<b>+${usd0(deltaMo)}/mo</b>) actually reaches you — landing at `+
+    `<b>${usd(regionalNet)}</b> net.`;
+}
+
+/* ---------------- directive cost build-down ---------------- */
+function costSection(){
+  $('costTable').innerHTML=`
+    <thead><tr><th>Component (monthly)</th><th>Why</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr><td>Raise — net of tax</td><td class="muted">what actually reached you before travel</td><td class="num regc">+${usd(deltaMo)}</td></tr>
+      <tr class="sub"><td>− Before-school care</td><td>traveling Thu &amp; Fri mornings — no carline run</td><td class="num">−${usd(COST.care)}</td></tr>
+      <tr class="sub"><td>− Poplarville handover coverage</td><td>on-site until 17:00 Fri, can't make the 13:30–15:30 exchange</td><td class="num">−${usd(COST.handover)}</td></tr>
+      <tr class="sub"><td>− Uncovered meals</td><td>spend above the $45/day M&amp;IE cap</td><td class="num">−${usd(COST.meals)}</td></tr>
+      <tr class="total"><td>True adjusted monthly delta</td><td class="muted">what's really left to save</td><td class="num">+${usd(adjDeltaMo)}</td></tr>
+      <tr class="total"><td>Adjusted annual delta</td><td class="muted">raise's take-home value: ${usd0(raiseNet)} → ${usd0(adjRaiseNet)}</td><td class="num">+${usd(adjRaiseNet)}</td></tr>
+    </tbody>`;
+  const card=(border,lab,val,cmp)=>`<div class="kpi" style="border-top:3px solid ${border}">
+    <div class="lab">${lab}</div><div class="val">${val}</div><div class="cmp">${cmp}</div></div>`;
+  $('costKpis').innerHTML=[
+    card('#f0a848','Raise net delta (before costs)','+'+usd0(deltaMo)+'/mo','+'+usd0(raiseNet)+'/yr'),
+    card('#ef6b6b','Directive travel costs','−'+usd(costMo)+'/mo','−'+usd0(costYr)+'/yr · care+handover+meals'),
+    card('#3fb984','True adjusted delta','+'+usd(adjDeltaMo)+'/mo','+'+usd0(adjRaiseNet)+'/yr left to save'),
+  ].join('');
+}
+
+/* ---------------- simulation ---------------- */
+function simulate(houseShare,startIdx){
+  houseShare=Math.min(houseShare,adjDeltaMo);
+  const wedExtra=Math.max(0,adjDeltaMo-houseShare);
+  let wStay=REC.weddingStart,wReg=REC.weddingStart,hStay=REC.houseStart,hReg=REC.houseStart,spill=0;
+  const rows=[]; let fundedMonth=null;
+  for(let t=0;t<9;t++){
+    wStay+=REC.weddingBase; hStay+=REC.houseThrottled;
+    const on=t>=startIdx;
+    let wAdd=REC.weddingBase+(on?wedExtra:0), overflow=0;
+    if(wReg+wAdd>REC.commitments){ overflow=wReg+wAdd-REC.commitments; wAdd=Math.max(0,REC.commitments-wReg); }
+    wReg+=wAdd;
+    hReg+=REC.houseThrottled+(on?houseShare:0); // restored contribution ONLY — no spillover folded in
+    spill+=overflow;                            // spillover tracked on its own line
+    if(fundedMonth===null && wReg>=REC.commitments-0.005) fundedMonth=t;
+    rows.push({m:REC.months[t],wStay,wReg,hStay,hReg,spill,funded:wReg>=REC.commitments-0.005});
+  }
+  return {rows,wedExtra,houseShare,fundedMonth,
+    shortfallStay:REC.commitments-wStay, wRegEnd:wReg,hRegEnd:hReg,hStayEnd:hStay,spillEnd:spill,
+    houseRestored:houseShare>=400-1e-9, startIdx};
+}
+
+/* ---------------- plan KPIs + gap ---------------- */
+function renderPlan(sim){
+  const shortfall=sim.shortfallStay;
+  const fundedTxt = sim.fundedMonth===null ? 'not funded' : REC.months[sim.fundedMonth].replace('May 22','May 2027');
+  const houseRate=REC.houseThrottled+Math.min(sim.houseShare,adjDeltaMo);
+  const cards=[
+    {band:'stayband',lab:'Wedding gap if you STAY',val:usd(shortfall),cmp:'ends '+usd(REC.commitments-shortfall)+' of '+usd(REC.commitments),chip:'down',chipTxt:'short'},
+    {band:'regband',lab:'Wedding fully funded (Regional)',val:fundedTxt,cmp:sim.fundedMonth===null?'raise wedding share':'balance reaches '+usd(REC.commitments),chip:sim.fundedMonth===null?'down':'up',chipTxt:sim.fundedMonth===null?'gap open':'covered'},
+    {band:'regband',lab:'House rate (Regional)',val:usd0(houseRate)+'/mo',cmp:'Stay stuck at $250/mo till 6/1/27',chip:sim.houseRestored?'up':'down',chipTxt:sim.houseRestored?'restored ✓':'below $650'},
+    {band:'regband',lab:'House at wedding — restored only',val:usd0(sim.hRegEnd),cmp:'Stay: '+usd0(sim.hStayEnd)+' · spillover '+usd0(sim.spillEnd)+' tracked apart',chip:'up',chipTxt:'+'+usd0(sim.hRegEnd-sim.hStayEnd)+' vs stay'},
+  ];
+  $('planKpis').innerHTML=cards.map(r=>`
+    <div class="kpi ${r.band}"><div class="lab">${r.lab}</div><div class="val">${r.val}</div>
+      <div class="cmp">${r.cmp}</div><span class="chip ${r.chip}">${r.chipTxt}</span></div>`).join('');
+
+  const months=sim.wedExtra>0?(shortfall/sim.wedExtra):Infinity;
+  const coverTxt=isFinite(months)?`about <b>${months.toFixed(1)} months</b> of extra transfers`:`— (no wedding share set)`;
+  $('planInsight').innerHTML=
+    `After the directive's <b>${usd0(costMo)}/mo</b> travel costs, the raise leaves only <b>${usd0(adjDeltaMo)}/mo</b> for savings (not ${usd0(deltaMo)}). Sending <b>${usd0(sim.houseShare)}/mo</b> to house `+
+    `${sim.houseRestored?'<span class="pill g">restores the $650 pace from day one</span>':'<span class="pill r">leaves house below $650</span>'} `+
+    `— the restored contribution <b>alone</b> carries the house fund to <b>${usd0(sim.hRegEnd)}</b> by 5/22 `+
+    `(<b>+${usd0(sim.hRegEnd-sim.hStayEnd)}</b> vs staying). The other <b>${usd0(sim.wedExtra)}/mo</b> covers the `+
+    `<b>${usd(shortfall)}</b> shortfall in ${coverTxt}; once the fund hits commitments in <b>${fundedTxt}</b>, `+
+    `<b>${usd(sim.spillEnd)}</b> of spillover is freed up — kept on its own line so you decide where it lands.`;
+
+  // gap boxes
+  $('gapCalc').textContent=usd(shortfall);
+  $('gapCalcSub').textContent='$18,607.40 − '+usd(REC.commitments-shortfall);
+  const diff=Math.abs(shortfall-REC.yourGap);
+  $('gapDiff').textContent=usd(diff);
+  $('gapInsight').innerHTML=
+    `You jotted <b>≈ $1,700</b> before the call. With the real Ally …2260 balance of `+
+    `<b>${usd(REC.weddingStart)}</b>, the Stay track lands at <b>${usd(REC.commitments-shortfall)}</b>, so the true gap is `+
+    `<b>${usd(shortfall)}</b> — you were within <b>${usd(diff)}</b>. The regional raise erases it well before May.`;
+
+  $('recoText').innerHTML=
+    `On paper the raise nets <b>+${usd0(raiseNet)}/yr</b>, but Directive MLG-DIR-26-88 skims <b>${usd0(costYr)}/yr</b> `+
+    `in care, handover and meal costs, leaving a true <b>+${usd0(adjRaiseNet)}/yr</b> (<b>${usd0(adjDeltaMo)}/mo</b>). `+
+    `That still restores the $650 house pace and just funds the wedding by <b>5/22/2027</b> — but the cushion is gone, `+
+    `and the real cost is the <b>Wed–Fri</b> mandate colliding with every carline morning and handover.`;
+}
+
+/* ---------------- trajectory table ---------------- */
+function renderTable(sim){
+  $('trajTable').querySelector('tbody').innerHTML=sim.rows.map(r=>{
+    const label=r.m==='May 22'?'May 22 2027 (wedding)':r.m;
+    const status=r.funded?'<span class="pill g">fully funded</span>':'<span class="pill w">'+usd(REC.commitments-r.wReg)+' to go</span>';
+    return `<tr><td>${label}</td>
+      <td class="num stayc">${usd(r.wStay)}</td><td class="num regc">${usd(r.wReg)}</td>
+      <td class="num stayc">${usd(r.hStay)}</td><td class="num regc">${usd(r.hReg)}</td>
+      <td class="num muted">${r.spill>0.005?'+'+usd(r.spill):'—'}</td>
+      <td>${status}</td></tr>`;
+  }).join('');
+}
+
+/* ---------------- SVG charts ---------------- */
+function lineChart(svgId,series,opts){
+  const W=600,H=300,padL=64,padR=16,padT=16,padB=34;
+  const plotW=W-padL-padR, plotH=H-padT-padB, n=9, maxY=opts.maxY, minY=opts.minY||0;
+  const x=i=>padL+(plotW*i/(n-1)), y=v=>padT+plotH*(1-(v-minY)/(maxY-minY));
+  let g=''; const ticks=opts.ticks||5;
+  for(let t=0;t<=ticks;t++){ const val=minY+(maxY-minY)*t/ticks, yy=y(val);
+    g+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="#243149"/>`;
+    g+=`<text x="${padL-8}" y="${yy+4}" fill="#7e8fab" font-size="10" text-anchor="end">${usd0(val)}</text>`; }
+  REC.months.forEach((m,i)=>{ g+=`<text x="${x(i)}" y="${H-12}" fill="#7e8fab" font-size="9.5" text-anchor="middle">${m.split(' ')[0]}</text>`; });
+  (opts.refs||[]).forEach(r=>{
+    if(r.flat!==undefined){ const yy=y(r.flat);
+      g+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="${r.color}" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+      g+=`<text x="${W-padR}" y="${yy-5}" fill="${r.color}" font-size="10" text-anchor="end">${r.label}</text>`; }
+    else if(r.pts){ const d=r.pts.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(' ');
+      g+=`<path d="${d}" fill="none" stroke="${r.color}" stroke-width="1.5" stroke-dasharray="2 5"/>`; }
+  });
+  series.forEach(s=>{ const d=s.data.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(' ');
+    g+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="3" stroke-linejoin="round"/>`;
+    s.data.forEach((v,i)=>{ g+=`<circle cx="${x(i)}" cy="${y(v)}" r="3.2" fill="${s.color}"/>`; }); });
+  $(svgId).innerHTML=g;
+}
+function renderCharts(sim){
+  const wStay=sim.rows.map(r=>r.wStay), wReg=sim.rows.map(r=>r.wReg);
+  const hStay=sim.rows.map(r=>r.hStay), hReg=sim.rows.map(r=>r.hReg);
+  const hRegPlus=sim.rows.map(r=>r.hReg+r.spill); // restored + spillover, shown as its own line
+  const wMax=Math.max(REC.commitments,...wReg)*1.05, wMin=Math.min(...wStay,REC.weddingStart)*0.9;
+  lineChart('wedChart',[{data:wStay,color:'#f0a848'},{data:wReg,color:'#3fb984'}],
+    {maxY:wMax,minY:wMin,ticks:5,refs:[{flat:REC.commitments,color:'#ef6b6b',label:'Commitments '+usd0(REC.commitments)}]});
+  const hMax=Math.max(...hRegPlus,...hReg)*1.04, hMin=REC.houseStart*0.985;
+  // solid: Stay + Regional (restored contribution ONLY); dashed: the spillover carried on top, its own line
+  lineChart('houseChart',[{data:hStay,color:'#f0a848'},{data:hReg,color:'#3fb984'}],
+    {maxY:hMax,minY:hMin,ticks:5,refs:[{pts:hRegPlus,color:'#8fe6bd'}]});
+}
+
+/* ---------------- wire up ---------------- */
+function refresh(){
+  const share=Math.min(+$('houseSlider').value,Math.floor(adjDeltaMo));
+  const startIdx=+$('startSel').value;
+  const wedExtra=Math.max(0,adjDeltaMo-share);
+  $('houseSliderVal').innerHTML=
+    `<b>${usd0(share)}/mo</b> → house (rate becomes <b>${usd0(REC.houseThrottled+share)}/mo</b>) &nbsp;·&nbsp; `+
+    `remaining <b>${usd0(wedExtra)}/mo</b> → wedding`;
+  const sim=simulate(share,startIdx);
+  renderPlan(sim); renderTable(sim); renderCharts(sim);
+}
+$('houseSlider').max=Math.floor(adjDeltaMo);
+grossCards(); kpiCards(); buildTable(); costSection();
+$('houseSlider').addEventListener('input',refresh);
+$('startSel').addEventListener('change',refresh);
+refresh();
+</script>
+
+<script>
+/* ============ SCHEDULE CONFLICT MODEL (from IMG_0814 markup) ============ */
+const SCH = (function(){
+  // school closures, read literally off the printed footer (two Easter days are SEPARATE, not a block)
+  const HOL=[["2026-09-07","2026-09-07"],["2026-10-09","2026-10-12"],["2026-11-23","2026-11-27"],
+    ["2026-12-21","2027-01-05"],["2027-01-18","2027-01-18"],["2027-02-15","2027-02-15"],
+    ["2027-03-15","2027-03-19"],["2027-03-29","2027-03-29"],["2027-04-02","2027-04-02"]];
+  const START="2026-08-06", END="2027-05-21";
+  const iso=(y,m,d)=>`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  const isoD=d=>iso(d.getFullYear(),d.getMonth()+1,d.getDate());
+  const inHol=s=>HOL.some(([a,b])=>s>=a&&s<=b);
+  const inWin=s=>s>=START&&s<=END;
+  const dow=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).getDay();};
+  const schoolDay=s=>inWin(s)&&dow(s)>=1&&dow(s)<=5&&!inHol(s);
+  // carline = EVERY school-day Thursday & Friday (a handover circle overlays it, never cancels it)
+  const isCar=s=>schoolDay(s)&&(dow(s)===4||dow(s)===5);
+  // handovers = standing every-other-weekend custody exchange (Fri), carried on its Aug 7 rhythm all year
+  const hoSet=new Set();
+  for(let d=new Date(2026,7,7); isoD(d)<=END; d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+14)) hoSet.add(isoD(d));
+  const info=s=>{const school=schoolDay(s);return{s,dow:dow(s),school,
+    carline:isCar(s), handover:hoSet.has(s),
+    closedThuFri: inWin(s)&&!school&&(dow(s)===4||dow(s)===5)};};
+  let totCar=0,carThu=0,carFri=0;
+  for(let d=new Date(2026,7,6); isoD(d)<=END; d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){
+    const s=isoD(d); if(isCar(s)){totCar++; dow(s)===4?carThu++:carFri++;}
+  }
+  const totHo=hoSet.size;
+  const collide=set=>{
+    let cc=0,hc=0;
+    for(let d=new Date(2026,7,6); isoD(d)<=END; d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)){
+      const s=isoD(d); if(isCar(s)&&set.has(dow(s)))cc++;
+    }
+    hoSet.forEach(s=>{ if(set.has(dow(s)))hc++; });
+    return [cc,hc];
+  };
+  return {hoSet,inHol,dow,schoolDay,info,iso,START,END,totCar,totHo,carThu,carFri,collide};
+})();
+
+const $$=id=>document.getElementById(id);
+const DL=['','Mon','Tue','Wed','Thu','Fri'];
+const MN=['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const MA=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function schedKpiCards(cc,hc){
+  const card=(border,lab,val,cmp,chip)=>`<div class="kpi" style="border-top:3px solid ${border}">
+    <div class="lab">${lab}</div><div class="val">${val}</div><div class="cmp">${cmp}</div>
+    ${chip||''}</div>`;
+  $$('schedKpis').innerHTML=[
+    card('#f0a848','Carline mornings — school year',SCH.totCar,'every school-day Thu &amp; Fri, closures removed'),
+    card('#5aa9ff','Custody handovers — full year',SCH.totHo,'every other Fri · Poplarville 13:30–15:30'),
+    card('#ef6b6b','Carline collisions',cc+' <span style="font-size:14px;color:#8aa0bd">/ '+SCH.totCar+'</span>',
+      Math.round(cc/SCH.totCar*100)+'% of mornings on a travel day','<span class="chip down">travel clash</span>'),
+    card('#ef6b6b','Handover collisions',hc+' <span style="font-size:14px;color:#8aa0bd">/ '+SCH.totHo+'</span>',
+      hc?'missed Poplarville exchanges':'Fridays stay clear',
+      hc?'<span class="chip down">custody clash</span>':'<span class="chip up">no clash</span>'),
+  ].join('');
+}
+
+function presetTable(){
+  const rows=[['Front-loaded · Mon–Wed',[1,2,3]],['Mid-week · Tue–Thu',[2,3,4]],['Back-loaded · Wed–Fri',[3,4,5]]];
+  $$('presetTable').querySelector('tbody').innerHTML=rows.map(([name,arr])=>{
+    const[cc,hc]=SCH.collide(new Set(arr));
+    const bad=cc>0||hc>0;
+    return `<tr><td>${name}</td>
+      <td class="num ${cc?'':'regc'}">${cc} / ${SCH.totCar}</td>
+      <td class="num ${hc?'':'regc'}">${hc} / ${SCH.totHo}</td>
+      <td class="num">${bad?'<span class="pill r">'+cc+' mornings</span>':'<span class="pill g">none</span>'}</td></tr>`;
+  }).join('');
+}
+
+function buildMatrix(travel){
+  let out='', cur=new Date(2026,7,3), last=new Date(2027,4,17);
+  while(cur<=last){
+    let cells='',conf=0,anySchool=false;
+    for(let i=0;i<5;i++){
+      const d=new Date(cur.getFullYear(),cur.getMonth(),cur.getDate()+i);
+      const s=SCH.iso(d.getFullYear(),d.getMonth()+1,d.getDate());
+      const nf=SCH.info(s), t=travel.has(nf.dow)&&(nf.school||nf.handover), hit=t&&(nf.carline||nf.handover);
+      if(nf.school)anySchool=true; if(hit)conf++;
+      let cls='cell',mk=[];
+      if(!nf.school && !nf.handover){cls+=nf.closedThuFri?' closedmark':' off';}
+      else{ if(nf.carline)mk.push('C'); if(nf.handover)mk.push('H'); if(t)mk.push('T');
+        if(hit)cls+=' hit'; else if(t)cls+=' trav'; else if(nf.carline)cls+=' car'; else if(nf.handover)cls+=' ho'; }
+      const lab=(nf.school||nf.handover)?d.getDate():(nf.closedThuFri?d.getDate()+'*':'·');
+      cells+=`<td class="${cls}"><div class="dn">${lab}</div><div class="mk">${mk.join(' ')}</div></td>`;
+    }
+    const wk=`${MA[cur.getMonth()]} ${cur.getDate()}`;
+    const cf = anySchool ? (conf?`<td class="cf bad">${conf}</td>`:`<td class="cf">0</td>`) : `<td class="cf">—</td>`;
+    out+=`<tr><td class="wk">${wk}</td>${cells}${cf}</tr>`;
+    cur=new Date(cur.getFullYear(),cur.getMonth(),cur.getDate()+7);
+  }
+  return out;
+}
+
+function buildCalendars(travel){
+  const months=[[2026,8],[2026,9],[2026,10],[2026,11],[2026,12],[2027,1],[2027,2],[2027,3],[2027,4],[2027,5]];
+  let html='';
+  for(const[y,mm] of months){
+    const off=(new Date(y,mm-1,1).getDay()+6)%7, dim=new Date(y,mm,0).getDate();
+    let cells='';
+    for(let i=0;i<off;i++)cells+='<div class="dc empty"></div>';
+    for(let d=1;d<=dim;d++){
+      const s=SCH.iso(y,mm,d), nf=SCH.info(s);
+      const t=travel.has(nf.dow)&&(nf.school||nf.handover), hit=t&&(nf.carline||nf.handover);
+      let cls='dc';
+      if(!nf.school && !nf.handover)cls+=nf.closedThuFri?' closedmark':' off';
+      else{ if(hit)cls+=' hit'; else{ if(nf.carline)cls+=' car'; if(t)cls+=' trav'; } }
+      const ring=nf.handover?'<span class="ring"></span>':'';
+      cells+=`<div class="${cls}">${d}${ring}</div>`;
+    }
+    html+=`<div class="mcal"><div class="mct">${MN[mm]} ${y}</div>
+      <div class="dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="dcs">${cells}</div></div>`;
+  }
+  return html;
+}
+
+function schedRefresh(){
+  const travel=new Set([...document.querySelectorAll('.wdchk:checked')].map(c=>+c.value));
+  const[cc,hc]=SCH.collide(travel);
+  schedKpiCards(cc,hc);
+  const days=[...travel].sort().map(d=>DL[d]).join(' / ')||'none';
+  const thu=travel.has(4), fri=travel.has(5);
+  $$('schedInsight').innerHTML=
+    `Travel days: <b>${days}</b>. Every marked carline morning is a Thursday (${SCH.carThu}) or Friday (${SCH.carFri}), `+
+    `and all ${SCH.totHo} handovers are Friday afternoons in Poplarville. `+
+    (thu||fri
+      ? `This block <span class="pill r">collides</span>: <b>${cc}</b> of ${SCH.totCar} carline mornings`+
+        (hc?` and <b>${hc}</b> of ${SCH.totHo} handovers`:` and <b>0</b> handovers (Fridays stay clear)`)+
+        ` land on a travel day.`+
+        (thu&&!fri?` Slide the block to include <b>Friday</b> and it jumps to ${SCH.totCar} mornings + all ${SCH.totHo} handovers.`:'')
+      : `This block <span class="pill g">avoids the conflict window</span> — Mon–Wed carry no marked events, so <b>0</b> carline mornings and <b>0</b> handovers are hit. Realistic only if you can guarantee travel never runs Thu/Fri.`);
+  $$('matrixBody').innerHTML=buildMatrix(travel);
+  $$('calGrid').innerHTML=buildCalendars(travel);
+}
+
+document.querySelectorAll('.wdchk').forEach(c=>c.addEventListener('change',schedRefresh));
+document.querySelectorAll('.wdbtns button').forEach(b=>b.addEventListener('click',()=>{
+  const set=new Set(b.dataset.p.split(',').map(Number));
+  document.querySelectorAll('.wdchk').forEach(c=>c.checked=set.has(+c.value));
+  schedRefresh();
+}));
+presetTable();
+schedRefresh();
+</script>
+<script>
+/* Added by the Common Errors viewer. Not part of the task: it marks the passage the example points at. */
+(function () {
+  var T = ["13:30"];
+  var SKIP = {SCRIPT: 1, STYLE: 1, TEMPLATE: 1, NOSCRIPT: 1, MARK: 1};
+  var all = [], at = 0, found = 0;
+  function textTarget(t) {
+    var exact = t.charAt(0) === "=", s = exact ? t.slice(1) : t, hits = [];
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.parentNode && SKIP[n.parentNode.nodeName] ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (node) {
+      var i = exact ? (node.data.trim() === s ? node.data.indexOf(s) : -1) : node.data.indexOf(s);
+      if (i < 0) return;
+      var r = document.createRange();
+      r.setStart(node, i); r.setEnd(node, i + s.length);
+      var m = document.createElement("mark");
+      m.style.cssText = "background:#ffe066;color:#111;outline:1.5px solid #ff4d63;border-radius:2px;padding:0 1px";
+      r.surroundContents(m);
+      hits.push(m);
+    });
+    return hits;
+  }
+  /* Scroll only this page, never the viewer around it: scrollIntoView would
+     move the dialog too and push the file name and the note out of sight. */
+  function reveal(el) {
+    var p = el.parentElement;
+    while (p && p !== document.body && p !== document.documentElement) {
+      var cs = getComputedStyle(p);
+      if (/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight > p.clientHeight) {
+        p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - p.clientHeight / 3;
+      }
+      p = p.parentElement;
+    }
+    window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - window.innerHeight / 3);
+  }
+  function post() {
+    try {
+      parent.postMessage({ceEvidence: document.title || "page", found: found, of: T.length,
+                          marks: all.length, at: at}, "*");
+    } catch (e) {}
+  }
+  /* The passage on show gets a heavier ring, so stepping is visible on a busy page. */
+  function go(i) {
+    if (!all.length) { post(); return; }
+    at = ((i % all.length) + all.length) % all.length;
+    all.forEach(function (el, k) {
+      el.style.boxShadow = k === at ? "0 0 0 3px #ff4d63, 0 0 0 8px rgba(255,77,99,.35)" : "";
+    });
+    reveal(all[at]);
+    post();
+  }
+  function mark() {
+    T.forEach(function (t) {
+      var hits = [];
+      if (t.indexOf("css:") === 0) {
+        hits = Array.prototype.slice.call(document.querySelectorAll(t.slice(4)));
+        hits.forEach(function (el) { el.style.outline = "4px solid #ff4d63"; el.style.outlineOffset = "4px"; });
+      } else {
+        hits = textTarget(t);
+      }
+      if (hits.length) found++;
+      all = all.concat(hits);
+    });
+    all.sort(function (a, b) { return a.compareDocumentPosition(b) & 4 ? -1 : 1; });
+    go(0);
+  }
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (d && typeof d.ceStep === "number" && e.source === parent) go(d.ceStep === 0 ? at : at + d.ceStep);
+  });
+  window.addEventListener("load", function () { setTimeout(mark, 300); });
+})();
+</script></body>
+</html>

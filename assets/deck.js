@@ -98,7 +98,7 @@
       a.className = 'dk-hot';
       a.tabIndex = -1;
       a.setAttribute('aria-hidden', 'true');
-      a.title = 'Example ' + l.n + ': ' + l.title;
+      a.title = 'Red Shell example ' + l.n + ': ' + l.title;
       a.style.left = l.box[0] + '%';
       a.style.top = l.box[1] + '%';
       a.style.width = l.box[2] + '%';
@@ -115,7 +115,7 @@
         prev = l.title;
         c.className = 'dk-exa';
         c.title = l.title;
-        c.setAttribute('aria-label', 'Example ' + l.n + ': ' + l.title);
+        c.setAttribute('aria-label', 'Red Shell example ' + l.n + ': ' + l.title);
         c.innerHTML = 'Example ' + Number(l.n) + ARROW;
         link(c, l);
         li.appendChild(c);

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social audit — Sunny Okafor catalog push</title>
+<style>
+  :root{
+    --bg:#f4f1ea; --panel:#fffdf8; --ink:#1e1b16; --muted:#6b6459; --line:#e3ddd0;
+    --kill:#b4322a; --hold:#c07c17; --amend:#2f6fb0; --publish:#3f8f57;
+    --kill-bg:#f8e9e7; --hold-bg:#faf1df; --amend-bg:#e8f0f8; --publish-bg:#e7f2eb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  header.top{padding:26px 22px 10px;max-width:1120px;margin:0 auto}
+  h1{margin:0 0 4px;font-size:26px;letter-spacing:-.4px}
+  .sub{color:var(--muted);font-size:14px;max-width:800px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px 60px}
+
+  .takedown{background:#fbeae7;border:1.5px solid var(--kill);border-radius:14px;padding:14px 16px;margin:16px 0 6px}
+  .takedown h2{margin:0 0 3px;font-size:15px;color:var(--kill);letter-spacing:.2px}
+  .takedown .lead{font-size:12.5px;color:#7a3a34;margin:0 0 10px}
+  .tditem{background:#fff;border:1px solid #e6c4c0;border-radius:10px;padding:9px 12px;margin-top:8px;font-size:13px}
+  .tditem b{color:var(--kill)}
+  .tditem .cp{color:#4b463d;font-style:italic}
+
+  .schedule{background:#eef3ee;border:1px solid #cfe0d1;border-radius:14px;padding:14px 16px;margin:14px 0 6px}
+  .schedule h2{margin:0 0 3px;font-size:15px;color:var(--publish);letter-spacing:.2px}
+  .schedule .lead{font-size:12.5px;color:#40584a;margin:0 0 10px}
+  .sched-grid{display:flex;flex-wrap:wrap;gap:10px}
+  .sday{background:#fff;border:1px solid #cfe0d1;border-radius:10px;padding:9px 12px;min-width:150px;flex:1 1 150px}
+  .sday .sd{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:5px}
+  .sday .si{font-size:12.5px;color:#33302a;padding:2px 0}
+  .sday .si span{color:#7a8a7d;font-size:11px}
+  .schedule .held{font-size:12px;color:#40584a;margin:10px 0 0}
+
+  .summary{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;min-width:96px;flex:0 0 auto}
+  .stat .n{font-size:24px;font-weight:700;line-height:1}
+  .stat .l{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-top:4px}
+  .stat.kill .n{color:var(--kill)} .stat.hold .n{color:var(--hold)}
+  .stat.amend .n{color:var(--amend)} .stat.publish .n{color:var(--publish)}
+  .stat.total .n{color:var(--ink)}
+  .stat .live{font-size:10px;color:var(--muted);margin-top:2px}
+
+  .filters{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0 22px}
+  .frow{display:flex;gap:12px;align-items:flex-start;padding:7px 0}
+  .frow + .frow{border-top:1px dashed var(--line)}
+  .flabel{flex:0 0 118px;font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);padding-top:7px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;
+    cursor:pointer;user-select:none;display:inline-flex;gap:7px;align-items:center;transition:.12s}
+  .chip .c{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px}
+  .chip:hover{border-color:#c9c1b1}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip.on .c{color:#d9d2c4}
+  .chip.dis{opacity:.32;cursor:default;pointer-events:none}
+  .chip.dot-kill::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--kill)}
+  .chip.dot-hold::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--hold)}
+  .chip.dot-amend::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amend)}
+  .chip.dot-publish::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--publish)}
+  .clearbtn{margin-left:auto;font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;padding-top:7px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-left:5px solid #ccc;border-radius:12px;
+    padding:15px 16px 16px;display:flex;flex-direction:column;gap:10px}
+  .card.kill{border-left-color:var(--kill)} .card.hold{border-left-color:var(--hold)}
+  .card.amend{border-left-color:var(--amend)} .card.publish{border-left-color:var(--publish)}
+  .chead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .meta{font-size:11.5px;color:var(--muted);letter-spacing:.2px}
+  .meta b{color:var(--ink)}
+  .badge{font-size:12px;font-weight:700;letter-spacing:.4px;padding:4px 9px;border-radius:7px;white-space:nowrap}
+  .b-kill{background:var(--kill-bg);color:var(--kill)} .b-hold{background:var(--hold-bg);color:var(--hold)}
+  .b-amend{background:var(--amend-bg);color:var(--amend)} .b-publish{background:var(--publish-bg);color:var(--publish)}
+  .rule{display:inline-block;font-size:11px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 7px;background:#fff}
+  .copy{font-size:14px;background:#fbf8f1;border:1px solid var(--line);border-radius:8px;padding:9px 11px;color:#33302a;white-space:pre-wrap}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:11px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+  .tag.live{color:var(--kill);border-color:#e6c4c0;background:#faece9;font-weight:600}
+  .tag.art{color:#7a5a12;border-color:#ecd6ac;background:#fbf3e0}
+  .sec{font-size:12px}
+  .sec .h{font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:2px;font-weight:700}
+  .sec p{margin:0 0 4px}
+  .clears{display:flex;flex-wrap:wrap;gap:6px}
+  .clears .who{font-size:12px;font-weight:600;background:var(--hold-bg);color:var(--hold);border:1px solid #ecd6ac;border-radius:6px;padding:3px 9px}
+  .warn{font-size:12px;background:#fff4e2;border:1px solid #ecd6ac;border-radius:8px;padding:8px 10px;color:#8a5a12}
+  .warn b{color:#6e470c}
+  .oq{font-size:12px;background:#f2f4f6;border:1px solid #d8dde2;border-radius:8px;padding:8px 10px;color:#41505c}
+  .oq .h{color:#5a6b78;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:10.5px;margin-bottom:2px}
+  .none{color:var(--muted);padding:30px;text-align:center;grid-column:1/-1}
+
+  details.notes{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
+  details.notes summary{cursor:pointer;font-weight:600;padding:8px 0}
+  details.notes .body{font-size:13px;color:#403b33;padding:4px 0 12px}
+  details.notes h4{margin:12px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  details.notes ul{margin:4px 0;padding-left:18px}
+  details.notes li{margin:3px 0}
+  code{background:#efece4;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Social audit — Sunny Okafor catalog push</h1>
+  <p class="sub">16 label posts, checked against Wendell's <b>Publicity &amp; Social Standing Rules v1.4</b> — the words
+  <em>and</em> the picture, with the corrected value pulled from our own records. Marisol's artwork is folded in and
+  checked for shape (P10) and for anything printed inside it. <b>3</b> are already live; <b>2 of those break the rules
+  and need to come down tonight</b> (red banner). The rest are re-timed to clear by <b>Fri Oct 9</b>, with the two posts still waiting on a person or condition parked till the quarterly. Superseded drafts and the two artist-account posts are off the page.
+  Filter by call, channel, or who you're waiting on — the counts move with what you pick. Reviewed Mon 14 Sep 2026.</p>
+</header>
+
+<div class="wrap">
+  <div id="takedown"></div>
+
+  <div class="schedule">
+    <h2>Re-timed queue — clears by Fri Oct 9</h2>
+    <p class="lead">The posts that can still go out, packed as early as Wendell's cadence allows from Thu Sep 24, taken in her <b>live-queue send order</b> — the order they were lined up to go out — one post per channel per 7 days, no more than two a day, nothing on the Oct 1 or Oct 15 session days. Where they finally land need not match that order. The AMEND posts still need Marisol's fix before they fire.</p>
+    <div class="sched-grid">
+      <div class="sday"><div class="sd">Thu Sep 24</div><div class="si">AES Nashville <span>· TikTok</span></div><div class="si">Longhand <span>· Instagram</span></div></div>
+      <div class="sday"><div class="sd">Fri Sep 25</div><div class="si">Ninebark, track 7 <span>· X</span></div></div>
+      <div class="sday"><div class="sd">Fri Oct 2</div><div class="si">Show recap <span>· Instagram</span></div><div class="si">Loudness (Ade-cleared) <span>· X</span></div></div>
+      <div class="sday"><div class="sd">Fri Oct 9</div><div class="si">Otari / mix <span>· Instagram</span></div><div class="si">Drums: Reggie Alcott <span>· X</span></div></div>
+    </div>
+    <p class="held">Parked until the quarterly (no date): <b>Riverwide sync</b> (waiting on Wendell) and the <b>vinyl preorder</b> (waiting on a clean test-pressing reference). Killed posts don't go out at all.</p>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="filters" id="filters">
+    <div class="frow">
+      <div class="flabel">By call</div>
+      <div class="chips" data-facet="call" id="f-call"></div>
+      <button class="clearbtn" id="clearAll">reset all</button>
+    </div>
+    <div class="frow">
+      <div class="flabel">By channel</div>
+      <div class="chips" data-facet="channel" id="f-channel"></div>
+    </div>
+    <div class="frow">
+      <div class="flabel">Waiting on</div>
+      <div class="chips" data-facet="clears" id="f-clears"></div>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <details class="notes">
+    <summary>How this was judged — artwork, the live queue, and the drafts that won't go out</summary>
+    <div class="body">
+      <h4>The call, in Wendell's words</h4>
+      <ul>
+        <li><b>KILL</b> — trips Part 1 (does not go out): P1 money, P2 our position on the building, P4 comps, P5 uncleared use. Doesn't go out in this form or a tidied one.</li>
+        <li><b>HOLD</b> — trips Part 2: P6 Wendell's wording sign-off, P7 Ade's measurement check, P8 clean test-pressing reference.</li>
+        <li><b>AMEND</b> — trips Part 3 only (has to be true, right shape): the corrected value is on the card; make the swap and it goes.</li>
+        <li><b>PUBLISH</b> — clean.</li>
+      </ul>
+      <p>A post is the words and whatever goes out attached to them — the picture and anything printed inside it count too.
+      Heavier part decides: Part 1 &gt; Part 2 &gt; Part 3 &gt; clean. “Cannot post” notes (P14 session days) are their own note.</p>
+
+      <h4>Marisol's artwork (folded in)</h4>
+      <ul>
+        <li><b>None of the six cards is the right shape for its channel</b> (P10): longhand_card is 16:9 wide but Instagram needs square; x_card is square but X needs wide; onstage_0814 and IMG_2291 are landscape on Instagram; bench_notes is portrait on Instagram.</li>
+        <li><b>room_a_wall.jpg isn't a wall</b> — it's a screenshot of an earnings statement ($214.86 payout). Attaching it leaks a money figure (P1) → C12.</li>
+        <li><b>onstage_0814.jpg</b> has a chalkboard in frame reading “SOLD OUT / GA $25” — both false (305/350 sold; GA was $20) → R12.</li>
+        <li><b>bench_notes_0815.jpg</b> is the Otari on the bench tagged “DO NOT USE — NOT IN SERVICE,” which disproves R18's own copy.</li>
+        <li><b>loudness_card.png</b> (R14) wasn't in the pack. <b>IMG_2307.jpg</b> (a thermostat at 82°F) isn't attached to any post — unused.</li>
+      </ul>
+
+      <h4>Export vs. the live queue, post by post</h4>
+      <ul>
+        <li><b>C07</b> (“Ten spots on the list…”) now shows <b>SENT</b> (Sat 12 Sep) — it's out, and it's a KILL. Take it down.</li>
+        <li><b>A new post</b> — “…talking to the landlord about buying the place” (Instagram, Wed 30 Sep) — is in the queue but <b>not in the export</b>. It's a separate post Marisol wrote, <em>not</em> an edit of the room post. Both get their own card.</li>
+        <li><b>C12</b> (the room post, “Room A, 620 Main Street… Nine years of records made in here”) is <b>unchanged</b> in the queue — still TikTok, still with room_a_wall.jpg attached.</li>
+        <li><b>C15</b> (AES) moved to Mon 21 Sep; <b>C13</b> (Longhand) unchanged at Tue 22 Sep.</li>
+      </ul>
+
+      <h4>Re-timing (P15)</h4>
+      <p>Everything that can still go out was re-packed from Thursday Sep 24 in her <b>live-queue send order</b> — the order the posts were lined up to go out (read off the live queue, not the export's row order) — each taking the first day the cadence rules leave open: one post per channel per 7 days (P12), no more than two a day (P13), nothing on a session day (P14 — Oct 1 and Oct 15). With three Instagram and three X posts, and Oct 1 blocked, each channel's third slot can't fall before <b>Fri Oct 9</b> — so that's when the batch clears, as early as the rules allow. Final send order doesn't match the old queue, which the rules explicitly permit. The six AMEND posts still need their fixes applied before they fire; the parked HOLDs (Riverwide sync → Wendell, vinyl preorder → a clean test-pressing reference) get no date until the quarterly; killed posts get none at all.</p>
+
+      <h4>The proof one-sheet is not the record</h4>
+      <p>The one-sheet is a <em>proof (v0.9, "NOT FOR RELEASE")</em>. Where it disagrees with what was signed off and delivered, I used the delivered record: <b>11 tracks</b> (not 12); <b>Ninebark is track 7</b> (not 9); <b>the single is Longhand</b> (not Riverwide); <b>Ade mastered it</b> (Teodora mixed).</p>
+
+      <h4>Off the page</h4>
+      <ul>
+        <li><b>Two artist-account posts</b> (C16, C17) go out under <code>@sunnyokafor</code> — under P11 not ours to review, so not shown. That's why the count is 15, not 17.</li>
+        <li><b>Superseded drafts:</b> C01 R06 → R12; C05 R05 → R15; C08 R04 &amp; R08 → R18 (took the latest save; its revision counter had gone backwards).</li>
+      </ul>
+
+      <h4>Things our records genuinely don't hold (an answer, not a gap)</h4>
+      <ul>
+        <li>No countersigned licence for any <b>Harbor Lights</b> placement — only an inbound request → R16.</li>
+        <li>No second <b>Riverwide</b> licence beyond the one cleared episode → R19.</li>
+        <li>No <b>clean vinyl test-pressing reference</b> on file for Sunny's LP, and no test-pressing note that names this record → R15.</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<script>
+const POSTS = [
+ {row:"R01",cid:"C11",account:"@fretandfathom",channel:"instagram",
+  when:"Sep 9, 2026 · 9:00 AM CDT",utc:"2026-09-09T14:00Z",live:true,
+  call:"KILL",rule:"P1",
+  copy:"Sunny's record has already paid back everything we put into it — $9,500 net on the quarter.",
+  correction:"Already live — take it down. The $9,500 is our Q2 net (money we received); P1 keeps our money off public channels. “Paid back everything we put into it” also puts roster money in play (P3). No fix keeps the money angle.",
+  evidence:"Wendell, “Q2 numbers” email (17 Jul 2026): net before retirement $9,500.",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R02",cid:"C04",account:"@fretandfathom",channel:"x",
+  when:"Sep 4, 2026 · 9:00 AM CDT",utc:"2026-09-04T14:00Z",live:true,
+  call:"PUBLISH",rule:"clean",
+  copy:"Best quarter we've ever had at 620 Main Street. Two rooms, a lot of long nights, and Sunny in Room A through April.",
+  correction:"Cleared — and it's already live, which is fine. P1 bans money <em>figures</em>; “best quarter we've ever had” names no figure. Sunny was in Room A through the end of April, and the address and rooms are ours to say (P2).",
+  evidence:"P1 covers figures only. #releases / Marguerite: “Room A is Sunny's through the end of April.”",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R03",cid:"C13",account:"@fretandfathom",channel:"instagram",
+  when:"Thu Sep 24, 2026 · re-timed",utc:"was Sep 22 in the queue",live:false,
+  call:"AMEND",rule:"P10",
+  copy:"Longhand is the one we knew first. Out now, everywhere.",
+  correction:"The words are fine — Longhand is our lead single and it's out, and the card text (“LONGHAND / OUT NOW”) is accurate. But the artwork is the wrong shape: <b>longhand_card.png is 1920×1080 (16:9 wide)</b> and an Instagram post needs a <b>square (1:1)</b> card (P10). Have Marisol export a square version.",
+  evidence:"Rule P10 (square for Instagram). longhand_card.png = 1920×1080. Single confirmed: Teodora → Ade, “mixes for master”: “Longhand is the single.”",
+  clears:[],cannot:null,open:[],art:"longhand_card.png · 1920×1080 wide — needs square"},
+
+ {row:"R09",cid:"C14",account:"@fretandfathom",channel:"x",
+  when:"Fri Sep 25, 2026 · re-timed",utc:"was Sep 24 in the queue",live:false,
+  call:"AMEND",rule:"P9",
+  copy:"Track 9 is called Ninebark and it took the longest.",
+  correction:"Change “Track 9” to <b>Track 7</b>. Ninebark is track 7 on the delivered record — the “9” comes off the 12-track proof one-sheet, which isn't the record. The name is right, and Ninebark is the track our notes kept circling back to, so “took the longest” stands.",
+  evidence:"Teodora → Ade, “mixes for master” (17 Jul 2026): “Ninebark, track 7.” Delivered as 11 final mixes; the proof's 12-track numbering is superseded.",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R10",cid:"C02",account:"@fretandfathom",channel:"x",
+  when:"Parked until the quarterly",utc:"no date — waiting on Wendell",live:false,
+  call:"HOLD",rule:"P6",
+  copy:"Riverwide is going national. Two full minutes of it in every episode this fall.",
+  correction:"The Riverwide sync IS cleared, so this is a cleared-use post — words <em>and</em> card need Wendell's sign-off (P6). Bring it inside the licence first: it's <b>one episode</b>, not “every episode this fall,” and <b>up to 90 seconds</b>, not “two full minutes.” The card (x_card_c02.png) also reads “NOW ON TV” — another placement claim Wendell has to clear and that has to be true on the day. And the card is the wrong shape: it's <b>1080×1080 square</b>, but an X post needs a <b>wide</b> card (P10).",
+  evidence:"Countersigned Riverwide_sync_license.pdf (Wendell ↔ Dev/Lodestar, 1–2 May): one episode, background instrumental, up to 90 sec. Artwork x_card_c02.png = 1080×1080 (square); X needs wide (P10).",
+  clears:["Wendell (wording sign-off)"],cannot:null,open:[],art:"x_card_c02.png · 1080×1080 square — needs wide; reads “NOW ON TV”"},
+
+ {row:"R11",cid:"C09",account:"@fretandfathom",channel:"x",
+  when:"Fri Oct 9, 2026 · re-timed",utc:"was Oct 1 — a session day",live:false,
+  call:"AMEND",rule:"P9",
+  copy:"The drums on this record are Cassidy Rhodes, cut live in Room A.",
+  correction:"Change the drummer credit from “Cassidy Rhodes” to <b>Reggie Alcott</b> — the session drummer who cut the drums in Room A across February and March. Cassidy Rhodes is a songwriter and a guest at the show, not a player on the record. “Cut live in Room A” is right.",
+  evidence:"Contacts — Reggie Alcott: “Session drummer on Sunny Okafor's record. Booked for the Room A tracking dates in February and March.” #sessions: “Monday drums,” takes cut in Room A.",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R12",cid:"C01",account:"@fretandfathom",channel:"instagram",
+  when:"Fri Oct 2, 2026 · re-timed",utc:"was Sep 22 in the queue",live:false,
+  call:"AMEND",rule:"P9",
+  copy:"One month since Sunny Okafor filled The Basement East — a sold-out room on a Tuesday night, doors at 8, Sunny on at 8:30 for a 45-minute set. Thank you Nashville.",
+  correction:"Fix the show facts against the venue run-of-show and our ticketing account: it was a <b>Friday</b> (Aug 14), Sunny went on at <b>9:00 PM</b>, the set ran <b>50 minutes</b>; doors at 8 is right. It did <b>not</b> sell out — Ticketmaster shows <b>305 of 350 GA sold (45 unsold)</b>, 400-cap room. And the photo isn't of this night at all: the board in onstage_0814.jpg advertises “SOLD OUT / GA $25,” but Aug 14 was $20 and never sold out — a board at Sunny's own show wouldn't read that, so this is some other event's crowd standing in for hers (the filename says 0814; the picture disagrees). Don't crop the sign out — the whole image has to be replaced with a real photo from the night. It's also <b>1080×720 (landscape)</b>; Instagram needs square (P10).",
+  evidence:"Basement East run-of-show 8/14: “Friday … Doors 8:00 PM, Set 9:00 PM, 50 minutes.” Ticketmaster event (completed): 350 GA released, 45 available → 305 sold, cap 400, price $20. The board in onstage_0814.jpg ($25, sold out) matches neither, so the image isn't from Sunny's show. (A Ticketmaster order confirmation misprints the weekday as “Tuesday.”)",
+  clears:[],cannot:null,open:[],art:"onstage_0814.jpg · 1080×720 landscape — needs square; board says SOLD OUT/$25 → not our show"},
+
+ {row:"R14",cid:"C06",account:"@fretandfathom",channel:"x",
+  when:"Fri Oct 2, 2026 · re-timed",utc:"was ~Sep 30 in the queue",live:false,
+  call:"AMEND",rule:"P9",
+  copy:"Mixed and mastered in-house by Teodora — 11 songs, cut hot and clean, -9 LUFS where it counts.",
+  correction:"Ade has done his P7 check, so it's no longer waiting on him — but a sign-off means the figure was <em>checked</em>, not that it was right, and −9 isn't what shipped. Two fixes: the number — the delivered masters are <b>−14 LUFS integrated</b> (−11 for the sync stem), not −9 — and the credit — mastering was <b>Ade</b>, not Teodora (Teodora mixed), so “mixed … by Teodora” is right but the master needs Ade's name. “11 songs” matches the delivered record. (The card, loudness_card.png, wasn't in the pack, so its shape can't be checked — X needs wide, P10.)",
+  evidence:"Ade's sign-off clears the P7 check (per Wendell's read); it doesn't make −9 correct. What shipped: #masters — all 11 delivered at −14 LUFS integrated, true peak under −1 dBTP (−11 for the sync stem). Credit: #masters shows Ade mastered; Teodora mixed. loudness_card.png not supplied.",
+  clears:[],cannot:null,open:[],art:"loudness_card.png — not supplied (shape can't be checked)"},
+
+ {row:"R15",cid:"C05",account:"@fretandfathom",channel:"instagram",
+  when:"Parked until the quarterly",utc:"no date — waiting on a clean test-pressing reference",live:false,
+  call:"HOLD",rule:"P8",
+  copy:"Vinyl preorders open Friday. 180g, one LP, $32. Test pressings are in and they sound enormous.",
+  correction:"Don't announce the preorder — the hold is right. P8 needs a clean test-pressing reference in hand before any preorder, and we have none on file for this LP; no test-pressing record even names this record. I <b>won't</b> pin a fault to it: the one thread noting a tick never says which title it's about, and we've had other records pressed (e.g. the Hollow Season repress), so I've dropped that claim. Don't state “test pressings are in and they sound enormous” as fact either. The card IMG_2291.jpg is fine on content — the prices (LP $32 / TEE $28 / SIGNED LP $45) are allowed — but it's <b>1080×720 (landscape)</b> and Instagram needs square (P10).",
+  evidence:"Rule P8 — no preorder until a clean reference is in hand. #masters holds “the preorder announcement until we have a clean ref in hand,” but names no title; the Hollow Season repress is a separate, named thread. IMG_2291.jpg = 1080×720 landscape.",
+  clears:["A clean test-pressing reference in hand"],cannot:null,open:[],art:"IMG_2291.jpg · 1080×720 landscape — needs square (prices OK)"},
+
+ {row:"R16",cid:"C03",account:"@fretandfathom",channel:"instagram",
+  when:"Oct 7, 2026 · 10:00 AM CDT",utc:"2026-10-07T15:00Z",live:false,
+  call:"KILL",rule:"P5",
+  copy:"Can't say much yet but Harbor Lights is about to turn up in a spot you'll definitely see. 30 seconds of it anyway.",
+  correction:"Can't go out. This teases a placement before any licence exists — all we have is an inbound sync request, no countersigned agreement, which P5 forbids. Separately, “Harbor Lights” isn't a track on Sunny's record and our records don't say which release it belongs to. Hold anything about it until a licence is signed.",
+  evidence:"#releases — “Sync request came in through the site … Harbor Lights for a 30 second spot.” No Harbor Lights licence in email; not on the delivered tracklist.",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R17",cid:"C07",account:"@fretandfathom",channel:"tiktok",
+  when:"Sep 12, 2026 · 11:20 AM CDT · SENT",utc:"per live queue screenshot",live:true,
+  call:"KILL",rule:"P4",
+  copy:"Ten spots on the list for the next label night — we'll pick from the comments Friday.",
+  correction:"Already live — take it down. It publicly solicits guest-list places, which P4 rules out on a label account. No wording fix; it shouldn't be reposted.",
+  evidence:"Post copy — public offer of guest-list spots on a label account. Live queue screenshot: marked SENT, Sat 12 Sep.",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R18",cid:"C08",account:"@fretandfathom",channel:"instagram",
+  when:"Fri Oct 9, 2026 · re-timed",utc:"was Oct 1 — a session day",live:false,
+  call:"AMEND",rule:"P9",
+  copy:"Every record that leaves this building goes through the Otari. Sunny's album was mixed to half-inch tape in Room A.",
+  correction:"The attached photo proves the copy wrong: bench_notes_0815.jpg is the Otari on the bench tagged <b>“DO NOT USE — NOT IN SERVICE.”</b> The record wasn't mixed to tape — it was mixed in the box and delivered as <b>24-bit/48k WAV files</b> (11 mixes, −14 LUFS). Drop “every record goes through the Otari” and “half-inch tape.” The photo is also <b>810×1080 (portrait)</b>; Instagram needs square (P10).",
+  evidence:"Teodora → Ade, “mixes for master” (16 Jul): “All 11 mixes … 24-bit 48k.” Sent email to Athan: “restoring an Otari MX-5050 BII.” bench_notes_0815.jpg = the Otari, tagged NOT IN SERVICE.",
+  clears:[],cannot:null,
+  open:["Which version fires: C08 had three saved drafts. This one (R18, saved 12 Sep) is the latest save, so it's what the scheduler sends — even though it's labelled revision 1, after a revision-2 save on 8 Sep. I went by the newest timestamp."],
+  art:"bench_notes_0815.jpg · 810×1080 portrait — needs square; tagged “NOT IN SERVICE”"},
+
+ {row:"R19",cid:"C10",account:"@fretandfathom",channel:"tiktok",
+  when:"Oct 14, 2026 · 10:00 AM CDT",utc:"2026-10-14T15:00Z",live:false,
+  call:"KILL",rule:"P5",
+  copy:"Riverwide's got a second one lined up. Different show, bigger slot. Watch this space.",
+  correction:"Can't go out. It teases a second Riverwide placement, but only one Riverwide use is cleared (the single episode with Lodestar). No agreement on file for any “second one”/“bigger slot,” so P5 keeps it off public until one is signed.",
+  evidence:"Email — one countersigned Riverwide licence only (Dev/Lodestar, one episode). No record of a second placement or show.",
+  clears:[],cannot:null,open:[],art:null},
+
+ {row:"R20",cid:"C12",account:"@fretandfathom",channel:"tiktok",
+  when:"Oct 2, 2026 · 9:15 PM CDT",utc:"2026-10-03T02:15Z",live:false,
+  call:"KILL",rule:"P1",
+  copy:"Room A, 620 Main Street, East Nashville. Nine years of records made in here.",
+  correction:"This is the room post from the export — unchanged. Judge its halves separately. The <b>words are clean</b>: the room, the address and how long we've been here are all ours to say (P2), and “nine years” checks out. The <b>picture is what stops it</b> — the attached file (room_a_wall.jpg) isn't a wall, it's a screenshot of an earnings statement showing a <b>$214.86 payout</b>, a money figure P1 keeps off public channels. Looks like the wrong file got attached; put an actual Room A wall shot on it — <b>tall, for TikTok</b> — and the words are good to go. (As supplied the image is 1080×810 landscape, also the wrong shape for TikTok, P10.)",
+  evidence:"Rule P1 (payouts). room_a_wall.jpg = a DistroKid-style earnings statement, period total $214.86, matching the 29 Jul DistroKid payment on the books. “Nine years” confirmed: Teodora → Corinne Vasquez (15 Apr): “nine years in the building.” Artwork 1080×810 (landscape); TikTok needs tall.",
+  clears:[],cannot:null,open:[],art:"room_a_wall.jpg · 1080×810 landscape — TikTok needs tall; and it's actually an earnings statement ($214.86, P1)"},
+
+ {row:"NEW",cid:"not in export",account:"@fretandfathom",channel:"instagram",
+  when:"Sep 30, 2026 · 10:00 AM · live queue only",utc:"new post — written after the export",live:false,
+  call:"KILL",rule:"P2",
+  copy:"Nine years renting this room and we are finally talking to the landlord about buying the place. 620 Main, we are coming for you.",
+  correction:"A separate post Marisol wrote — it's in her live queue but not in the export, so it's judged on its own, not as an edit of the room post. <b>Words:</b> can't go out. “Renting this room” and “talking to the landlord about buying the place” disclose our position on the building — rent, and talk of buying it — which P2 keeps private (only the address, the rooms and how long we've been there are ours to say). The buying/renting angle is the whole post, so there's no tidy of it. <b>Picture:</b> none supplied with this one — if Marisol attaches art it still needs a shape check (Instagram → square, P10), but the words stop it regardless.",
+  evidence:"Rule P2 (our position on the building — rent, buying or selling — isn't ours to say). Appears in the live queue screenshot (Instagram, Wed 30 Sep, “edited 2 min ago”) with no matching row in the export; the room post (C12) is still in the queue as written, so these are two posts, not one.",
+  clears:[],cannot:null,open:[],art:"no picture supplied with this post — if one is added, Instagram needs square (P10)"},
+
+ {row:"R21",cid:"C15",account:"@fretandfathom",channel:"tiktok",
+  when:"Thu Sep 24, 2026 · re-timed",utc:"was Sep 21 in the queue",live:false,
+  call:"PUBLISH",rule:"clean",
+  copy:"We're at the AES Nashville chapter meeting most months — third Tuesday at Belmont, doors 6:30.",
+  correction:"Cleared. Every detail matches our calendar.",
+  evidence:"Studio calendar — “AES Nashville chapter meeting … Third Tuesday chapter meeting at Belmont University. Doors 6:30, program at 7.”",
+  clears:[],cannot:null,open:[],art:null}
+];
+
+const CALL_LABEL={PUBLISH:"Publish",AMEND:"Amend",HOLD:"Hold",KILL:"Kill"};
+const CALL_ORDER=["KILL","HOLD","AMEND","PUBLISH"];
+const CALL_CLS={KILL:"kill",HOLD:"hold",AMEND:"amend",PUBLISH:"publish"};
+const CALL_DOT={KILL:"dot-kill",HOLD:"dot-hold",AMEND:"dot-amend",PUBLISH:"dot-publish"};
+const CALL_BADGE={KILL:"b-kill",HOLD:"b-hold",AMEND:"b-amend",PUBLISH:"b-publish"};
+const CHAN_LABEL={instagram:"Instagram (square)",x:"X (wide)",tiktok:"TikTok (tall)"};
+const state={call:new Set(),channel:new Set(),clears:new Set()};
+
+function clearsOf(p){return p.clears;}
+function passes(p,exceptFacet){
+  if(exceptFacet!=="call" && state.call.size && !state.call.has(p.call)) return false;
+  if(exceptFacet!=="channel" && state.channel.size && !state.channel.has(p.channel)) return false;
+  if(exceptFacet!=="clears" && state.clears.size){ if(!clearsOf(p).some(x=>state.clears.has(x))) return false; }
+  return true;
+}
+function visible(){return POSTS.filter(p=>passes(p,null));}
+
+function renderTakedown(){
+  const td=POSTS.filter(p=>p.live && p.call==="KILL");
+  if(!td.length){document.getElementById("takedown").innerHTML="";return;}
+  let html=`<div class="takedown"><h2>⚠ Already live — take these down tonight (${td.length})</h2>`
+    +`<p class="lead">These are the only posts that are both out in public and a KILL. Everything else that's flagged is still in the queue.</p>`;
+  td.forEach(p=>{
+    html+=`<div class="tditem"><b>${p.cid} · ${p.rule}</b> &nbsp;<span style="color:#6b6459">${CHAN_LABEL[p.channel]} · ${p.when}</span>`
+      +`<br><span class="cp">“${p.copy}”</span></div>`;
+  });
+  html+=`</div>`;
+  document.getElementById("takedown").innerHTML=html;
+}
+
+function renderSummary(){
+  const vis=visible();
+  const counts={}; CALL_ORDER.forEach(c=>counts[c]=0);
+  let live=0;
+  vis.forEach(p=>{counts[p.call]++; if(p.live)live++;});
+  let html=`<div class="stat total"><div class="n">${vis.length}</div><div class="l">Would go out</div><div class="live">${live} already live</div></div>`;
+  CALL_ORDER.forEach(c=>{ html+=`<div class="stat ${CALL_CLS[c]}"><div class="n">${counts[c]}</div><div class="l">${CALL_LABEL[c]}</div></div>`; });
+  document.getElementById("summary").innerHTML=html;
+}
+
+function chip(facet,val,label,dotClass){
+  const pool=POSTS.filter(p=>passes(p,facet));
+  let n = facet==="clears" ? pool.filter(p=>clearsOf(p).includes(val)).length : pool.filter(p=>p[facet]===val).length;
+  const on=state[facet].has(val);
+  const dis=(n===0 && !on);
+  return `<span class="chip ${dotClass||""} ${on?"on":""} ${dis?"dis":""}" data-facet="${facet}" data-val="${encodeURIComponent(val)}">${label}<span class="c">${n}</span></span>`;
+}
+function renderFilters(){
+  document.getElementById("f-call").innerHTML=CALL_ORDER.map(c=>chip("call",c,CALL_LABEL[c],CALL_DOT[c])).join("");
+  document.getElementById("f-channel").innerHTML=["instagram","x","tiktok"].map(c=>chip("channel",c,CHAN_LABEL[c],"")).join("");
+  document.getElementById("f-clears").innerHTML=[...new Set(POSTS.flatMap(clearsOf))].map(c=>chip("clears",c,c,"")).join("");
+}
+
+function card(p){
+  let tags=`<span class="tag">${CHAN_LABEL[p.channel]}</span><span class="tag">${p.account}</span>`;
+  tags+= p.live?`<span class="tag live">LIVE — already posted</span>`:`<span class="tag">scheduled</span>`;
+  if(p.art) tags+=`<span class="tag art">${p.art}</span>`;
+  let clearsHtml = p.clears.length
+    ? `<div class="sec"><div class="h">Clears it before it goes</div><div class="clears">`+p.clears.map(c=>`<span class="who">${c}</span>`).join("")+`</div></div>` : "";
+  const cannotHtml = p.cannot?`<div class="warn"><b>Cannot post that day.</b> ${p.cannot}</div>`:"";
+  let openHtml = p.open.length ? `<div class="oq"><div class="h">Note</div>`+p.open.map(o=>`<p style="margin:0">${o}</p>`).join("")+`</div>` : "";
+  return `<div class="card ${CALL_CLS[p.call]}">
+    <div class="chead">
+      <div class="meta"><b>${p.cid}</b> &middot; ${p.row}<br>${p.when}<br><span style="opacity:.7">${p.utc}</span></div>
+      <div style="text-align:right">
+        <div class="badge ${CALL_BADGE[p.call]}">${CALL_LABEL[p.call].toUpperCase()}</div>
+        <div style="margin-top:6px"><span class="rule">${p.rule==="clean"?"clean":p.rule}</span></div>
+      </div>
+    </div>
+    <div class="tags">${tags}</div>
+    <div class="copy">${p.copy}</div>
+    <div class="sec"><div class="h">The correction</div><p>${p.correction}</p></div>
+    ${clearsHtml}${cannotHtml}${openHtml}
+    <div class="sec"><div class="h">Where the evidence is</div><p style="color:#4b463d">${p.evidence}</p></div>
+  </div>`;
+}
+function renderGrid(){
+  const vis=visible().slice().sort((a,b)=>CALL_ORDER.indexOf(a.call)-CALL_ORDER.indexOf(b.call) || a.row.localeCompare(b.row));
+  document.getElementById("grid").innerHTML = vis.length? vis.map(card).join("") : `<div class="none">No posts match this filter.</div>`;
+}
+function renderAll(){renderTakedown();renderSummary();renderFilters();renderGrid();}
+
+document.getElementById("filters").addEventListener("click",e=>{
+  const chip=e.target.closest(".chip");
+  if(!chip||chip.classList.contains("dis"))return;
+  const f=chip.dataset.facet, v=decodeURIComponent(chip.dataset.val);
+  state[f].has(v)?state[f].delete(v):state[f].add(v);
+  renderAll();
+});
+document.getElementById("clearAll").addEventListener("click",()=>{state.call.clear();state.channel.clear();state.clears.clear();renderAll();});
+renderAll();
+</script>
+<script>
+/* Added by the Common Errors viewer. Not part of the task: it marks the passage the example points at. */
+(function () {
+  var T = ["16 label posts", "That's why the count is 15, not 17."];
+  var SKIP = {SCRIPT: 1, STYLE: 1, TEMPLATE: 1, NOSCRIPT: 1, MARK: 1};
+  var all = [], at = 0, found = 0;
+  function textTarget(t) {
+    var exact = t.charAt(0) === "=", s = exact ? t.slice(1) : t, hits = [];
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.parentNode && SKIP[n.parentNode.nodeName] ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (node) {
+      var i = exact ? (node.data.trim() === s ? node.data.indexOf(s) : -1) : node.data.indexOf(s);
+      if (i < 0) return;
+      var r = document.createRange();
+      r.setStart(node, i); r.setEnd(node, i + s.length);
+      var m = document.createElement("mark");
+      m.style.cssText = "background:#ffe066;color:#111;outline:1.5px solid #ff4d63;border-radius:2px;padding:0 1px";
+      r.surroundContents(m);
+      hits.push(m);
+    });
+    return hits;
+  }
+  /* Scroll only this page, never the viewer around it: scrollIntoView would
+     move the dialog too and push the file name and the note out of sight. */
+  function reveal(el) {
+    var p = el.parentElement;
+    while (p && p !== document.body && p !== document.documentElement) {
+      var cs = getComputedStyle(p);
+      if (/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight > p.clientHeight) {
+        p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - p.clientHeight / 3;
+      }
+      p = p.parentElement;
+    }
+    window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - window.innerHeight / 3);
+  }
+  function post() {
+    try {
+      parent.postMessage({ceEvidence: document.title || "page", found: found, of: T.length,
+                          marks: all.length, at: at}, "*");
+    } catch (e) {}
+  }
+  /* The passage on show gets a heavier ring, so stepping is visible on a busy page. */
+  function go(i) {
+    if (!all.length) { post(); return; }
+    at = ((i % all.length) + all.length) % all.length;
+    all.forEach(function (el, k) {
+      el.style.boxShadow = k === at ? "0 0 0 3px #ff4d63, 0 0 0 8px rgba(255,77,99,.35)" : "";
+    });
+    reveal(all[at]);
+    post();
+  }
+  function mark() {
+    T.forEach(function (t) {
+      var hits = [];
+      if (t.indexOf("css:") === 0) {
+        hits = Array.prototype.slice.call(document.querySelectorAll(t.slice(4)));
+        hits.forEach(function (el) { el.style.outline = "4px solid #ff4d63"; el.style.outlineOffset = "4px"; });
+      } else {
+        hits = textTarget(t);
+      }
+      if (hits.length) found++;
+      all = all.concat(hits);
+    });
+    all.sort(function (a, b) { return a.compareDocumentPosition(b) & 4 ? -1 : 1; });
+    go(0);
+  }
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (d && typeof d.ceStep === "number" && e.source === parent) go(d.ceStep === 0 ? at : at + d.ceStep);
+  });
+  window.addEventListener("load", function () { setTimeout(mark, 300); });
+})();
+</script></body>
+</html>

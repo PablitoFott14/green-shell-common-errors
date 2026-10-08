@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dailies — Year in Review 2026 · The Richmond Beacon</title>
+<style>
+  :root{
+    --ink:#1c1a17; --muted:#6b6459; --line:#e0d9cd; --paper:#f7f4ef;
+    --teal:#0d5c63; --teal-soft:#e6efef; --amber:#9a6a00; --amber-soft:#f6ecd6;
+    --green:#2f6b34; --green-soft:#e4efe1; --card:#fffdf9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:980px;margin:0 auto;padding:40px 22px 80px;}
+  header.mast{border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:6px;}
+  .kicker{text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--teal);font-weight:700;}
+  h1{font-size:30px;margin:6px 0 4px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:15px;}
+  .lede{margin:22px 0 8px;font-size:16px;color:#3a352e;}
+  .lede code{background:#efe9dd;padding:1px 5px;border-radius:4px;font-size:13px;}
+
+  h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
+     margin:38px 0 14px;border-bottom:1px solid var(--line);padding-bottom:6px;}
+
+  /* stat cards */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:8px 0 4px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 15px;}
+  .card .n{font-size:34px;font-weight:800;line-height:1;letter-spacing:-.01em;}
+  .card .lab{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:4px;}
+  .card ul{list-style:none;margin:11px 0 0;padding:0;border-top:1px dashed var(--line);padding-top:9px;}
+  .card li{margin:0 0 5px;font-size:12.5px;}
+  .card li:last-child{margin-bottom:0;}
+  a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(13,92,99,.28);}
+  a:hover{border-bottom-color:var(--teal);}
+  .none{color:var(--muted);font-size:12.5px;font-style:italic;border-top:1px dashed var(--line);padding-top:9px;margin-top:11px;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  @media(max-width:640px){.split{grid-template-columns:1fr 1fr}}
+
+  /* daily entries */
+  .daily{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:0;margin:0 0 20px;overflow:hidden;}
+  .daily .top{display:flex;gap:18px;padding:18px 20px 6px;flex-wrap:wrap;}
+  .thumb{flex:0 0 220px;max-width:220px;border:1px solid var(--line);border-radius:8px;
+    background:#fff;overflow:hidden;}
+  .thumb img{display:block;width:100%;height:auto;}
+  .thumb .cap{font-size:11px;color:var(--muted);text-align:center;padding:5px 6px;border-top:1px solid var(--line);}
+  .meta{flex:1 1 320px;min-width:260px;}
+  .mstamp{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);font-weight:700;}
+  .daily h3{margin:3px 0 2px;font-size:21px;}
+  .fname{font-size:12.5px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .about{margin:10px 0 4px;font-size:14.5px;color:#39342d;}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 2px;}
+  .tag{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:#fbf8f2;}
+  .tag b{font-weight:700;}
+  .pill{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+    padding:3px 10px;border-radius:999px;}
+  .pill.read{background:var(--amber-soft);color:var(--amber);border:1px solid #e6cf9a;}
+  .pill.conf{background:var(--green-soft);color:var(--green);border:1px solid #b9d3b3;}
+  .pill.corr-no{background:#eee;color:#666;border:1px solid #ddd;}
+  .pill.corr-yes{background:#f6dede;color:#a12a2a;border:1px solid #e2b4b4;}
+  .pill.stale{background:#efe7d6;color:#8a6d1f;border:1px solid #ddcba0;}
+  .evidence{border-top:1px solid var(--line);background:#fbf9f4;padding:12px 20px;font-size:13px;color:#4a453d;}
+  .evidence b{color:var(--ink);}
+  .evidence .q{color:var(--teal);font-style:italic;}
+
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:12.5px;color:var(--muted);}
+  .legend{font-size:12.5px;color:var(--muted);margin:6px 0 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kicker">The Richmond Beacon · City / Data Desk</div>
+    <h1>Dailies — Year in Review, 2026</h1>
+    <div class="sub">What ran, what it was about, the chart types we reached for, correction status, and read / confirmed sign-off.</div>
+  </header>
+
+  <p class="lede">
+    Built straight from the exports in the drop — not from memory. A daily counts if it is an export whose
+    filename starts with a month stamp (<code>2026-02_</code>, <code>2026-03_</code>, …); the file in the drop is
+    the live specimen. Chart type and subject are read off each opened graphic (title, axes, layout). Corrections are
+    attached to the piece they belong to. Every count below clicks through to the file(s) behind it.
+  </p>
+  <p class="lede" style="margin-top:14px;">
+    <b>How status is decided — the same test on all three.</b> <b>Read</b> = I opened the file and read its
+    title/axes/layout. <b>Confirmed</b> = that opened file <em>matches a same-piece sign-off</em> — someone clearing
+    <em>that</em> same export for the story — with nothing later flagging the folder copy stale or the counts old.
+    Who clears it doesn't matter; clearing that export does. A “got it” on a different piece doesn't count. I looked
+    for a same-piece sign-off across every channel (#graphics, #citydesk, #data-team and the DMs), not just the
+    export thread. Where Slack and a file disagreed, the file won.
+  </p>
+
+  <!-- ===================== COUNTS ===================== -->
+  <h2>The dailies index — counts (click any number through to its files)</h2>
+  <p class="legend" style="margin:-6px 0 14px;">Dailies only. The two city building-inspection map exports in the
+  drop are project work, not dailies — they're separated out and tallied under
+  <a href="#inspection-project">The inspection project</a> below.</p>
+
+  <div class="stats">
+    <div class="card">
+      <div class="n"><a href="#dailies">4</a></div>
+      <div class="lab">Dailies that ran</div>
+      <ul>
+        <li><a href="files/2026-02_export_0224.svg">2026-02_export_0224.svg</a></li>
+        <li><a href="files/2026-03_frame_0305.svg">2026-03_frame_0305.svg</a></li>
+        <li><a href="files/2026-04_frame_0416.png">2026-04_frame_0416.png</a></li>
+        <li><a href="files/2026-06_export_0611.svg">2026-06_export_0611.svg</a></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="n">3</div>
+      <div class="lab">Confirmed</div>
+      <ul>
+        <li><a href="files/2026-03_frame_0305.svg">2026-03_frame_0305.svg</a> — eviction filings</li>
+        <li><a href="files/2026-04_frame_0416.png">2026-04_frame_0416.png</a> — Henrico budget map</li>
+        <li><a href="files/2026-06_export_0611.svg">2026-06_export_0611.svg</a> — RPS enrollment</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="n">1</div>
+      <div class="lab">Read (not confirmed)</div>
+      <ul>
+        <li><a href="files/2026-02_export_0224.svg">2026-02_export_0224.svg</a> — city budget</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Chart types we reached for (dailies)</h2>
+  <div class="stats split">
+    <div class="card">
+      <div class="n">1</div>
+      <div class="lab">Horizontal bar</div>
+      <ul><li><a href="files/2026-02_export_0224.svg">2026-02 · city budget by agency</a></li></ul>
+    </div>
+    <div class="card">
+      <div class="n">1</div>
+      <div class="lab">Small multiples</div>
+      <ul><li><a href="files/2026-03_frame_0305.svg">2026-03 · eviction filings by district</a></li></ul>
+    </div>
+    <div class="card">
+      <div class="n">1</div>
+      <div class="lab">Line</div>
+      <ul><li><a href="files/2026-06_export_0611.svg">2026-06 · RPS enrollment</a></li></ul>
+    </div>
+    <div class="card">
+      <div class="n">1</div>
+      <div class="lab">Choropleth map</div>
+      <ul><li><a href="files/2026-04_frame_0416.png">2026-04 · Henrico budget by district</a></li></ul>
+    </div>
+  </div>
+
+  <!-- ===================== THE DAILIES ===================== -->
+  <h2 id="dailies">The dailies</h2>
+
+  <!-- Feb -->
+  <article class="daily" id="d-2026-02">
+    <div class="top">
+      <a class="thumb" href="files/2026-02_export_0224.svg">
+        <img src="files/2026-02_export_0224.svg" alt="Horizontal bar chart: Richmond city general-fund budget by agency, FY22, in millions">
+        <div class="cap">Open 2026-02_export_0224.svg ↗</div>
+      </a>
+      <div class="meta">
+        <div class="mstamp">February 2026</div>
+        <h3>City general-fund budget, by agency</h3>
+        <div class="fname"><a href="files/2026-02_export_0224.svg">2026-02_export_0224.svg</a></div>
+        <p class="about"><b>What it was about:</b> Richmond's adopted general-fund budget (FY22, $ millions)
+        broken out by agency — Richmond Public Schools far in front, then Police, Fire &amp; Emergency Services,
+        Social Services, Public Works, City Sheriff, Parks &amp; Recreation and the Judiciary. Source: City of
+        Richmond Open Data, General Fund adopted (FY22); debt and non-departmental omitted.</p>
+        <div class="tags">
+          <span class="tag">Chart: <b>Horizontal bar chart</b></span>
+          <span class="pill corr-no">No correction</span>
+          <span class="pill read">Read</span>
+        </div>
+      </div>
+    </div>
+    <div class="evidence">
+      <b>Opened → Read.</b> I opened and read the file (horizontal bars, FY22, by agency).
+      <b>Same-piece match:</b> Anselm's export — <span class="q">“final SVG for the city-budget breakdown is up in
+      /projects/dailies/2026-02 … labels and source note baked in … ping me if the desk wants the FY numbers
+      refreshed”</span> (Feb 24) — lines up with the drop file on subject, month-folder and date (0224).
+      <b>Same-piece sign-off:</b> none. That export drew no reply and no ✅, and nobody clears it for the story in any
+      channel. Same test as the others, no sign-off → <b>Read</b>.
+    </div>
+  </article>
+
+  <!-- Mar -->
+  <article class="daily" id="d-2026-03">
+    <div class="top">
+      <a class="thumb" href="files/2026-03_frame_0305.svg">
+        <img src="files/2026-03_frame_0305.svg" alt="Small multiples: 2025 eviction filings across nine council districts, shared axis">
+        <div class="cap">Open 2026-03_frame_0305.svg ↗</div>
+      </a>
+      <div class="meta">
+        <div class="mstamp">March 2026</div>
+        <h3>Eviction filings by council district, 2025</h3>
+        <div class="fname"><a href="files/2026-03_frame_0305.svg">2026-03_frame_0305.svg</a></div>
+        <p class="about"><b>What it was about:</b> 2025 eviction filings across the nine city council districts
+        (D1–D9), each a monthly Jan–Dec series on a shared 0–80 axis so the seasonal spikes read district to
+        district. Desk series built after Cyrus's handoff of <code>eviction_filings_2025_source</code>; the
+        underlying counts were never posted to Slack.</p>
+        <div class="tags">
+          <span class="tag">Chart: <b>Small multiples</b> (9 panels, shared axis)</span>
+          <span class="pill corr-no">No correction</span>
+          <span class="pill conf">Confirmed</span>
+        </div>
+      </div>
+    </div>
+    <div class="evidence">
+      <b>Opened → Read.</b> I opened the file (small multiples, nine district panels D1–D9, shared 0–80 axis, 2025).
+      <b>Same-piece match:</b> Anselm's export —
+      <code>/projects/dailies/2026-03/eviction_filings_by_district_2025.svg</code>,
+      <span class="q">“Small multiples, nine districts, shared axis”</span> — matches the drop file on subject, chart
+      type and month-folder (same day, Mar 5). <b>Same-piece sign-off:</b> Nadine cleared that same export for the
+      story in-thread — <span class="q">“Got it — reads great. Dropping it in the story now.”</span> — and marked it
+      ✅; she had also set this exact shape in #citydesk (<span class="q">“Small multiples, that's the story.”</span>).
+      Nothing later flags the folder copy stale or the counts old → <b>Confirmed</b>.
+      <br><b>Caveat, shown in the open:</b> the specimen's baked-in note says its counts were never posted to Slack,
+      so this sign-off is on the piece's subject and shape, not a number-by-number check. That is not a
+      “stale / old counts” flag under the rule, so the call holds — but this Confirmed rests on a visual, not
+      numeric, match.
+    </div>
+  </article>
+
+  <!-- Apr -->
+  <article class="daily" id="d-2026-04">
+    <div class="top">
+      <a class="thumb" href="files/2026-04_frame_0416.png">
+        <img src="files/2026-04_frame_0416.png" alt="Choropleth map: Henrico FY2026 budget change by magisterial district — Varina biggest cut, Fairfield biggest bump">
+        <div class="cap">Open 2026-04_frame_0416.png ↗</div>
+      </a>
+      <div class="meta">
+        <div class="mstamp">April 2026</div>
+        <h3>Henrico budget change by magisterial district, FY2026</h3>
+        <div class="fname"><a href="files/2026-04_frame_0416.png">2026-04_frame_0416.png</a></div>
+        <p class="about"><b>What it was about:</b> percent change in Henrico's adopted magisterial-district budgets,
+        FY2025 → FY2026 — Varina the biggest cut (−8.4%), Fairfield the biggest bump (+6.2%), with Three Chopt,
+        Tuckahoe and Brookland moving less. Orange = cut, green = increase, gray-blue = smaller move. Boundaries:
+        Henrico County GIS, Magisterial Districts 2021; deltas desk-constructed.</p>
+        <div class="tags">
+          <span class="tag">Chart: <b>Choropleth map</b> (annotated)</span>
+          <span class="pill corr-no">No correction</span>
+          <span class="pill conf">Confirmed</span>
+        </div>
+      </div>
+    </div>
+    <div class="evidence">
+      <b>Opened → Read.</b> I opened the file (choropleth of the five magisterial districts, FY2026 change vs last
+      year, Varina and Fairfield called out). <b>Same-piece match:</b> Anselm's export —
+      <code>/projects/dailies/2026-04/henrico_budget_changes_by_district_2026.png</code>,
+      <span class="q">“annotated the varina and fairfield swings like we said”</span> — matches the drop file on
+      subject, chart type and month-folder (Apr 16). <b>Same-piece sign-off:</b> Cyrus cleared that same export for
+      the story in-thread — <span class="q">“nice, the callouts make it land right away. dropping it into the story
+      now.”</span> Nothing later flags it stale or the counts old → <b>Confirmed</b>.
+    </div>
+  </article>
+
+  <!-- Jun -->
+  <article class="daily" id="d-2026-06">
+    <div class="top">
+      <a class="thumb" href="files/2026-06_export_0611.svg">
+        <img src="files/2026-06_export_0611.svg" alt="Line chart: RPS enrollment by school year, 2021 to 2026, pandemic dip annotated">
+        <div class="cap">Open 2026-06_export_0611.svg ↗</div>
+      </a>
+      <div class="meta">
+        <div class="mstamp">June 2026</div>
+        <h3>RPS enrollment by school year</h3>
+        <div class="fname"><a href="files/2026-06_export_0611.svg">2026-06_export_0611.svg</a></div>
+        <p class="about"><b>What it was about:</b> Richmond Public Schools fall membership by school year, 2021
+        through 2026, with the pandemic dip annotated. 2021–23 from RPS ACFR / VDOE fall membership; 2024 = 21,427
+        (Richmonder / RPS, Sept 30); 2025 a desk hold; 2026 = 21,785, the RPS budget projection.</p>
+        <div class="tags">
+          <span class="tag">Chart: <b>Line chart</b> (single series)</span>
+          <span class="pill corr-no">No correction</span>
+          <span class="pill conf">Confirmed</span>
+        </div>
+      </div>
+    </div>
+    <div class="evidence">
+      <b>Opened → Read.</b> I opened the file (single line, fall enrollment by school year 2021–2026, pandemic dip
+      annotated). <b>Same-piece match:</b> Anselm's export —
+      <code>/projects/dailies/2026-06/rps_enrollment_by_year.svg</code>,
+      <span class="q">“single line, enrollment by school year 2021 through 2026, pandemic dip annotated … for
+      tonight's schools piece”</span> — matches the drop file on subject, chart type and month-folder.
+      <b>Same-piece sign-off:</b> Cyrus cleared that same export for the story in-thread —
+      <span class="q">“that dip annotation is the whole story. dropping it into the piece now.”</span> That clears
+      <em>this</em> exact export, not a “got it” on a different piece, and nothing later flags it stale or the counts
+      old → <b>Confirmed</b>.
+    </div>
+  </article>
+
+  <h2 id="inspection-project">The inspection project — separate from the dailies index</h2>
+  <p class="legend">These two map exports are outputs of the long-running city building-inspection project
+  (<code>/projects/city-inspections</code>), not same-day dailies — their filenames carry no month stamp and each
+  says so on its own face. They belong with the project, so they're kept off the dailies index and tallied on their
+  own here. Logged in full, under the same entry scheme, with status and any correction.</p>
+
+  <div class="stats split">
+    <div class="card">
+      <div class="n">2</div>
+      <div class="lab">Inspection-project maps</div>
+      <ul>
+        <li><a href="files/inspections_church_hill.png">inspections_church_hill.png</a></li>
+        <li><a href="files/inspections_map_q3.png">inspections_map_q3.png</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="n">2</div>
+      <div class="lab">Read (none confirmed)</div>
+      <ul>
+        <li><a href="files/inspections_church_hill.png">inspections_church_hill.png</a> — Church Hill (do-not-pull copy)</li>
+        <li><a href="files/inspections_map_q3.png">inspections_map_q3.png</a> — Q3 violations by ZIP</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="n">1</div>
+      <div class="lab">Carries a correction</div>
+      <ul>
+        <li><a href="files/inspections_map_q3.png">inspections_map_q3.png</a> — lede 312 → 309</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Church Hill map -->
+  <article class="daily" id="m-church-hill">
+    <div class="top">
+      <a class="thumb" href="files/inspections_church_hill.png">
+        <img src="files/inspections_church_hill.png" alt="Choropleth by ZIP: Church Hill building inspections, folder copy flagged do-not-pull">
+        <div class="cap">Open inspections_church_hill.png ↗</div>
+      </a>
+      <div class="meta">
+        <div class="mstamp">Off the index · folder copy</div>
+        <h3>Church Hill inspections (folder copy, ZIP join)</h3>
+        <div class="fname"><a href="files/inspections_church_hill.png">inspections_church_hill.png</a></div>
+        <p class="about"><b>What it was about:</b> building-permit counts joined to ZIP for the Church Hill
+        inspections piece — orange ZIPs are the Church Hill join, gray ZIPs metro context only (no count on this
+        file). Boundaries: Census ZCTA 2010.</p>
+        <div class="tags">
+          <span class="tag">Chart: <b>Choropleth map</b> (by ZIP)</span>
+          <span class="pill corr-no">No correction</span>
+          <span class="pill stale">Superseded · do not pull</span>
+          <span class="pill read">Read</span>
+        </div>
+      </div>
+    </div>
+    <div class="evidence">
+      <b>Opened → Read.</b> I opened the file; its own footer reads <span class="q">“Folder copy. Slack 8 Mar 2026:
+      do not pull.”</span> <b>Same-piece sign-off:</b> none clears this copy. In the Mar 8 #graphics thread Anselm
+      flagged it — <span class="q">“don't pull the one in the folder, the permit counts are stale. i'll have the real
+      export to you before 6”</span> — and re-exported a clean district version off
+      <code>inspections_q2_clean.csv</code>. The desk cleared that re-export, not this stale folder copy, so it stays
+      <b>Read</b>, not Confirmed. No published correction attaches to it — it's a superseded draft. Not month-stamped
+      and explicitly do-not-pull → off the dailies index.
+    </div>
+  </article>
+
+  <!-- Q3 inspections map -->
+  <article class="daily" id="m-q3">
+    <div class="top">
+      <a class="thumb" href="files/inspections_map_q3.png">
+        <img src="files/inspections_map_q3.png" alt="Choropleth by ZIP: open building-code violations, Q3 2024, lede 312 corrected to 309">
+        <div class="cap">Open inspections_map_q3.png ↗</div>
+      </a>
+      <div class="meta">
+        <div class="mstamp">Off the index · project map</div>
+        <h3>Open violations by ZIP, Q3 2024</h3>
+        <div class="fname"><a href="files/inspections_map_q3.png">inspections_map_q3.png</a></div>
+        <p class="about"><b>What it was about:</b> open building-code violations still on the books in Q3 2024,
+        counted by ZIP (darker orange = more open cases), for the city-inspections project. FOIA 2026-0417; project
+        folder <code>/projects/city-inspections</code>.</p>
+        <div class="tags">
+          <span class="tag">Chart: <b>Choropleth map</b> (by ZIP)</span>
+          <span class="pill corr-yes">Carries a correction</span>
+          <span class="pill read">Read</span>
+        </div>
+      </div>
+    </div>
+    <div class="evidence">
+      <b>Correction (belongs to this map):</b> this copy's citywide lede reads <b>312</b>. In the #graphics thread
+      Cyrus caught it — <span class="q">“312 holds after the rerun, but i pulled 3 that were double filed so it's
+      really 309”</span> — and Nadine settled it: <span class="q">“309 it is … ✅.”</span> The lede was corrected
+      312 → 309 (three double-filed cases removed); the drop specimen is the pre-correction 312 copy.
+      <br><b>Opened → Read.</b> I opened the file. <b>Same-piece sign-off:</b> the desk ✅ landed on the corrected
+      <b>309</b> version, so this <b>312</b> file doesn't match the signed-off numbers → <b>Read</b>, not Confirmed.
+      Its own footer says <span class="q">“Not a daily,”</span> and it isn't month-stamped → off the dailies index.
+    </div>
+  </article>
+
+  <footer>
+    <p class="legend"><b>Method &amp; sources:</b> Three exports in the drop, read off the opened graphics; sorting
+    rules from <a href="files/desk_review_notes.md">desk_review_notes.md</a>; sign-off and correction status
+    cross-checked against the desk's Slack (#graphics, #citydesk, #data-team). Where Slack and a file disagreed, the
+    file won. Chart types are only those actually seen in the files — none invented.</p>
+    <p>Generated 2026-09-09 · The Richmond Beacon graphics desk.</p>
+  </footer>
+
+</div>
+</body>
+</html>

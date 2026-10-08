@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!--
+  cardio.html — A&P Module 3: The Cardiac Cycle, two timed panels
+  Single self-contained file. Drop straight into Canvas (paste into an HTML
+  page, or upload and embed). No external assets, no libraries.
+
+  ================= BUILD / QA NOTES (deck vs. demo clip) =================
+  Rebuilt to match the demo clip (2panels_demo.webm): same panels, same quiz
+  options. Where the demo conflicted with the legacy deck AND the teacher's
+  source video (basics.mp4), I went with the deck/source and flagged it:
+
+  1. T WAVE: demo legend/chip said "T wave = atrial repolarization." WRONG.
+     Deck slide 4 + source ECG slide say the T wave = VENTRICULAR
+     repolarization. Corrected on the strip legend and chips.
+  2. ATRIAL REPOLARIZATION (quiz Q2): source ECG slide states "atrial systole
+     extends until the QRS complex, at which point the atria relax" — i.e.
+     atrial repolarization is hidden inside the QRS. Keyed answer = "the QRS
+     complex." (The clip's pick "the P wave" was wrong; P = atrial
+     DEpolarization. The demo's own legend would have implied "T wave," also
+     wrong.)
+  3. PASSIVE FILLING %: demo said "~80%." Deck slide 3 AND narration both say
+     "about 70%." Panels/chips corrected to ~70%. Quiz options are fixed
+     (~30 / ~80 / 100) with no 70; nearest is ~80%, so Q3 is keyed to ~80%
+     (also the clip's correct/green pick) with feedback noting ~70%.
+  4. HEART RATE: page uses 75 bpm (0.80 s cycle) — this MATCHES the source
+     video ("Steps of cardiac cycle for 75 bpm heart rate"). The notes PDF's
+     "70 bpm" is a transcription typo in the derived PDF; 75 is correct.
+  5. TRICUSPID AUSCULTATION: demo chip said "tricuspid heard at 2LICS." WRONG.
+     Deck slide 5: tricuspid = 4th L intercostal space (4LICS); 2LICS is the
+     PULMONARY point. Corrected to 4LICS.
+  6. QUIZ Q1: keyed "the AV valves · S1" per deck (clip picked "aortic · S1",
+     shown red/wrong). CO reserve flavor text left at ~200%; deck slide 8 says
+     "increase by 250%" — minor, left as demo flavor, noted here.
+
+  The <details> "Instructor / QA notes" block at the very bottom repeats these
+  on-page so you can see them before publishing; delete it for students.
+  =========================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cardiac Cycle — two timed panels (A&P Module 3)</title>
+<style>
+  #cc-root{
+    --bg:#0b1220; --panel:#0f1830; --panel2:#111c38; --edge:#1e2b4d;
+    --ink:#e8eefc; --dim:#93a1c4; --faint:#6b789e;
+    --sys:#ff8a5c; --dia:#7fb0ff; --blue:#3f6fd6; --red:#c0453f;
+    --good:#3fbf7f; --bad:#e0645c; --accent:#f6b24a;
+    color:var(--ink); background:var(--bg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; padding:22px; max-width:1180px; margin:0 auto;
+    -webkit-font-smoothing:antialiased;
+  }
+  #cc-root *{box-sizing:border-box;}
+  #cc-root h1{font-size:24px;margin:0 0 4px;font-weight:700;letter-spacing:.2px;}
+  #cc-root .sub{color:var(--dim);font-size:13px;margin:0 0 16px;}
+  #cc-root h2{font-size:16px;margin:26px 0 10px;font-weight:700;}
+  #cc-root h3{font-size:14px;margin:0 0 8px;font-weight:700;}
+
+  /* control bar */
+  #cc-root .bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:10px 12px;}
+  #cc-root button.ctrl{background:#2a58c6;color:#fff;border:none;border-radius:7px;
+    padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;}
+  #cc-root button.ctrl.sec{background:#20305a;color:var(--ink);}
+  #cc-root button.ctrl:hover{filter:brightness(1.12);}
+  #cc-root .t{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:700;font-size:13px;min-width:78px;}
+  #cc-root .barnote{color:var(--faint);font-size:12px;margin-left:auto;}
+
+  /* panels */
+  #cc-root .panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+  #cc-root .panel{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:14px;
+    transition:border-color .2s, box-shadow .2s;}
+  #cc-root .panel.on{box-shadow:0 0 0 1px rgba(246,178,74,.35),0 0 26px rgba(246,178,74,.12);border-color:#3a4f86;}
+  #cc-root .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.6px;
+    padding:3px 9px;border-radius:20px;text-transform:uppercase;}
+  #cc-root .badge.sys{color:var(--sys);background:rgba(255,138,92,.12);border:1px solid rgba(255,138,92,.4);}
+  #cc-root .badge.dia{color:var(--dia);background:rgba(127,176,255,.12);border:1px solid rgba(127,176,255,.4);}
+  #cc-root .phead{font-size:15px;font-weight:700;margin:8px 0 4px;}
+  #cc-root svg.heart{width:100%;height:auto;display:block;}
+
+  /* phase list */
+  #cc-root ul.steps{list-style:none;margin:8px 0 0;padding:0;}
+  #cc-root ul.steps li{display:flex;gap:8px;justify-content:space-between;align-items:flex-start;
+    font-size:12.5px;color:var(--dim);padding:6px 8px;border-radius:7px;border:1px solid transparent;}
+  #cc-root ul.steps li.on{background:var(--panel2);border-color:#39508a;color:var(--ink);}
+  #cc-root ul.steps li .stxt{max-width:88%;}
+  #cc-root ul.steps li .stxt b{color:var(--ink);font-weight:700;}
+  #cc-root ul.steps li.on .stxt b{color:var(--accent);}
+  #cc-root ul.steps li .rng{color:var(--faint);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:11px;}
+
+  /* monitor / ECG */
+  #cc-root .monitor{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:14px;}
+  #cc-root svg.ecg{width:100%;height:auto;display:block;}
+  #cc-root .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;color:var(--dim);margin:8px 2px 12px;}
+  #cc-root .legend b{color:var(--ink);}
+  #cc-root .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  #cc-root .chip{font-size:11px;padding:4px 10px;border-radius:16px;border:1px solid var(--edge);
+    color:var(--dim);background:var(--panel2);transition:.15s;}
+  #cc-root .chip.on{color:#1a1204;background:var(--accent);border-color:var(--accent);font-weight:700;}
+
+  @media(max-width:820px){#cc-root .panels{grid-template-columns:1fr;}}
+
+  /* quiz */
+  #cc-root .quiz{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:14px;}
+  #cc-root .q{margin:0 0 14px;}
+  #cc-root .q:last-child{margin-bottom:0;}
+  #cc-root .q .qt{font-size:13.5px;font-weight:700;margin-bottom:7px;}
+  #cc-root .q .qt .n{color:var(--accent);}
+  #cc-root .opts{display:flex;flex-wrap:wrap;gap:8px;}
+  #cc-root .opt{font-size:12.5px;padding:6px 12px;border-radius:8px;border:1px solid var(--edge);
+    background:var(--panel2);color:var(--dim);cursor:pointer;transition:.12s;}
+  #cc-root .opt:hover{border-color:#4a63a6;color:var(--ink);}
+  #cc-root .opt.correct{background:rgba(63,191,127,.16);border-color:var(--good);color:#c9f7de;font-weight:700;}
+  #cc-root .opt.wrong{background:rgba(224,100,92,.16);border-color:var(--bad);color:#ffd6d2;font-weight:700;}
+  #cc-root .fb{font-size:12px;color:var(--dim);margin-top:7px;display:none;}
+  #cc-root .fb.show{display:block;}
+  #cc-root .fb.ok{color:#a9edc8;} #cc-root .fb.no{color:#f2b9b4;}
+
+  #cc-root .concerns{display:flex;flex-direction:column;gap:10px;}
+  #cc-root .cc{display:flex;gap:12px;background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:12px 14px;}
+  #cc-root .cc .ccn{flex:0 0 28px;height:28px;border-radius:50%;background:#20305a;color:var(--accent);
+    font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  #cc-root .cc .ccq{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+  #cc-root .cc .cca{font-size:12.5px;color:var(--dim);}
+  #cc-root .cc .cca b{color:var(--ink);}
+  #cc-root .foot{color:var(--faint);font-size:11.5px;margin-top:20px;border-top:1px solid var(--edge);padding-top:12px;}
+  #cc-root details.qa{margin-top:14px;font-size:12px;color:var(--dim);background:#160f04;
+    border:1px solid #3a2a0c;border-radius:8px;padding:10px 12px;}
+  #cc-root details.qa summary{cursor:pointer;color:var(--accent);font-weight:700;}
+  #cc-root details.qa li{margin:4px 0;}
+
+  /* arrow animation */
+  @keyframes flowUp{0%{transform:translateY(6px);opacity:.25}50%{opacity:1}100%{transform:translateY(-8px);opacity:.25}}
+  @keyframes flowDn{0%{transform:translateY(-6px);opacity:.25}50%{opacity:1}100%{transform:translateY(8px);opacity:.25}}
+  #cc-root .fUp{animation:flowUp 1.6s ease-in-out infinite;}
+  #cc-root .fDn{animation:flowDn 1.6s ease-in-out infinite;}
+  #cc-root.slow .fUp,#cc-root.slow .fDn{animation-duration:6.4s;}
+  #cc-root.paused .fUp,#cc-root.paused .fDn{animation-play-state:paused;}
+</style>
+</head>
+<body>
+<div id="cc-root" class="">
+  <h1>The Cardiac Cycle, in two timed panels</h1>
+  <p class="sub">A&amp;P Module 3 · one full cycle is 0.8&nbsp;s at 75&nbsp;bpm · systole reads on the left, diastole on the right, so the timing never hides in a loop</p>
+
+  <div class="bar">
+    <button class="ctrl" id="btnPlay">Pause</button>
+    <button class="ctrl sec" id="btnStep">Step phase</button>
+    <button class="ctrl sec" id="btnSpeed">Slow (¼×)</button>
+    <span class="t" id="clock">t = 0.00 s</span>
+    <span class="barnote">75 bpm → each cycle 0.80 s · systole 0.10 + 0.30 s · diastole 0.40 s</span>
+  </div>
+
+  <!-- TWO TIMED PANELS -->
+  <div class="panels">
+    <!-- SYSTOLE -->
+    <div class="panel" id="panelSys">
+      <span class="badge sys">Systole · 0.00 – 0.40 s</span>
+      <div class="phead">Contraction: the heart empties</div>
+      <svg class="heart" viewBox="0 0 300 210" aria-label="Heart during systole: ventricles contract, blood is ejected through the semilunar valves">
+        <!-- chambers -->
+        <ellipse cx="95"  cy="70"  rx="46" ry="42" fill="var(--blue)" opacity=".85"/>
+        <ellipse cx="205" cy="70"  rx="46" ry="42" fill="var(--red)"  opacity=".85"/>
+        <ellipse cx="88"  cy="150" rx="52" ry="52" fill="var(--blue)"/>
+        <ellipse cx="212" cy="150" rx="52" ry="52" fill="var(--red)"/>
+        <text x="95"  y="76"  text-anchor="middle" fill="#fff" font-size="20" font-weight="700">RA</text>
+        <text x="205" y="76"  text-anchor="middle" fill="#fff" font-size="20" font-weight="700">LA</text>
+        <text x="88"  y="158" text-anchor="middle" fill="#fff" font-size="24" font-weight="700">RV</text>
+        <text x="212" y="158" text-anchor="middle" fill="#fff" font-size="24" font-weight="700">LV</text>
+        <!-- outflow (semilunar valves OPEN) big up arrows -->
+        <g class="fUp">
+          <path d="M95 118 L95 40 M95 40 L86 55 M95 40 L104 55" stroke="#cfe0ff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M205 118 L205 40 M205 40 L196 55 M205 40 L214 55" stroke="#ffd7cf" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <!-- AV valves closed (small) -->
+        <path d="M70 110 q18 -12 36 0" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M194 110 q18 -12 36 0" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <text x="60"  y="46" text-anchor="middle" fill="var(--dim)" font-size="11">pulmonary</text>
+        <text x="244" y="46" text-anchor="middle" fill="var(--dim)" font-size="11">aortic</text>
+        <text x="70"  y="128" text-anchor="middle" fill="var(--faint)" font-size="10">tricuspid</text>
+        <text x="212" y="128" text-anchor="middle" fill="var(--faint)" font-size="10">mitral</text>
+      </svg>
+      <ul class="steps" id="stepsSys"></ul>
+    </div>
+
+    <!-- DIASTOLE -->
+    <div class="panel" id="panelDia">
+      <span class="badge dia">Diastole · 0.40 – 0.80 s</span>
+      <div class="phead">Relaxation: the heart refills</div>
+      <svg class="heart" viewBox="0 0 300 210" aria-label="Heart during diastole: ventricles relax and fill through the AV valves">
+        <ellipse cx="95"  cy="70"  rx="46" ry="42" fill="var(--blue)" opacity=".85"/>
+        <ellipse cx="205" cy="70"  rx="46" ry="42" fill="var(--red)"  opacity=".85"/>
+        <ellipse cx="88"  cy="150" rx="52" ry="52" fill="var(--blue)"/>
+        <ellipse cx="212" cy="150" rx="52" ry="52" fill="var(--red)"/>
+        <text x="95"  y="76"  text-anchor="middle" fill="#fff" font-size="20" font-weight="700">RA</text>
+        <text x="205" y="76"  text-anchor="middle" fill="#fff" font-size="20" font-weight="700">LA</text>
+        <text x="88"  y="158" text-anchor="middle" fill="#fff" font-size="24" font-weight="700">RV</text>
+        <text x="212" y="158" text-anchor="middle" fill="#fff" font-size="24" font-weight="700">LV</text>
+        <!-- inflow (AV valves OPEN) big down arrows -->
+        <g class="fDn">
+          <path d="M95 78 L95 150 M95 150 L86 135 M95 150 L104 135" stroke="#cfe0ff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M205 78 L205 150 M205 150 L196 135 M205 150 L214 135" stroke="#ffd7cf" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <!-- semilunar valves closed (small) -->
+        <path d="M78 44 q18 12 36 0" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M186 44 q18 12 36 0" stroke="var(--accent)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <text x="60"  y="40" text-anchor="middle" fill="var(--faint)" font-size="10">pulmonary</text>
+        <text x="244" y="40" text-anchor="middle" fill="var(--faint)" font-size="10">aortic</text>
+        <text x="66"  y="112" text-anchor="middle" fill="var(--dim)" font-size="11">tricuspid</text>
+        <text x="216" y="112" text-anchor="middle" fill="var(--dim)" font-size="11">mitral</text>
+      </svg>
+      <ul class="steps" id="stepsDia"></ul>
+    </div>
+  </div>
+
+  <!-- MONITOR -->
+  <h2>The same 0.8 s on the monitor</h2>
+  <div class="monitor">
+    <svg class="ecg" viewBox="0 0 800 200" aria-label="ECG for one cardiac cycle with P, QRS and T waves and S1, S2 heart sounds">
+      <text x="150" y="26" fill="var(--sys)" font-size="16" font-weight="700" letter-spacing="1">SYSTOLE</text>
+      <text x="560" y="26" fill="var(--dia)" font-size="16" font-weight="700" letter-spacing="1">DIASTOLE</text>
+      <!-- baseline + trace: one cycle across x 40..760 (t 0..0.8) -->
+      <polyline fill="none" stroke="#39d98a" stroke-width="3"
+        points="40,120 95,120 110,108 125,120 150,120 160,122 168,70 176,150 184,112 200,120 300,120 330,100 360,120 760,120"/>
+      <!-- wave labels -->
+      <text x="112" y="98"  fill="#cfe0ff" font-size="13">P</text>
+      <text x="150" y="64"  fill="#cfe0ff" font-size="13">QRS</text>
+      <text x="330" y="90"  fill="#cfe0ff" font-size="13">T</text>
+      <!-- S1 / S2 ticks -->
+      <line x1="150" y1="150" x2="150" y2="176" stroke="var(--accent)" stroke-width="3"/>
+      <text x="150" y="192" text-anchor="middle" fill="var(--accent)" font-size="13" font-weight="700">S1</text>
+      <line x1="400" y1="150" x2="400" y2="176" stroke="var(--accent)" stroke-width="3"/>
+      <text x="400" y="192" text-anchor="middle" fill="var(--accent)" font-size="13" font-weight="700">S2</text>
+      <!-- moving now-dot -->
+      <circle id="nowDot" cx="40" cy="120" r="7" fill="var(--accent)"/>
+    </svg>
+    <div class="legend">
+      <span>● <b>now</b></span>
+      <span><b>P</b> atrial depolarization</span>
+      <span><b>QRS</b> ventricular depolarization</span>
+      <span><b>T</b> ventricular repolarization</span>
+      <span><b>S1</b> AV valves close</span>
+      <span><b>S2</b> semilunar valves close</span>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz">
+    <h3>Check yourself against the panels</h3>
+    <div id="quiz"></div>
+  </div>
+
+  <!-- HARLAN'S THREE CONCERNS -->
+  <h2>Answering Harlan's three concerns</h2>
+  <div class="concerns" id="concerns">
+    <div class="cc">
+      <div class="ccn">1</div>
+      <div class="ccbody">
+        <div class="ccq">Process diagram — systole and diastole compressed into one looping cycle?</div>
+        <div class="cca"><b>Answer:</b> the cycle is split into <b>two timed panels</b> so systole and diastole read separately (staged by Dieter).</div>
+      </div>
+    </div>
+    <div class="cc">
+      <div class="ccn">2</div>
+      <div class="ccbody">
+        <div class="ccq">Keep it to roughly one page, with the terminology correct.</div>
+        <div class="cca"><b>Answer:</b> every term is moved into <b>labeled callouts</b> on the animation instead of buried in prose — nothing is cut.</div>
+      </div>
+    </div>
+    <div class="cc">
+      <div class="ccn">3</div>
+      <div class="ccbody">
+        <div class="ccq">Alignment — do the questions match what students actually see?</div>
+        <div class="cca"><b>Answer (as promised in writing):</b> the Module&nbsp;3 <b>quiz items are rewritten against the diagrams so the assessment matches what students actually see</b> (Sela).</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot">Design notes · the cycle is split into two timed panels so systole and diastole read separately · every term from the deck appears as a labeled callout at its moment, nothing cut · each self-check item points at something visible in the panels or on the strip.</p>
+
+  <details class="qa">
+    <summary>Instructor / QA notes — everything re-checked against the source slides (delete before publishing)</summary>
+    <p>Authority = the teacher's source video (basics.mp4) slides + narration. Where the demo clip, the notes PDF, or the clip's quiz picks disagreed with the source, the source wins:</p>
+    <ul>
+      <li><b>Heart rate = 75 bpm.</b> Source slide reads "Steps of cardiac cycle (for 75 bpm heart rate)." The notes PDF's "70 bpm" is wrong.</li>
+      <li><b>Passive filling = ~70%</b> everywhere — panels, chips, and the Q3 option. Source slide says "filling passively to roughly 70%"; the demo's 80% (and the clip's ~80% pick) was wrong, so the quiz option was changed to ~70%.</li>
+      <li><b>T wave = ventricular repolarization.</b> Demo legend said "atrial" — wrong (source ECG slide).</li>
+      <li><b>Q2 = the QRS complex.</b> Source ECG slide: "atrial systole extends until the QRS complex, at which point the atria relax" — atrial repolarization is masked in the QRS. Clip's "P wave" pick was atrial <i>de</i>polarization.</li>
+      <li><b>Q1 = AV valves · S1.</b> Source heart-sounds slide: S1 "lub" = AV valves close, S2 "dub" = semilunar valves close. Clip picked "aortic · S1" (wrong).</li>
+      <li><b>Cardiac-output note = ~250%.</b> Source CO slide: "Heart rate can increase by 250%." The demo said 200%.</li>
+      <li><b>Tricuspid auscultation = 4LICS</b> (demo chip said 2LICS, which is the pulmonary point). Also: source table lists <b>aortic = 2RICS</b> (the notes PDF's 3RICS is wrong) — corrected in captions.pdf.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('cc-root');
+  var CYCLE = 0.8;               // seconds, model time
+  var t = 0;                     // model time within cycle
+  var playing = true;
+  var slow = false;              // ¼× speed
+  var last = null;
+
+  // ---- phases (model time) ----
+  var phases = [
+    {n:2, side:'sys', a:0.00, b:0.10, html:'<b>Atrial systole</b> — atria contract, topping the ventricles off'},
+    {n:4, side:'sys', a:0.10, b:0.15, html:'<b>Ventricular systole, first phase</b> — AV valves snap shut (S1), pressure builds, no blood moves: <b>isovolumetric contraction</b>'},
+    {n:5, side:'sys', a:0.15, b:0.40, html:'<b>Ventricular systole, second phase</b> — semilunar valves open: <b>ventricular ejection</b>'},
+    {n:6, side:'dia', a:0.40, b:0.42, html:'<b>Early ventricular diastole</b> — semilunar valves close (S2), all four valves shut: <b>isovolumetric relaxation</b>'},
+    {n:7, side:'dia', a:0.42, b:0.72, html:'<b>Late ventricular diastole</b> — AV valves reopen, ventricles fill passively to about 70%'},
+    {n:1, side:'dia', a:0.72, b:0.80, html:'<b>All four chambers relaxed</b> — the quiet baseline the next beat starts from (atrial diastole, phase 3, runs concurrently from 0.10 s)'}
+  ];
+  function fmt(x){return x.toFixed(2);}
+  function buildSteps(elId, side){
+    var el = document.getElementById(elId), h='';
+    phases.filter(function(p){return p.side===side;}).forEach(function(p){
+      h += '<li data-a="'+p.a+'" data-b="'+p.b+'"><span class="stxt">'+p.n+' · '+p.html+'</span>'+
+           '<span class="rng">'+fmt(p.a)+'–'+fmt(p.b)+'</span></li>';
+    });
+    el.innerHTML = h;
+  }
+  buildSteps('stepsSys','sys'); buildSteps('stepsDia','dia');
+
+  // ---- event chips (label + active windows in model time) ----
+  var chips = [
+    {l:'systole', w:[[0,0.40]]},
+    {l:'diastole', w:[[0.40,0.80]]},
+    {l:'atrial systole', w:[[0,0.10]]},
+    {l:'atrial diastole', w:[[0.10,0.80]]},
+    {l:'ventricular systole', w:[[0.10,0.40]]},
+    {l:'isovolumetric contraction', w:[[0.10,0.15]]},
+    {l:'ventricular ejection', w:[[0.15,0.40]]},
+    {l:'isovolumetric relaxation', w:[[0.40,0.42]]},
+    {l:'passive filling ~70%', w:[[0.42,0.72]]},
+    {l:'AV valves (tricuspid · mitral)', w:[[0.42,0.80],[0.00,0.10]]},
+    {l:'semilunar valves (pulmonary · aortic)', w:[[0.15,0.40]]},
+    {l:'S1 · first heart sound', w:[[0.10,0.14]]},
+    {l:'S2 · second heart sound', w:[[0.40,0.44]]},
+    {l:'T wave · ventricular repolarization', w:[[0.30,0.40]]},
+    {l:'tricuspid heard at 4LICS', w:[[0.10,0.14]]}
+  ];
+  var chipEls = chips.map(function(c){
+    var s=document.createElement('span'); s.className='chip'; s.textContent=c.l;
+    document.getElementById('chips').appendChild(s); return s;
+  });
+  function inWin(x,w){for(var i=0;i<w.length;i++){if(x>=w[i][0]&&x<w[i][1])return true;}return false;}
+
+  // ---- render loop ----
+  var clockEl=document.getElementById('clock');
+  var nowDot=document.getElementById('nowDot');
+  var sysLIs=document.querySelectorAll('#stepsSys li');
+  var diaLIs=document.querySelectorAll('#stepsDia li');
+  var panelSys=document.getElementById('panelSys'), panelDia=document.getElementById('panelDia');
+
+  function render(){
+    clockEl.textContent = 't = '+fmt(t)+' s';
+    // now-dot: x 40..760 across t 0..0.8
+    nowDot.setAttribute('cx', 40 + (t/CYCLE)*720);
+    // active half
+    var sysOn = t < 0.40;
+    panelSys.classList.toggle('on', sysOn);
+    panelDia.classList.toggle('on', !sysOn);
+    // active step highlight
+    function mark(lis){lis.forEach(function(li){
+      var a=+li.dataset.a, b=+li.dataset.b;
+      li.classList.toggle('on', t>=a && t<b);
+    });}
+    mark(sysLIs); mark(diaLIs);
+    // chips
+    chips.forEach(function(c,i){ chipEls[i].classList.toggle('on', inWin(t,c.w)); });
+  }
+
+  function frame(ts){
+    if(last===null) last=ts;
+    var dt=(ts-last)/1000; last=ts;
+    if(playing){
+      t += dt/(slow?4:1);
+      if(t>=CYCLE) t-=CYCLE;
+      render();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  render();
+
+  // ---- controls ----
+  var btnPlay=document.getElementById('btnPlay');
+  var btnStep=document.getElementById('btnStep');
+  var btnSpeed=document.getElementById('btnSpeed');
+  btnPlay.onclick=function(){
+    playing=!playing; btnPlay.textContent=playing?'Pause':'Play';
+    root.classList.toggle('paused', !playing);
+  };
+  btnStep.onclick=function(){
+    // jump to the next phase boundary
+    playing=false; btnPlay.textContent='Play'; root.classList.add('paused');
+    var bounds=[0,0.10,0.15,0.40,0.42,0.72,0.80];
+    var nx=bounds.find(function(x){return x>t+1e-4;});
+    t = (nx===undefined||nx>=0.80)?0:nx;
+    render();
+  };
+  btnSpeed.onclick=function(){
+    slow=!slow; btnSpeed.textContent=slow?'Full speed':'Slow (¼×)';
+    root.classList.toggle('slow', slow);
+  };
+
+  // ---- quiz ----
+  var quiz=[
+    {q:'In the left panel, what closes to begin isovolumetric contraction, and what do you hear?',
+     opts:['the AV valves · S1','the semilunar valves · S2','the aortic valve · S1'], ans:0,
+     fb:'The AV (tricuspid & mitral) valves snap shut at the start of ventricular systole — that closure is S1, the "lub." The semilunar valves are not open yet, so no blood moves: isovolumetric contraction.'},
+    {q:'On the monitor strip, which wave marks atrial repolarization?',
+     opts:['the P wave','the QRS complex','the T wave'], ans:1,
+     fb:'Atrial repolarization is hidden inside the QRS complex — the atria relax just as the ventricles depolarize. The P wave is atrial DEpolarization; the T wave is VENTRICULAR repolarization.'},
+    {q:'By the end of passive filling in the right panel, about how full are the ventricles, before the atria contract at all?',
+     opts:['~30%','~70%','100%'], ans:1,
+     fb:'The ventricles are already about 70% full from passive filling before the atria contract — atrial systole only tops off the last share.'}
+  ];
+  var qc=document.getElementById('quiz');
+  quiz.forEach(function(item,qi){
+    var d=document.createElement('div'); d.className='q';
+    var opts=item.opts.map(function(o,oi){
+      return '<span class="opt" data-q="'+qi+'" data-o="'+oi+'">'+o+'</span>';
+    }).join('');
+    d.innerHTML='<div class="qt"><span class="n">'+(qi+1)+' · </span>'+item.q+'</div>'+
+                '<div class="opts">'+opts+'</div>'+
+                '<div class="fb" id="fb'+qi+'"></div>';
+    qc.appendChild(d);
+  });
+  qc.addEventListener('click',function(e){
+    var o=e.target.closest('.opt'); if(!o)return;
+    var qi=+o.dataset.q, oi=+o.dataset.o, item=quiz[qi];
+    var group=o.parentNode.querySelectorAll('.opt');
+    group.forEach(function(g){g.classList.remove('correct','wrong');});
+    var right = oi===item.ans;
+    o.classList.add(right?'correct':'wrong');
+    if(!right) group[item.ans].classList.add('correct');
+    var fb=document.getElementById('fb'+qi);
+    fb.textContent=(right?'Correct — ':'Not quite — ')+item.fb;
+    fb.className='fb show '+(right?'ok':'no');
+  });
+
+})();
+</script>
+</body>
+</html>

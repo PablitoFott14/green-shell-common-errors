@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subjective criteria that never name the file · Green Shell Common Errors</title>
+<meta name="description" content="Subjective criteria describe features without naming the file that carries them, usually after the first one or two.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css"><script src="../assets/viewer.js" defer></script>
+</head><body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top"><a class="brand" href="../index.html"><span class="bd"></span>Green Shell · Common Errors</a>
+<nav><a href="../index.html">Slides</a></nav></header>
+<main class="wrap mpage" id="main">
+<div class="mtop"><p class="crumb"><a href="../index.html#10">Slides</a><span class="cs">/</span>Section 5: The subjective block · slide 10</p></div>
+<header class="mhead"><h1><span class="mnum">5.1</span>Subjective criteria that never name the file</h1>
+<p class="sevline"><span class="bad bleed">Costs points</span><span class="dim">Rubric Criteria - Subjective Block Scope</span></p></header>
+
+<section class="gist" aria-label="In short">
+  <div class="gw"><h2 class="gl">The mistake</h2><p>Subjective criteria describe features without naming the file that carries them, usually after the first one or two.</p></div>
+  <div class="gf"><h2 class="gl">Do this instead</h2><p>Open each one with “In &lt;filename&gt;,”.</p></div>
+</section>
+
+<section class="blk"><div class="blkh"><h2>Where it happened in Red Shell</h2>
+<span class="hint">One real Red Shell task. Each shows the spot and what it should have been; click any line to open the task there.</span></div>
+<p class="rsnote"><b>These examples come from Red Shell.</b> Each one is a real Red Shell task, shown exactly as the Red Shell course shows it, and it illustrates an issue that must not be repeated in Green Shell: the same quality standards and expectations still apply. The rule line under each one is the Green Shell rule the same mistake breaks.</p>
+<p class="legend"><span class="lg lg-y">the words at fault</span><span class="lg lg-r">the row or field at fault</span><span class="lg lg-m">missing from the task</span><span class="lg lg-g">what is right</span><span class="lg lg-b">a task file</span></p>
+<div class="exlist"><article class="excard" data-ex="subjective-no-file-1" tabindex="0" aria-label="Example 20, from Red Shell"><div class="exh"><span class="exn">Example 20</span><span class="exm"><span class="rs">Red Shell</span>Operations &amp; QA · 5 Leg A turns</span><span class="sp"></span><button type="button" class="btn exopen" data-ex="subjective-no-file-1">Open the task</button></div><p class="exgist"><span class="xl">What is wrong</span>None of the 10 subjective criteria names a file, though Leg A asks for three, so each leaves the grader to choose which file it grades.</p><p class="exctx"><a class="ref" href="#x1p2t1" data-pane="2" data-row="x1p2t1" data-ex="subjective-no-file-1">Leg A turn 1</a> asks for <a class="ref" href="#x1p5ev" data-pane="5" data-row="x1p5ev" data-ex="subjective-no-file-1">hh_migration_manifest.csv</a> and a running note, <a class="ref" href="#x1p3ev" data-pane="3" data-row="x1p3ev" data-ex="subjective-no-file-1">hh_migration_notes.md</a> in the golden. <a class="ref" href="#x1p2t4" data-pane="2" data-row="x1p2t4" data-ex="subjective-no-file-1">Leg A turn 4</a> adds <a class="ref" href="#x1p4ev" data-pane="4" data-row="x1p4ev" data-ex="subjective-no-file-1">move_walkthrough.mp4</a>, a video that shows the album table.</p><div class="dx"><section class="dxc dxw"><h3 class="dxl">Where it shows</h3><div class="dls"><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0r2" data-pane="0" data-row="x1p0r2" data-ex="subjective-no-file-1">Subjective criterion 2</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq">Passed and failed outcomes are distinguished by colour or a mark, not by wording alone.</span><span class="dn">which file?</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0h" data-pane="0" data-row="x1p0h" data-ex="subjective-no-file-1">Subjective criteria</a></div><div class="dlt"><span class="df"><mark class="dm wrong">None of the 10</mark> names a file, and the golden archive holds four.</span></div></div></div></section><section class="dxc dxr"><h3 class="dxl">What it should have been</h3><div class="dls"><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x1p0r2" data-pane="0" data-row="x1p0r2" data-ex="subjective-no-file-1">Subjective criterion 2</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq"><mark class="dm right">In move_walkthrough.mp4,</mark> passed and failed outcomes are distinguished by colour or a mark, not by wording alone.</span></div></div></div></section></div><p class="dxwhy"><span class="xl">How it breaks the standard</span>The task ships more than one file, so each subjective criterion has to name the one it grades, and none does. <a class="ref" href="#x1p0r2" data-pane="0" data-row="x1p0r2" data-ex="subjective-no-file-1">Subjective criterion 2</a>&#x27;s pass and fail marks and <a class="ref" href="#x1p0r3" data-pane="0" data-row="x1p0r3" data-ex="subjective-no-file-1">subjective criterion 3</a>&#x27;s table columns also appear in <a class="ref" href="#x1p3ev" data-pane="3" data-row="x1p3ev" data-ex="subjective-no-file-1">hh_migration_notes.md</a>, an album table with “✅ clean” rows, so the grader has to decide which file is meant. It costs points.</p><p class="dxrule"><span class="xl">The Green Shell rule it breaks</span><a class="rlink" href="#rule-1"><b>Guidelines</b> · 7.1 Writing Subjective Rubrics</a> <q>The element makes the criterion self-contained by telling the reviewer where to look</q></p></article></div>
+</section>
+
+<section class="blk catch">
+<h2>Catch it in your own task</h2>
+<p>With more than one file, every subjective criterion contains a filename.</p>
+</section>
+
+<section class="blk">
+<div class="blkh"><h2>Where the Green Shell guidance is written</h2>
+<span class="hint">Section titles as they print in the Green Shell Guidelines and QC spec, so you can search for them.</span></div>
+<article class="rulecard" id="rule-0"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>Include the exact expected value, filename, classification, decision, or other fact needed to determine whether it is Present or Not Present.</blockquote><p class="rcm">Self-contained. Section 7.1 applies these fundamentals to subjective rubrics exactly as written.</p></article><article class="rulecard" id="rule-1"><p class="rsrc"><b>Guidelines</b> · 7.1 Writing Subjective Rubrics</p><blockquote>The element makes the criterion self-contained by telling the reviewer where to look; the property defines exactly what gets scored.</blockquote></article><article class="rulecard" id="rule-2"><p class="rsrc"><b>Guidelines</b> · 7.1 Writing Subjective Rubrics</p><blockquote>Anchor each criterion to one identifiable element and one visible property: Point to something that can clearly be located in the artifact, then evaluate a single observable characteristic of it.</blockquote></article>
+</section>
+
+<details class="blk why">
+<summary>Why it matters</summary>
+<p>The evaluation target only says Final Answer Artifact, not which file. Once a task ships two deliverables, “the table” or “each scene” stops identifying anything, and two graders can score the same run against different files. The element is what makes a criterion self-contained, by telling the reviewer where to look, and naming the file costs nothing.</p>
+</details>
+</main>
+<div class="ovback" id="ex-subjective-no-file-1" data-home="0" hidden>
+<div class="ov" role="dialog" aria-modal="true" aria-labelledby="ex-subjective-no-file-1-t">
+  <header class="ovh"><div class="ovline">
+    <span class="ovnum">Example 20</span><span class="ovttl" id="ex-subjective-no-file-1-t">Subjective criteria that never name the file</span>
+    <span class="bad bleed">Costs points</span><span class="sp"></span>
+    <button type="button" class="btn q ovwide">Expand</button>
+    <button type="button" class="btn ovclose" aria-label="Close">Close ✕</button>
+  </div><div class="ovmeta"><span class="oc rs">Red Shell task</span><span class="oc">Operations &amp; QA</span><span class="oc">5 Leg A turns</span><span class="oc">task <code class="ovid">6a7965b63b7d368e70c7de5b</code></span></div></header>
+  <div class="ovbody">
+    <aside class="ovrail" aria-label="The mistake in this task">
+      <div class="railh"><span class="eyebrow">The mistake, in this task</span><span class="sp"></span>
+        <button type="button" class="btn q railhide">Hide</button></div>
+      <div class="raillist"><section class="rsec wrongr"><h3 class="rl">What is wrong</h3><p>None of the 10 subjective criteria names a file, though Leg A asks for three, so each leaves the grader to choose which file it grades.</p></section><section class="rsec ctx"><h3 class="rl">The task</h3><p><a class="ref" href="#x1p2t1" data-pane="2" data-row="x1p2t1">Leg A turn 1</a> asks for <a class="ref" href="#x1p5ev" data-pane="5" data-row="x1p5ev">hh_migration_manifest.csv</a> and a running note, <a class="ref" href="#x1p3ev" data-pane="3" data-row="x1p3ev">hh_migration_notes.md</a> in the golden. <a class="ref" href="#x1p2t4" data-pane="2" data-row="x1p2t4">Leg A turn 4</a> adds <a class="ref" href="#x1p4ev" data-pane="4" data-row="x1p4ev">move_walkthrough.mp4</a>, a video that shows the album table.</p></section><section class="rsec badr"><h3 class="rl">Where it shows</h3><div class="dls"><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0r2" data-pane="0" data-row="x1p0r2">Subjective criterion 2</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq">Passed and failed outcomes are distinguished by colour or a mark, not by wording alone.</span><span class="dn">which file?</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0h" data-pane="0" data-row="x1p0h">Subjective criteria</a></div><div class="dlt"><span class="df"><mark class="dm wrong">None of the 10</mark> names a file, and the golden archive holds four.</span></div></div></div></section><section class="rsec why"><h3 class="rl">How it breaks the standard</h3><p>The task ships more than one file, so each subjective criterion has to name the one it grades, and none does. <a class="ref" href="#x1p0r2" data-pane="0" data-row="x1p0r2">Subjective criterion 2</a>&#x27;s pass and fail marks and <a class="ref" href="#x1p0r3" data-pane="0" data-row="x1p0r3">subjective criterion 3</a>&#x27;s table columns also appear in <a class="ref" href="#x1p3ev" data-pane="3" data-row="x1p3ev">hh_migration_notes.md</a>, an album table with “✅ clean” rows, so the grader has to decide which file is meant. It costs points.</p><p class="dxrule"><span class="xl">The Green Shell rule it breaks</span><a class="rlink" href="#x1rr1"><b>Guidelines</b> · 7.1 Writing Subjective Rubrics</a> <q>The element makes the criterion self-contained by telling the reviewer where to look</q></p></section><section class="rsec goodr"><h3 class="rl">What it should have been</h3><div class="dls"><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x1p0r2" data-pane="0" data-row="x1p0r2">Subjective criterion 2</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq"><mark class="dm right">In move_walkthrough.mp4,</mark> passed and failed outcomes are distinguished by colour or a mark, not by wording alone.</span></div></div></div></section><details class="rsec rrules"><summary><span class="rl">Where the Green Shell guidance is written</span><span class="rcount">3</span></summary><article class="railrule" id="x1rr0"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>Include the exact expected value, filename, classification, decision, or other fact needed to determine whether it is Present or Not Present.</blockquote><p class="rcm">Self-contained. Section 7.1 applies these fundamentals to subjective rubrics exactly as written.</p></article><article class="railrule" id="x1rr1"><p class="rsrc"><b>Guidelines</b> · 7.1 Writing Subjective Rubrics</p><blockquote>The element makes the criterion self-contained by telling the reviewer where to look; the property defines exactly what gets scored.</blockquote></article><article class="railrule" id="x1rr2"><p class="rsrc"><b>Guidelines</b> · 7.1 Writing Subjective Rubrics</p><blockquote>Anchor each criterion to one identifiable element and one visible property: Point to something that can clearly be located in the artifact, then evaluate a single observable characteristic of it.</blockquote></article></details></div>
+    </aside>
+    <section class="ovev" aria-label="The task">
+      <nav class="ovtabs" role="tablist">
+        <button type="button" class="ovtab showrail">‹ The mistake</button><button type="button" class="ovtab on" data-pane="0" role="tab" aria-selected="true">Subjective block<span class="tn2" title="marked spots">5</span></button><button type="button" class="ovtab" data-pane="1" role="tab" aria-selected="false">Golden archive</button><button type="button" class="ovtab" data-pane="2" role="tab" aria-selected="false">Leg A prompts</button><button type="button" class="ovtab evtabb" data-pane="3" title="hh_migration_notes.md" role="tab" aria-selected="false">hh_migration_notes.md<span class="tn2" title="marked spots">6</span></button><button type="button" class="ovtab evtabb" data-pane="4" title="move_walkthrough.mp4" role="tab" aria-selected="false">move_walkthrough.mp4</button><button type="button" class="ovtab evtabb" data-pane="5" title="hh_migration_manifest.csv" role="tab" aria-selected="false">hh_migration_manifest.csv</button><button type="button" class="ovtab evtabb" data-pane="6" title="voice_note_transcript.txt" role="tab" aria-selected="false">voice_note_transcript.txt</button>
+        <span class="sp"></span><span class="keys"><kbd>←</kbd> <kbd>→</kbd> tabs <kbd>Esc</kbd> close</span></nav>
+      <div class="ovpanes"><div class="ovpane on" data-pane="0" role="tabpanel"><div class="panel"><div class="ph" id="x1p0h"><span class="src">From the task</span><span class="pht">Subjective criteria flagged</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb rows"><div class="row flagged spot" id="x1p0r1"><div class="rn">1</div><div class="rc"><div class="rt">Scene titles render at a larger type size than the body text on the same scene.</div><div class="rm"><span class="w w-mid">+3</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div><div class="row flagged spot" id="x1p0r2"><div class="rn">2</div><div class="rc"><div class="rt">Passed and failed outcomes are distinguished by colour or a mark, not by wording alone.</div><div class="rm"><span class="w w-mid">+3</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div><div class="row flagged spot" id="x1p0r3"><div class="rn">3</div><div class="rc"><div class="rt">Within each rendered table, every column&#x27;s values align on a common edge down the column.</div><div class="rm"><span class="w w-mid">+3</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div><div class="row flagged spot" id="x1p0r4"><div class="rn">4</div><div class="rc"><div class="rt">All scenes render their text in the same typeface.</div><div class="rm"><span class="w w-mid">+3</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div><div class="row flagged spot" id="x1p0r5"><div class="rn">5</div><div class="rc"><div class="rt">In the failure segment, the expected values and the found values are presented as visually distinct blocks rather than as one continuous run of text.</div><div class="rm"><span class="w w-lo">+1</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div></div><div class="pmore">+ 5 more rows in this task carry the same defect</div></div></div><div class="ovpane" data-pane="1" role="tabpanel"><div class="panel"><div class="ph" id="x1p1h"><span class="src">From the task</span><span class="pht">Golden artifacts archive</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb files"><div class="file" id="x1p1f0"><code>voice_note_transcript.txt</code><span class="fx">.txt</span><span class="fs">0 KB</span><button type="button" class="evjump" data-pane="6" data-row="x1p6ev">Open it</button></div><div class="file" id="x1p1f1"><code>hh_migration_notes.md</code><span class="fx">.md</span><span class="fs">8 KB</span><button type="button" class="evjump" data-pane="3" data-row="x1p3ev">Open it</button></div><div class="file" id="x1p1f2"><code>hh_migration_manifest.csv</code><span class="fx">.csv</span><span class="fs">5 KB</span><button type="button" class="evjump" data-pane="5" data-row="x1p5ev">Open it</button></div><div class="file" id="x1p1f3"><code>move_walkthrough.mp4</code><span class="fx">.mp4</span><span class="fs">846 KB</span><button type="button" class="evjump" data-pane="4" data-row="x1p4ev">Open it</button></div></div></div></div><div class="ovpane" data-pane="2" role="tabpanel"><div class="panel"><div class="ph" id="x1p2h"><span class="src">From the task</span><span class="pht">Every Leg A prompt, to Model A</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb"><div class="turn" id="x1p2t1"><div class="tn">Leg A turn 1</div><div class="tt">I&#x27;m getting the HoopHighlights library off this laptop before the move. Phase one is done, laptop onto the T7. I&#x27;ve put my checklist, a voice note with the parts I never wrote down, and screenshots of both drives in the workspace. The checklist has the process and the rules, so go by it.
+
+Build me hh_migration_manifest.csv, one row per album folder that&#x27;s actually on the laptop, with these columns: album, laptop_size_gb, laptop_items, shot_date, published, publish_ref, t7_status, flags, action. Shot dates, and whether each album ever went out and where, are spread across my mail, calendar and the league threads. Dig them out rather than guessing. The t7_status and action columns follow the rules on my list.
+
+I&#x27;m doing this in stints, so keep a running note of where each album stands and what the rules are. The mini step is next, I&#x27;ll send that when it&#x27;s done. before I wipe anything: is the T7 copy actually finished?</div></div><div class="turn" id="x1p2t2"><div class="tn">Leg A turn 2</div><div class="tt">Right, that&#x27;s what I was afraid of.
+
+I did the mini step last night, T7 into the mini. Both views of it are in there, along with what&#x27;s inside the project folder. It felt clean to me. Finder didn&#x27;t complain once.
+
+Add a mini_status column to hh_migration_manifest.csv and fill it in the same way as the T7 one, using the same rules. Don&#x27;t rebuild the file, just extend it.
+
+Then tell me in the chat, not only in the file: what changed compared to the T7 pass, if anything?</div></div><div class="turn" id="x1p2t3"><div class="tn">Leg A turn 3</div><div class="tt">They&#x27;re in there, both of them, from Wednesday night.
+
+Do the mini pass off those, same rules as the T7 one, and fill in mini_status properly.
+
+Then the same question as last time: compared to the T7 pass, what changed?</div></div><div class="turn" id="x1p2t4"><div class="tn">Leg A turn 4</div><div class="tt">That&#x27;s the picture I needed. That&#x27;s all I took of the mini, so work with what&#x27;s there.
+
+One more thing while this is fresh. The raw footage archive is next month and it&#x27;s four times this size, so I&#x27;ll be doing this again at 1am with drives all over the desk. Put it in something I can just play: move_walkthrough.mp4, one part per step off my note, in that order, each one showing the check and what it actually came back as, passed or failed.
+
+On the verify step, show the album table itself, with the real numbers and expected next to found. Use the names exactly as they are on disk.
+
+Then show me what a failed one looks like, using one that actually failed, with the rule that tripped it.
+
+Talk over it if your setup does voice; otherwise put big text on screen. I watch these muted half the time anyway. Keep it landscape, and ninety seconds is plenty.
+
+Keep the rules handy for next month.</div></div><div class="turn" id="x1p2t5"><div class="tn">Leg A turn 5</div><div class="tt">I ran that copy again overnight, straight off the laptop this time instead of through the T7. A photo of the mini&#x27;s screen is in there so you can see how it landed.
+
+Fold that in, then fix what it changes and nothing else: the row in the manifest, and the failure example in the clip, since it can&#x27;t be showing something that&#x27;s fixed now. Re-export it.
+
+Then give me the call again under my rules. So we&#x27;re good to wipe the laptop tonight, right?</div></div></div></div></div><div class="ovpane" data-pane="3" role="tabpanel"><div class="panel"><div class="ph" id="x1p3h"><span class="src">Task file</span><span class="pht">hh_migration_notes.md</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="evnote"><b>Look at</b> The notes file. Its album table carries pass marks of its own, so a criterion about marks and columns that names no file can be scored against this file or the video.</div><div class="pb ev" id="x1p3ev"><div class="evi evk-text"><div class="evh"><code>hh_migration_notes.md</code><span class="evr">golden artifact</span></div><pre class="evtext"># HoopHighlights migration — running note
+
+Purpose: track where each album stands and the rules, across stints.
+Companion: `hh_migration_manifest.csv` (now has both `t7_status` and `mini_status`).
+Scope: **laptop → T7 (verified Aug 17) AND T7 → mini (verified Aug 19).** Both passes are now in. The wipe decision is on the table.
+
+## Which screenshot is which device
+- **Laptop (source of truth), Aug 16 2026:** list view (sizes + modified dates), icon view (item counts, 8 folders), and the finale folder open (6 items). Path `Macintosh HD &gt; Users &gt; brandon &gt; Videos &gt; HoopHighlights`. 41 GB free.
+- **T7 Shield, Aug 17 2026:** list view (sizes + modified dates), icon view (item counts, 7 folders), and Get Info. exFAT, 4 TB, **Available 3.79 TB, Used ~210.91 GB, volume Created Wed May 6 2026 7:12 PM**. (Used 210.91 GB == the 7 folders on it: 58.4+59.3+12.4+18.9+21.7+23.4+16.8.)
+- **Mac mini, Aug 19 2026 (per Brandon, the Aug 19 shots are the mini):** HoopHighlights list view (sizes + mod dates) and the finale folder open. Internal disk is ALSO named &quot;Macintosh HD&quot; (~1.77 TB free) — that&#x27;s why the path reads that way; it is the mini, not the laptop. The mini list view gives **sizes** for every album but not top-level item counts (only the finale&#x27;s internals were opened).
+- **SET ASIDE per Brandon:** `IMG_4471.JPG` (Aug 23 phone photo) only — leave it alone.
+
+## &quot;When the drive showed up&quot; = **Wed May 6, 2026**
+Samsung T7 Shield 4TB, Amazon #113-8842061-4470258: placed May 4, shipped May 5, **delivered Wed May 6** (email). T7 volume Created May 6 7:12 PM (Get Info). Both agree.
+
+---
+
+## THE RULES
+
+### Checklist (&quot;HH move - do not screw this up&quot;, written Aug 15)
+1. laptop → T7 (Finder copy)
+2. verify T7: every album, item **count AND size** match laptop
+3. T7 → mini
+4. verify mini the same way
+5. wipe laptop **ONLY** when steps 2 **and** 4 are clean
+
+Checks:
+- **count AND size both off → STOP, hold everything**
+- **size off only → recopy that album, no hold**
+- **archive folder: count + size only, don&#x27;t open it**
+- 7 albums, ~213 GB (the 7 folders that are NOT `bc eagles 3-21`; that set sums to 213.2 GB)
+- finale: 191 clips + project + autosaves. **autosaves ARE the edit.**
+- names stay EXACTLY as on disk (Premiere relinks break)
+- **double-check any album modified after the drive showed up** (drive = May 6, 2026)
+
+### Voice note (the parts not on the checklist) — transcribed from &quot;New Recording 47.mp3&quot;
+- **Any album with only one copy anywhere → automatic HOLD.** Don&#x27;t wipe, no matter what else passes.
+- The wipe call at the end must **name what is blocking**, by name — not just yes/no.
+- The finale: **the cut IS the autosaves.** If those don&#x27;t survive, the whole thing was pointless.
+- Card readers are in the desk drawer (for pulling anything off the cards).
+
+---
+
+## LAPTOP ↔ T7 COMPARISON (Aug 16 vs Aug 17)
+| album | laptop | T7 | verdict |
+|---|---|---|---|
+| 2025 archive | 214 / 58.6 | 214 / **58.4** | size off only → recopy |
+| bc eagles 3-21 | 118 / 41.2 | **absent** | missing → one copy → HOLD |
+| finale reel FINAL | **6** / **61.4** | **5** / **59.3** | both off → STOP/hold |
+| mar madness mixtape | 37 / 12.4 | 37 / 12.4 | <mark class="spot" id="x1p3k0">✅ clean</mark> |
+| Pickup Run Vol. 9 | 52 / 18.9 | 52 / 18.9 | <mark class="spot" id="x1p3k1">✅ clean</mark> |
+| pickup runs vol 4 | 61 / 21.7 | 61 / 21.7 | <mark class="spot" id="x1p3k2">✅ clean</mark> |
+| wryb 5-16 parents reel | 68 / 23.4 | 68 / 23.4 | <mark class="spot" id="x1p3k3">✅ clean</mark> (double-check) |
+| wryb week6 cut | 44 / 16.8 | 44 / 16.8 | <mark class="spot" id="x1p3k4">✅ clean</mark> (double-check) |
+
+## DOUBLE-CHECK RULE — which albums (laptop modified after May 6 2026)
+finale reel FINAL (Aug 12), wryb 5-16 parents reel (May 19), wryb week6 cut (May 9). The other five predate the drive. Both wryb reels were copied Aug 16–17 (after their edits) and match on count+size → they pass. Finale fails on its own merits.
+
+---
+
+## IS THE T7 COPY FINISHED? — **NO.** Step 2 (verify T7) is not clean.
+Blockers, by name (per voice rule):
+1. **finale reel FINAL** — count AND size both off (T7 5 / 59.3 vs laptop 6 / 61.4). Missing `slowmo tests` (9 items / ~2.1 GB). T7&#x27;s Auto-Save is **unverified** and the cut IS the autosaves. → STOP / hold everything.
+2. **bc eagles 3-21** — never copied to T7. Exists on the laptop only → one copy → auto-HOLD.
+3. **2025 archive** — size off (58.4 vs 58.6). → recopy (no hold).
+
+Five albums copied through clean: mar madness mixtape, Pickup Run Vol. 9, pickup runs vol 4, wryb 5-16 parents reel, wryb week6 cut.
+
+---
+
+## MINI PASS (step 4, Aug 19) + FINAL WIPE DECISION: **DO NOT WIPE**
+Neither step 2 (T7) nor step 4 (mini) is clean. Blockers by name:
+1. **finale reel FINAL** — on the mini it is 5 items / 59.1 GB vs laptop 6 / 61.4 (both off) AND its **Auto-Save folder is empty (0 items; laptop has 11)**. The cut did not survive to the mini. STOP / hold everything.
+2. **bc eagles 3-21** — not on the T7 and not on the mini. Exists only on the laptop → one copy → auto-hold.
+3. **2025 archive** — size off on both T7 and mini (58.4 vs laptop 58.6) → recopy before clean.
+
+Also on the mini: a **stray `wryb week6 cut copy` (16.8 GB)** that is not on the laptop or the T7 → delete it.
+
+Mini verification gap: the mini list view gives **sizes** for every album (all match the T7, whose counts were verified) but not top-level item counts, except the finale (opened). A mini icon view would close that loop.
+
+### WHAT CHANGED vs THE T7 PASS
+Only two things moved; everything else copied through T7→mini identically.
+1. **Finale got worse.** T7 finale = 59.3 GB with autosaves apparently intact (size = laptop minus only the slowmo tests). Mini finale = 59.1 GB with **Auto-Save = 0 items** — the ~11 autosave files (~0.2 GB) present on the T7 were dropped in the T7→mini copy. This is exactly the &quot;autosaves ARE the cut&quot; failure.
+2. **New stray folder on the mini:** `wryb week6 cut copy` (16.8 GB), not present on the laptop or the T7 → remove it.
+Unchanged carry-overs: bc eagles still absent (one copy), 2025 archive still size-off on both, and the five clean albums stayed size-clean.
+
+&quot;Finder didn&#x27;t complain&quot; is not verification — a drag-copy finishing without an error dialog does not mean counts/sizes match. The rules still flag finale, bc eagles, and the archive.
+
+---
+
+## WHERE THE FACTS CAME FROM (dug out, not guessed)
+- **Shot dates:** bc eagles = calendar &quot;BC Eagles game with Mason&quot; 3/21/2026 + Ticketmaster confirm. WRYB week structure from Ray Delgado (ray@wryb.org): season Sat 9–11 at the Ohrenberger, **Week 1 = 3/21 → Week 6 = 4/25**; 5/16 game (&quot;film a few minutes for the parents&quot;) = the parents reel; **finale = 6/6**.
+- **Publications (YouTube &quot;is live&quot; / analytics emails):** Pickup Run Vol. 9 live 3/6 (1k views 3/12); Pickup Runs Vol 4 live 4/18; &quot;Spring Rec League – Week 6 Highlights&quot; live ~5/9; &quot;March Madness – Local Legends Mixtape&quot; ≥612 views by 3/13.
+- **wryb 5-16 parents reel:** unlisted link `youtu.be/aB3kR9xQ2mN` — Brandon → Ray 5/19 (SENT), Ray replied he&#x27;d send it to the parent list that night.
+- **finale not published:** Brandon&#x27;s 6/5 reply promised Ray a reel &quot;early the following week&quot;; no delivery email exists and `finale_export.mp4` is 0 KB.
+- Slack = work (Sparrow Money), not league. Messaging has USPS/Amazon/etc.; the league thread is the Ray/WRYB email chain.
+
+## PER-ALBUM STATUS (T7 pass = Aug 17)
+Legend: <mark class="spot" id="x1p3k5">✅ clean</mark> · ⚠️ recopy · ⛔ hold · 🔁 double-check
+- ⛔🔁 **finale reel FINAL** — laptop 6/61.4, T7 5/59.3. Both off; `slowmo tests` missing; T7 autosaves unverified. Not published (export 0 KB).
+- ⛔ **bc eagles 3-21** — laptop 118/41.2; not on T7. One copy → HOLD. Shot 3/21/26 (BC w/ Mason). Not published.
+- ⚠️ **2025 archive** — 214/58.6 vs T7 214/58.4. Size off → recopy. Don&#x27;t open (archive rule).
+- ✅ **mar madness mixtape** — 37/12.4 both. YouTube mixtape.
+- ✅ **Pickup Run Vol. 9** — 52/18.9 both. YouTube, live 3/6.
+- ✅ **pickup runs vol 4** — 61/21.7 both. YouTube, live 4/18.
+- ✅🔁 **wryb 5-16 parents reel** — 68/23.4 both. Shot 5/16. Unlisted YouTube → parent list via Ray 5/19.
+- ✅🔁 **wryb week6 cut** — 44/16.8 both. Shot 4/25 (Week 6). YouTube &quot;…Week 6 Highlights&quot; ~5/9.
+
+## TO CLEAR BEFORE WIPE (both T7 and mini must end clean)
+- **finale reel FINAL:** recopy the whole folder from the laptop (incl. `slowmo tests`) to T7 AND mini, then open the project folder on BOTH and confirm **Auto-Save = 11 items**. Size alone is not enough here — the cut IS the autosaves.
+- **bc eagles 3-21:** copy to T7 AND mini; verify count+size. (Until then it is a single copy → hold.)
+- **2025 archive:** recopy (size off on both); re-verify count+size (don&#x27;t open — archive rule).
+- **stray `wryb week6 cut copy` on the mini:** delete it.
+- Grab a mini **icon view** so top-level counts are verified, not just sizes.
+- Only when steps 2 AND 4 are both clean is the wipe on the table — and the wipe call must name any remaining blockers.
+- `IMG_4471.JPG` (Aug 23) stays set aside per Brandon.
+
+### Correction log
+- The Aug 19 shots are the **mini** (confirmed by Brandon). Only the Aug 23 phone photo is set aside.
+- The stray `wryb week6 cut copy` lives on the **mini** (not the T7).
+</pre></div></div></div></div><div class="ovpane" data-pane="4" role="tabpanel"><div class="panel"><div class="ph" id="x1p4h"><span class="src">Task file</span><span class="pht">move_walkthrough.mp4</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="evnote"><b>Look at</b> The walkthrough video, the file <a class="ref" href="#x1p0r1" data-pane="0" data-row="x1p0r1">criteria 1</a> and <a class="ref" href="#x1p0r4" data-pane="0" data-row="x1p0r4">4</a> seem to mean.</div><div class="pb ev" id="x1p4ev"><div class="evi evk-video"><div class="evh"><code>move_walkthrough.mp4</code><span class="evr">golden artifact</span></div><video class="evmedia" controls playsinline preload="none" data-src="../evidence/6a7965b63b7d368e70c7de5b/move_walkthrough.mp4"></video></div></div></div></div><div class="ovpane" data-pane="5" role="tabpanel"><div class="panel"><div class="ph" id="x1p5h"><span class="src">Task file</span><span class="pht">hh_migration_manifest.csv</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb ev" id="x1p5ev"><div class="evi evk-table"><div class="evh"><code>hh_migration_manifest.csv</code><span class="evr">golden artifact</span></div><div class="evtab"><table><thead><tr><th>album</th><th>laptop_size_gb</th><th>laptop_items</th><th>shot_date</th><th>published</th><th>publish_ref</th><th>t7_status</th><th>flags</th><th>action</th><th>mini_status</th></tr></thead><tbody><tr id="x1p5h0"><td>2025 archive</td><td>58.6</td><td>214</td><td>2025 (archive; mixed dates)</td><td>N/A</td><td>Archive - not a release</td><td>On T7. Count OK (214=214). SIZE MISMATCH: 58.4 GB vs laptop 58.6 GB.</td><td>Archive: verify by count+size only, do NOT open (checklist). Modified Dec 14 2025 -&gt; predates drive (May 6) -&gt; no double-check. exFAT/APFS rounding does not excuse it; rule is mechanical.</td><td>RECOPY (size off only -&gt; recopy, no hold). Not clean until re-verified.</td><td>On mini. SIZE MISMATCH: 58.4 GB vs laptop 58.6 GB (same delta as T7). Top-level count not re-captured (mini list view shows size, not count). Archive: don&#x27;t open. Size off only -&gt; RECOPY (no hold). Same result as T7.</td></tr><tr id="x1p5h1"><td>bc eagles 3-21</td><td>41.2</td><td>118</td><td>2026-03-21</td><td>No</td><td>Not published. Personal - BC Eagles men&#x27;s bball at Conte Forum, Sat 3/21/2026 7pm, taken with son Mason (calendar + Ticketmaster #TM-BOS-4471902).</td><td>MISSING from T7 - never copied.</td><td>Only ONE copy anywhere (laptop) -&gt; auto-HOLD (voice rule), regardless of anything else. Modified Apr 23 2026 -&gt; predates drive -&gt; no double-check. NOT part of the &#x27;7 albums / ~213 GB&#x27; plan (those 7 = the other folders, sum 213.2 GB).</td><td>HOLD - do not wipe. Copy bc eagles 3-21 to T7, then verify count+size.</td><td>MISSING from mini (never reached T7, so nothing to copy from). Still only ONE copy anywhere (laptop) -&gt; auto-HOLD. Unchanged from T7.</td></tr><tr id="x1p5h2"><td>finale reel FINAL</td><td>61.4</td><td>6</td><td>2026-06-06 (WRYB season finale)</td><td>No</td><td>Not published. finale_export.mp4 is 0 KB (never exported). Promised Ray a reel &#x27;early the following week&#x27; after 6/6 (sent email 2026-06-05); link never sent.</td><td>On T7 but BOTH OFF: count 5 vs laptop 6; size 59.3 GB vs laptop 61.4 GB.</td><td>count AND size both off -&gt; STOP / hold everything (checklist). The missing item is &#x27;slowmo tests&#x27; (9 items / ~2.1 GB; 61.4-59.3=2.1). T7&#x27;s finale internals were NOT captured, so T7 Auto-Save is UNVERIFIED - and the cut IS the autosaves (voice rule). DOUBLE-CHECK: laptop modified Aug 12 2026 (after drive May 6) -&gt; re-check current laptop state before recopy.</td><td>Mini now GOOD via direct laptop-&gt;mini copy (6 items; Auto-Save 11; slowmo tests present). STILL TO DO on the T7: recopy finale in full incl. &#x27;slowmo tests&#x27; and confirm Auto-Save = 11 before trusting; also glance at the mini folder size to fully close step 4.</td><td>RE-COPIED straight laptop-&gt;mini (Aug 23; photo of mini screen). Now 6 items = laptop 6: Adobe Premiere Pro Auto-Save = 11 (laptop 11) -&gt; the cut SURVIVED; &#x27;slowmo tests&#x27; (9) present; footage 191; music 6. Count + internal structure now MATCH the laptop -&gt; the &#x27;autosaves ARE the cut&#x27; failure is RESOLVED on the mini. (Folder byte-size not shown in the photo; glance at it to fully close step 4, but composition is complete.) NOTE: this fixed the MINI only - the T7 finale is still short (5 / 59.3).</td></tr><tr id="x1p5h3"><td>mar madness mixtape</td><td>12.4</td><td>37</td><td>compilation (no single shoot date; live early Mar 2026)</td><td>Yes</td><td>YouTube (HoopHighlights): &#x27;March Madness - Local Legends Mixtape&#x27; (&gt;=612 views by 3/13/2026).</td><td>VERIFIED on T7: count 37=37; size 12.4=12.4 GB.</td><td>2 copies (laptop + T7). Modified Mar 13 2026 -&gt; predates drive -&gt; no double-check.</td><td>Clean (2 copies) -&gt; ready for mini step.</td><td>VERIFIED on mini by size: 12.4=12.4 GB (matches laptop &amp; T7). Top-level count not re-captured (list view). Size-clean.</td></tr><tr id="x1p5h4"><td>Pickup Run Vol. 9</td><td>18.9</td><td>52</td><td>compilation (no single shoot date)</td><td>Yes</td><td>YouTube (HoopHighlights): &#x27;Pickup Run Vol. 9&#x27; - live 2026-03-06 (passed 1,000 views 3/12).</td><td>VERIFIED on T7: count 52=52; size 18.9=18.9 GB.</td><td>2 copies (laptop + T7). Modified Mar 6 2026 -&gt; predates drive -&gt; no double-check.</td><td>Clean -&gt; ready for mini step.</td><td>VERIFIED on mini by size: 18.9=18.9 GB (matches). Count not re-captured (list view). Size-clean.</td></tr><tr id="x1p5h5"><td>pickup runs vol 4</td><td>21.7</td><td>61</td><td>compilation (no single shoot date; cut ~4/18/2026)</td><td>Yes</td><td>YouTube (HoopHighlights): &#x27;Pickup Runs Vol 4&#x27; - live 2026-04-18.</td><td>VERIFIED on T7: count 61=61; size 21.7=21.7 GB.</td><td>2 copies (laptop + T7). Modified Apr 18 2026 -&gt; predates drive -&gt; no double-check. Vol number not chronological (Vol 4 out after Vol 9) - cosmetic.</td><td>Clean -&gt; ready for mini step.</td><td>VERIFIED on mini by size: 21.7=21.7 GB (matches). Count not re-captured (list view). Size-clean.</td></tr><tr id="x1p5h6"><td>wryb 5-16 parents reel</td><td>23.4</td><td>68</td><td>2026-05-16</td><td>Yes</td><td>Unlisted YouTube https://youtu.be/aB3kR9xQ2mN - Brandon sent to Ray (ray@wryb.org) 2026-05-19; Ray forwarded to the WRYB parent list that night.</td><td>VERIFIED on T7: count 68=68; size 23.4=23.4 GB.</td><td>DOUBLE-CHECK: laptop modified May 19 2026 (after drive May 6). The T7 copy was made Aug 16-17 (after that edit) and count+size match -&gt; passes; just confirm no further edits since Aug 16.</td><td>Clean (passes double-check) -&gt; ready for mini step.</td><td>VERIFIED on mini by size: 23.4=23.4 GB (matches). Count not re-captured (list view). Size-clean. Double-check album, but the copy post-dates the edit -&gt; OK.</td></tr><tr id="x1p5h7"><td>wryb week6 cut</td><td>16.8</td><td>44</td><td>2026-04-25 (WRYB Week 6)</td><td>Yes</td><td>YouTube (HoopHighlights): &#x27;Spring Rec League - Week 6 Highlights&#x27; - live ~2026-05-09.</td><td>VERIFIED on T7: count 44=44; size 16.8=16.8 GB.</td><td>DOUBLE-CHECK: laptop modified May 9 2026 (after drive May 6). T7 copy made Aug 16-17 (after that edit) and count+size match -&gt; passes. Week 6 = 4/25 derived from league thread (Ray: Week 1 = 3/21, Sat 9-11 at the Ohrenberger).</td><td>Clean (passes double-check) -&gt; ready for mini step.</td><td>VERIFIED on mini by size: 16.8=16.8 GB (matches). Count not re-captured (list view). NEW ISSUE: a stray &#x27;wryb week6 cut copy&#x27; (16.8 GB, same mod date) is on the mini but NOT on the laptop or T7 -&gt; extraneous, delete it. Album itself size-clean.</td></tr></tbody></table></div><div class="evcut">8 rows. The marked row is the one the example is about.</div></div></div></div></div><div class="ovpane" data-pane="6" role="tabpanel"><div class="panel"><div class="ph" id="x1p6h"><span class="src">Task file</span><span class="pht">voice_note_transcript.txt</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb ev" id="x1p6ev"><div class="evi evk-text"><div class="evh"><code>voice_note_transcript.txt</code><span class="evr">golden artifact</span></div><pre class="evtext">Okay, before I forget, ground rules for the library move, the stuff that&#x27;s not on the
+checklist.
+One, if any album ends up with only one copy anywhere, that&#x27;s an automatic hold, we are
+not wiping the laptop, doesn&#x27;t matter what else passes.
+Two, the wipe call at the end has to say what&#x27;s blocking, by name, not just yes or no.
+And the finale project, the cut is the autosaves.
+If those don&#x27;t survive, the whole thing was pointless.
+Card readers in the desk drawer, if I need to pull anything off the cards, again, that&#x27;s
+it.
+</pre></div></div></div></div></div>
+    </section>
+  </div>
+</div></div>
+
+<footer><p>Every example on these pages is a real Red Shell task, carried over exactly as the Red Shell Common Errors
+course shows it, under its number in this deck. Each one illustrates an issue that must not be repeated in Green Shell,
+because the same quality standards and expectations still apply; the rules beside it are quoted from the Green Shell
+Guidelines and QC spec. Nothing here identifies a contributor.</p></footer>
+</body></html>

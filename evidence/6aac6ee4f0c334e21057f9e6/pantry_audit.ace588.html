@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Main St Pantry — Pre-Publish Audit (order goes in Mon 6/29/26)</title>
+<style>
+  :root{
+    --green:#2f5d3a;--green2:#3c7a4a;--bg:#f6f5f1;--card:#fff;--line:#e2e0d8;
+    --ink:#242019;--muted:#6b665c;--fix:#b26a00;--fixbg:#fff6e6;--pub:#2f7d32;
+    --pubbg:#eaf6ea;--pull:#b3261e;--pullbg:#fdecea;--blue:#1c5b86;--bluebg:#eef4fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  header{background:var(--green);color:#fff;padding:22px 20px}
+  header h1{margin:0 0 4px;font-size:1.4rem}
+  header p{margin:0;opacity:.92;font-size:.92rem}
+  .wrap{max-width:960px;margin:0 auto;padding:20px}
+  h2{font-size:1.15rem;border-bottom:2px solid var(--line);padding-bottom:6px;margin-top:34px}
+  .k{color:var(--muted);font-size:.88rem}
+  code{background:#efeee8;padding:1px 5px;border-radius:4px;font-size:.84em}
+
+  .note{border-radius:10px;border:1px solid var(--line);border-left:5px solid var(--fix);background:#fffdf6;padding:14px 16px;margin:18px 0;font-size:.9rem}
+  .note b{color:var(--fix)}
+
+  /* price panel */
+  .prices{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+  .prices h3{margin:0 0 4px;font-size:1rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:12px}
+  .fld{display:flex;flex-direction:column;font-size:.85rem}
+  .fld label{color:var(--muted);margin-bottom:3px}
+  .fld .inp{display:flex;align-items:center;gap:4px}
+  .fld input{font:inherit;width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:7px;font-variant-numeric:tabular-nums}
+  .fld input:focus{outline:2px solid var(--green2);border-color:var(--green2)}
+  .fld .u{color:var(--muted);font-size:.8rem;white-space:nowrap}
+  .prices .row2{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+  .btnrow{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+  .btnrow button{font:inherit;cursor:pointer;border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:7px}
+  .live{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--pub);background:var(--pubbg);border:1px solid #a8d3aa;border-radius:999px;padding:2px 8px}
+
+  table{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:9px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:#fafaf7}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .tag{font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+  .t-no{color:var(--pull);background:var(--pullbg);border:1px solid #e6a9a4}
+  .t-cant{color:var(--fix);background:var(--fixbg);border:1px solid #e8c98a}
+  .t-yes{color:var(--pub);background:var(--pubbg);border:1px solid #a8d3aa}
+
+  .listing{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:14px 0;overflow:hidden}
+  .listing .top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);background:#fafaf7}
+  .listing .top h3{margin:0;font-size:1.05rem}
+  .badge{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .b-fix{color:var(--fix);background:var(--fixbg);border:1px solid #e8c98a}
+  .b-pull{color:var(--pull);background:var(--pullbg);border:1px solid #e6a9a4}
+  .b-pub{color:var(--pub);background:var(--pubbg);border:1px solid #a8d3aa}
+  .cols{display:grid;grid-template-columns:1fr 1fr}
+  .col{padding:14px 16px}
+  .col.draft{border-right:1px dashed var(--line);background:#fcfbf8}
+  .col h4{margin:0 0 8px;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .price{font-size:1.1rem;font-weight:700}
+  .claim{font-size:.88rem;margin:3px 0}
+  .ok::before{content:"✔ ";color:var(--pub)}
+  .bad::before{content:"✖ ";color:var(--pull)}
+  .bad{color:var(--pull)}
+  .why{padding:12px 16px;border-top:1px solid var(--line);font-size:.88rem;background:#fbfaf6}
+  .why b{color:var(--green2)}
+  @media(max-width:620px){.cols{grid-template-columns:1fr}.col.draft{border-right:none;border-bottom:1px dashed var(--line)}}
+
+  .picker{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .picker button{font:inherit;cursor:pointer;border:1px solid var(--line);background:#fff;padding:10px 16px;border-radius:8px;font-weight:600}
+  .picker button.active{background:var(--green);color:#fff;border-color:var(--green)}
+  .picker button.org{border-color:#cdbb6a}
+  .bill{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:8px}
+  .bill .bhead{padding:14px 16px;background:var(--green);color:#fff}
+  .bill .bhead h3{margin:0;font-size:1.1rem}
+  .bill .bhead .sub{opacity:.92;font-size:.85rem;margin-top:2px}
+  .bill table{border:none;border-radius:0}
+  tr.total td{font-weight:700;border-top:2px solid var(--ink);background:#f4f3ee}
+  tr.sub td{background:#f8f7f2}
+  .flag{background:var(--fixbg);border-left:4px solid var(--fix);padding:10px 14px;font-size:.86rem}
+  .drop{color:var(--pull)}
+  .note-ss{background:var(--bluebg);border-left:4px solid var(--blue);padding:10px 14px;font-size:.86rem}
+  .prompt{padding:24px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+  footer{color:var(--muted);font-size:.8rem;padding:24px 20px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>🍌 Main St Pantry — pre-publish audit <span style="font-weight:400;opacity:.85">(v6)</span></h1>
+  <p>Group Fresh order goes in <b>Monday 7/6/26</b> (moved — Fresh had no slots the prior week) · draft by Tom (3C). Checked against the house rules, the laundry-room sheet, the delivered-product photo, 4B's card statement, and the 6/28 &amp; 7/5 group-chat changes.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="note" style="border-left-color:var(--blue);background:var(--bluebg)">
+    <b style="color:var(--blue)">Applied changes through Rosa's 7/5 text:</b>
+    <ul style="margin:6px 0 0;padding-left:18px">
+      <li><b>Date → Mon 7/6/26.</b> New order week 7/6–7/12 has <b>no</b> 4B Subscribe &amp; Save bill (biweekly lands 7/1 and 7/15), so nothing comes off — <b>4B's bananas go back to the full 3 lb</b> (rule 4).</li>
+      <li><b>3C (Tom, 6/28):</b> +3 avocados, eggs scratched, now <b>organic-only</b> → gets avocados only; his bananas &amp; spinach drop (rule 3).</li>
+      <li><b>5D (Rosa, 7/5):</b> added eggs "same as Tom signed up for" = <b>2 dozen</b> (his sheet signup) → <b>eggs are back on the board</b>. Her app's avocado price ($1.89/single) is from <b>her own Prime account</b>, so it's <b>not used</b> — rule 1 charges what Fresh charges the building account, and rule 5 bars member prices/deals (incl. her free delivery).</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <b>About the prices:</b> all five item prices are <b>Tom's board figures, left as-is and flagged unconfirmed</b> on each card. I did <b>not</b> price anything off Rosa's phone — that's her own (Prime) account, and the rules say we charge what Fresh charges the <b>building</b> account (rule 1) with no member prices (rule 5). The connected Fresh account here is the personal one and its catalog search returns nothing, so I can't pull the building's real prices — they stay flagged until someone reads them off the building app. Delivery uses Tom's stated Fresh policy ($2.99 under $50, free at/above), also unconfirmed. <b>settle_up.csv matches the totals shown here.</b> <span class="k">(The price boxes below are optional — edit them only if you want to; nothing needs typing for the CSV to work.)</span>
+  </div>
+
+  <!-- PRICE PANEL -->
+  <div class="prices">
+    <h3>Fresh prices &amp; delivery policy <span class="live">live</span></h3>
+    <div class="k">Enter what Fresh actually charges for the pack we're buying (rule 1). Bananas are priced per lb; the rest per pack.</div>
+    <div class="grid">
+      <div class="fld"><label>Bananas</label><div class="inp">$<input id="p_ban" type="number" step="0.01" value="0.51"><span class="u">/ lb</span></div></div>
+      <div class="fld"><label>Avocados (organic, single)</label><div class="inp">$<input id="p_avo" type="number" step="0.01" value="2.51"><span class="u">/ each</span></div></div>
+      <div class="fld"><label>Baby Spinach 5 oz</label><div class="inp">$<input id="p_spi" type="number" step="0.01" value="4.83"><span class="u">/ pack</span></div></div>
+      <div class="fld"><label>Large Eggs</label><div class="inp">$<input id="p_egg" type="number" step="0.01" value="4.62"><span class="u">/ dozen</span></div></div>
+      <div class="fld"><label>Red Bell Peppers</label><div class="inp">$<input id="p_pep" type="number" step="0.01" value="2.18"><span class="u">/ each</span></div></div>
+    </div>
+    <div class="row2">
+      <div class="fld" style="max-width:160px"><label>Delivery fee (under threshold)</label><div class="inp">$<input id="d_fee" type="number" step="0.01" value="2.99"></div></div>
+      <div class="fld" style="max-width:160px"><label>Free-delivery at subtotal ≥</label><div class="inp">$<input id="d_thr" type="number" step="0.01" value="50"></div></div>
+      <div class="fld" style="max-width:220px"><label>4B S&amp;S billing in order week</label><div class="inp">$<input id="ss_amt" type="number" step="0.01" value="0.00"><span class="u">of bananas (none in 7/6–7/12)</span></div></div>
+    </div>
+    <div class="btnrow">
+      <button onclick="resetPrices()">Reset to Tom's draft</button>
+      <button onclick="clearPrices()">Clear all</button>
+    </div>
+  </div>
+
+  <!-- CLAIMS -->
+  <h2>1 · Claims — kept, reworded, or removed</h2>
+  <p class="k">Rule 7: a card may carry only claims Fresh backs. The delivered-product photo is Fresh's own item, so I treat what's printed on the pack as backed; nutrition slogans and unconfirmable policy lines are not.</p>
+  <table>
+    <thead><tr><th>Item</th><th>Tom's claim</th><th>Backed?</th><th>On the fixed card</th></tr></thead>
+    <tbody>
+      <tr><td>Avocados</td><td>"Organic"</td><td><span class="tag t-yes">Yes — photo</span></td><td><b>Kept.</b> USDA-Organic seal is on the delivered bag (and it's what 2A relies on).</td></tr>
+      <tr><td>Baby Spinach</td><td>"Pre-washed"</td><td><span class="tag t-yes">Yes — photo</span></td><td><b>Kept, reworded to "Thoroughly washed"</b> to match the tub's exact wording.</td></tr>
+      <tr><td>Avocados</td><td>"Not ripe? Return within 30 days"</td><td><span class="tag t-no">No</span></td><td><b>Removed.</b> Nothing backs a 30-day produce return; use Fresh's real guarantee wording once you have it.</td></tr>
+      <tr><td>Baby Spinach</td><td>"Organic" (in the name)</td><td><span class="tag t-no">No</span></td><td><b>Removed.</b> The tub is plain <i>Good&nbsp;&amp;&nbsp;Gather Baby Spinach</i> — not organic.</td></tr>
+      <tr><td>Bananas</td><td>"Fresh, rich in potassium"</td><td><span class="tag t-no">No</span></td><td><b>Removed.</b> Nutrition slogan, not a Fresh product spec.</td></tr>
+      <tr><td>Red Bell Peppers</td><td>"High in vitamin C"</td><td><span class="tag t-no">No</span></td><td><b>Removed.</b> Nutrition slogan.</td></tr>
+      <tr><td>Eggs</td><td>"Free-range, Grade A"</td><td><span class="tag t-cant">Can't tell</span></td><td><b>Left off pending the Fresh listing</b> (carton unlabeled in the photo). Eggs are back in the order — Rosa added 2 dozen on 7/5.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- LISTINGS -->
+  <h2>2 · Listing cards — verdict &amp; fixed version</h2>
+  <p class="k">All six are <b>fix</b> (eggs is back — Rosa re-added it 7/5). Nothing is <b>publish</b> — each card still has a defect to correct; nothing is <b>pull</b> — every item now has a buyer.</p>
+  <div id="listings"></div>
+
+  <!-- OWED -->
+  <h2>3 · What each apartment gets &amp; owes</h2>
+  <p class="k">Quantities are final (rules + sheet + photo + card statement). Dollars are computed live from the prices you enter above — delivery included, split by rule 6. Amounts are what each apt owes <b>4B</b> (4B fronts it).</p>
+  <div class="picker" id="picker"></div>
+  <div id="aptView"><div class="prompt">👆 Pick an apartment to see only its part.</div></div>
+
+</div>
+
+<footer>Pre-publish audit for the 4B organizer · v6 (order 7/6/26). Quantities &amp; split logic are final; all five item prices are Tom's board figures, flagged unconfirmed (not priced off Rosa's account). settle_up.csv matches the totals shown here.</footer>
+
+<script>
+/* ---------- LISTING CARDS ---------- */
+const listings=[
+ {name:"Bananas",verdict:"fix",
+  draft:{price:"$0.51 / lb",pack:"by the lb",claims:[{t:"Fresh, rich in potassium",ok:false}]},
+  fixed:{price:"$0.51 / lb — ⚠ Tom's board, unconfirmed",pack:"by the lb",claims:[{t:"no slogan (nutrition line removed)",ok:true}]},
+  why:`Remove <b>"rich in potassium"</b> (rule 7). Plain bananas aren't organic → dropped for 2A. 4B: part of their bananas arrive on their own Subscribe&nbsp;&amp;&nbsp;Save (see 4B's card).`},
+ {name:"Organic Avocados",verdict:"fix",
+  draft:{price:"$2.51 each",pack:"single",claims:[{t:"Organic",ok:true},{t:"Not ripe? Return within 30 days",ok:false}]},
+  fixed:{price:"$2.51 / each — ⚠ Tom's board, unconfirmed",pack:"single (confirm — a 3-pack may exist; rule 2 = buy the cheapest mix)",claims:[{t:"Organic (Fresh lists 'Organic Avocados'; USDA seal in photo)",ok:true},{t:"30-day return line removed",ok:true}]},
+  why:`Keep <b>Organic</b> (it's the only thing 2A &amp; 3C get); drop the 30-day return. <b>Price left at Tom's $2.51 and flagged.</b> Rosa's $1.89/single is from <b>her own account</b> (Prime — note the free delivery), so rule 1 ("what Fresh charges <i>us</i>") and rule 5 (no member prices) mean we can't use it. Confirm the building account's own price and pack options before publishing.`},
+ {name:"Organic Baby Spinach → Baby Spinach",verdict:"fix",
+  draft:{price:"$4.83 (5 oz)",pack:"5 oz",claims:[{t:"Organic (in the name)",ok:false},{t:"Pre-washed",ok:false}]},
+  fixed:{price:"$4.83 / 5 oz — ⚠ Tom's board, unconfirmed",pack:"5 oz",claims:[{t:"Baby Spinach — NOT organic",ok:true},{t:"Thoroughly washed (per the tub)",ok:true}]},
+  why:`<b>Biggest fix.</b> Delivered tub is plain <i>Good&nbsp;&amp;&nbsp;Gather Baby Spinach, 5&nbsp;oz</i> — strip "Organic". Keep "thoroughly washed" (it's on the pack). Knock-on: <b>2A (organic-only) loses spinach</b> — dropped, not swapped (rule 3).`},
+ {name:"Free-Range Large Eggs",verdict:"fix",
+  draft:{price:"$4.62 / dozen",pack:"dozen",claims:[{t:"Free-range, Grade A",ok:false}]},
+  fixed:{price:"$4.62 / dozen — ⚠ Tom's board, unconfirmed",pack:"dozen",claims:[{t:'"free-range / Grade A" — add back only if the Fresh listing says so',ok:false}]},
+  why:`<b>Back on the board:</b> was a pull after Tom's 6/28 scratch, but Rosa re-added eggs 7/5 ("same as Tom signed up for" → read as his <b>2-dozen</b> sheet signup). Still can't confirm "free-range / Grade A" (carton unlabeled) — leave off until Fresh's page shows it. Price still Tom's number. <b>Confirm the 2-dozen qty with Rosa.</b>`},
+ {name:"Red Bell Peppers",verdict:"fix",
+  draft:{price:"$2.18 each",pack:"each",claims:[{t:"High in vitamin C",ok:false}]},
+  fixed:{price:"$2.18 / each — ⚠ Tom's board, unconfirmed",pack:"each",claims:[{t:"no slogan (nutrition line removed)",ok:true}]},
+  why:`Remove <b>"high in vitamin C"</b> (rule 7). Bought by 4B (1) and 5D (3).`},
+ {name:'Delivery footer — "split evenly"',verdict:"fix",
+  draft:{price:"—",pack:"$2.99 for $35–49.99, free over $50",claims:[{t:"Split evenly between apartments",ok:false}]},
+  fixed:{price:"—",pack:"Fresh's delivery policy (enter above)",claims:[{t:"Split by each apt's share of the items total — rule 6",ok:true},{t:"Confirm Fresh's real fee/threshold (Tom's is unverified)",ok:false}]},
+  why:`Tom splits delivery <b>evenly</b>; rule 6 says <b>proportionally</b> to each apt's items total, leftover cent → 4B. His "$2.99 / free over $50" is unverified — enter Fresh's real policy above and the totals honour it (rule 5).`}
+];
+const cl=c=>`<div class="claim ${c.ok?'ok':'bad'}">${c.t}</div>`;
+const VB={fix:['b-fix','Fix'],pull:['b-pull','Pull'],publish:['b-pub','Publish']};
+document.getElementById('listings').innerHTML=listings.map(L=>`
+ <div class="listing">
+  <div class="top"><h3>${L.name}</h3><span class="badge ${VB[L.verdict][0]}">${VB[L.verdict][1]}</span></div>
+  <div class="cols">
+   <div class="col draft"><h4>As Tom drafted it</h4><div class="price">${L.draft.price}</div><div class="k">Pack: ${L.draft.pack}</div><div style="margin-top:8px">${L.draft.claims.map(cl).join('')}</div></div>
+   <div class="col"><h4>Fixed card</h4><div class="price">${L.fixed.price}</div><div class="k">Pack: ${L.fixed.pack}</div><div style="margin-top:8px">${L.fixed.claims.map(cl).join('')}</div></div>
+  </div>
+  <div class="why">${L.why}</div>
+ </div>`).join('');
+
+/* ---------- COMPUTATION MODEL ---------- */
+const APTS=["2A","3C","4B","5D"];
+const NAMES={"2A":"Priya","3C":"Tom","4B":"You (4B)","5D":"Rosa"};
+const ITEMS=[
+  {key:"ban",label:"Bananas",unit:"lb",id:"p_ban"},
+  {key:"avo",label:"Avocados (organic)",unit:"each",id:"p_avo"},
+  {key:"spi",label:"Baby Spinach",unit:"pack",id:"p_spi"},
+  {key:"egg",label:"Eggs",unit:"dozen",id:"p_egg"},
+  {key:"pep",label:"Red Bell Peppers",unit:"each",id:"p_pep"},
+];
+const ORGANIC={ban:false,avo:true,spi:false,egg:false,pep:false}; // per delivered photo
+const ORGANIC_ONLY={"2A":true,"3C":true,"4B":false,"5D":false};  // 3C: "organic only from now on" (6/28 chat); 5D "any is fine"
+// raw requests from the signup sheet
+const REQ={
+  ban:{"2A":2,"3C":1,"4B":3,"5D":3},
+  avo:{"2A":1,"3C":3,"4B":2,"5D":3},
+  spi:{"2A":2,"3C":1,"4B":1,"5D":1},
+  egg:{"2A":1,"3C":0,"4B":0,"5D":2},
+  pep:{"2A":0,"3C":0,"4B":1,"5D":3},
+};
+const num=id=>{const v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;};
+const money=n=>'$'+n.toFixed(2);
+
+function compute(){
+  const price={}; ITEMS.forEach(it=>price[it.key]=num(it.id));
+  const fee=num("d_fee"), thr=num("d_thr"), ssAmt=num("ss_amt");
+  // adjusted quantities
+  const qty={}; const dropped={"2A":[],"3C":[],"4B":[],"5D":[]};
+  let ssLbs=0;
+  ITEMS.forEach(it=>{
+    qty[it.key]={};
+    APTS.forEach(a=>{
+      let q=REQ[it.key][a]||0;
+      if(ORGANIC_ONLY[a] && !ORGANIC[it.key] && q>0){ dropped[a].push(`${it.label} (${q}) — not organic`); q=0; }
+      qty[it.key][a]=q;
+    });
+  });
+  // 4B Subscribe & Save: ssAmt buys bananas at Fresh price; that qty comes off 4B's bananas
+  if(price.ban>0){ ssLbs=ssAmt/price.ban; qty.ban["4B"]=Math.max(0, (REQ.ban["4B"]||0)-ssLbs); }
+  // per-line shares (rule 6): share = round(units*price,2); remainder -> most-units apt
+  const share={}; const itemsTotal={"2A":0,"3C":0,"4B":0,"5D":0}; const gets={"2A":[],"3C":[],"4B":[],"5D":[]};
+  ITEMS.forEach(it=>{
+    share[it.key]={};
+    const totU=APTS.reduce((s,a)=>s+qty[it.key][a],0);
+    const lineCost=Math.round(totU*price[it.key]*100)/100;
+    let acc=0, maxA=null, maxU=-1;
+    APTS.forEach(a=>{
+      const u=qty[it.key][a];
+      const s=Math.round(u*price[it.key]*100)/100;
+      share[it.key][a]=s; acc=Math.round((acc+s)*100)/100;
+      if(u>maxU){maxU=u;maxA=a;}
+    });
+    const rem=Math.round((lineCost-acc)*100)/100;
+    if(rem!==0 && maxA) share[it.key][maxA]=Math.round((share[it.key][maxA]+rem)*100)/100;
+    APTS.forEach(a=>{ if(qty[it.key][a]>0){ itemsTotal[a]=Math.round((itemsTotal[a]+share[it.key][a])*100)/100;
+      gets[a].push({label:it.label, q:qty[it.key][a], unit:it.unit, key:it.key, share:share[it.key][a]}); }});
+  });
+  const subtotal=Math.round(APTS.reduce((s,a)=>s+itemsTotal[a],0)*100)/100;
+  const delivery = subtotal>=thr ? 0 : fee;
+  // delivery share proportional to itemsTotal, leftover cent -> 4B
+  const dShare={"2A":0,"3C":0,"4B":0,"5D":0};
+  if(delivery>0 && subtotal>0){
+    let acc=0;
+    APTS.forEach(a=>{ if(a!=="4B"){ const s=Math.round(delivery*(itemsTotal[a]/subtotal)*100)/100; dShare[a]=s; acc=Math.round((acc+s)*100)/100; }});
+    dShare["4B"]=Math.round((delivery-acc)*100)/100; // 4B absorbs the remainder
+  }
+  const total={}; APTS.forEach(a=>total[a]=Math.round((itemsTotal[a]+dShare[a])*100)/100);
+  return {price,fee,thr,ssAmt,ssLbs,qty,dropped,gets,itemsTotal,subtotal,delivery,dShare,total};
+}
+
+/* ---------- RENDER ---------- */
+let current=null;
+const picker=document.getElementById('picker'), view=document.getElementById('aptView');
+APTS.forEach(a=>{const b=document.createElement('button');b.textContent=`${a} · ${NAMES[a]}`;if(ORGANIC_ONLY[a])b.className='org';
+ b.onclick=()=>{sel(a,b);};picker.appendChild(b);});
+const ab=document.createElement('button');ab.textContent='All (4B organizer)';
+ab.onclick=()=>{sel('ALL',ab);};picker.appendChild(ab);
+function sel(a,btn){current=a;document.querySelectorAll('#picker button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');render();}
+function render(){ if(!current)return; const c=compute(); current==='ALL'?showAll(c):showApt(current,c); }
+
+function showApt(a,c){
+  const rows=c.gets[a].map(g=>{
+    const qd = g.key==='ban' ? g.q.toFixed(2).replace(/\.00$/,'')+' lb' : g.q+' '+(g.q==1?g.unit.replace(/s$/,''):g.unit);
+    return `<tr><td>${g.label}</td><td class="num">${qd}</td><td class="num">${money(g.share)}</td></tr>`;}).join('')
+    || `<tr><td colspan="3" class="k" style="text-align:center">nothing in the order</td></tr>`;
+  const dropped=(c.dropped[a]||[]).map(d=>`<div class="flag drop">✖ Dropped: ${d}</div>`).join('');
+  let banner='';
+  if(a==='2A') banner=`<div class="flag"><b>Organic-only.</b> Only Fresh-organic items count; the rest is dropped, not swapped (rule 3). That leaves just the avocado.</div>`;
+  if(a==='3C') banner=`<div class="flag"><b>Tom's 6/28 chat:</b> added avocados (3, same as Rosa), scratched the eggs, and switched to <b>organic-only</b>. So only the avocados count — bananas &amp; spinach drop (rule 3), and eggs come off the board entirely.</div>`;
+  if(a==='4B'){ if(c.ssAmt>0 && c.price.ban>0){ const lbs=c.ssLbs; banner=`<div class="note-ss"><b>Subscribe&nbsp;&amp;&nbsp;Save:</b> $${c.ssAmt.toFixed(2)} of bananas bills inside the order week — at $${c.price.ban.toFixed(2)}/lb that's <b>${lbs.toFixed(2).replace(/\.00$/,'')} lb</b>, taken off your 3&nbsp;lb → group buys you <b>${Math.max(0,3-lbs).toFixed(2).replace(/\.00$/,'')} lb</b> (rule 4).</div>`; } else { banner=`<div class="note-ss"><b>Subscribe&nbsp;&amp;&nbsp;Save:</b> with the order now in the week of <b>Mon 7/6</b>, none of your biweekly S&amp;S bills land in 7/6–7/12 (they hit 7/1 and 7/15), so nothing comes off — you get your <b>full 3&nbsp;lb</b> of bananas (rule 4).</div>`; } }
+  if(a==='5D') banner=`<div class="flag">Not organic-only ("any is fine — Rosa", rule 3). <b>Added 7/5:</b> eggs "same as Tom signed up for" → read as <b>2 dozen</b> (his sheet signup) — worth confirming with Rosa. Her $1.89 avocado price is from her own Prime account, so it's <b>not</b> used (rules 1 &amp; 5).</div>`;
+  const delTxt = c.delivery===0 ? `$0.00 <span class="k">(subtotal ${money(c.subtotal)} ≥ ${money(c.thr)} → free)</span>` : money(c.dShare[a]);
+  view.innerHTML=`<div class="bill">
+    <div class="bhead"><h3>${a} · ${NAMES[a]}</h3><div class="sub">${a==="4B"?"Your own share (you front the order and get repaid).":"You owe this to 4B after delivery."}</div></div>
+    ${banner}
+    <table><thead><tr><th>Item</th><th class="num">You get</th><th class="num">Your share</th></tr></thead><tbody>
+      ${rows}
+      <tr class="sub"><td>Items total</td><td class="num"></td><td class="num">${money(c.itemsTotal[a])}</td></tr>
+      <tr><td>Delivery share</td><td class="num"></td><td class="num">${delTxt}</td></tr>
+      <tr class="total"><td>${a==="4B"?"Your share":"You owe 4B"}</td><td class="num"></td><td class="num">${money(c.total[a])}</td></tr>
+    </tbody></table>
+    ${dropped}
+  </div>`;
+}
+function showAll(c){
+  const body=APTS.map(a=>`<tr><td>${a} · ${NAMES[a]}</td><td class="num">${money(c.itemsTotal[a])}</td><td class="num">${c.delivery===0?'$0.00':money(c.dShare[a])}</td><td class="num">${money(c.total[a])}</td></tr>`).join('');
+  const grand=Math.round(APTS.reduce((s,a)=>s+c.total[a],0)*100)/100;
+  const delLine = c.delivery===0 ? `Delivery free (subtotal ${money(c.subtotal)} ≥ ${money(c.thr)}).` : `Delivery ${money(c.delivery)} split proportionally (leftover cent on 4B).`;
+  view.innerHTML=`<div class="bill">
+    <div class="bhead"><h3>All apartments — organizer view</h3><div class="sub">4B fronts ${money(grand)}; everyone else repays 4B. ${delLine}</div></div>
+    <table><thead><tr><th>Apartment</th><th class="num">Items</th><th class="num">Delivery</th><th class="num">Owes 4B</th></tr></thead><tbody>
+      ${body}
+      <tr class="total"><td>Order total</td><td class="num">${money(c.subtotal)}</td><td class="num">${money(c.delivery)}</td><td class="num">${money(grand)}</td></tr>
+    </tbody></table>
+    <div class="flag">Reimbursements to 4B = everyone except 4B's own share. Recomputes as you edit prices above.</div>
+  </div>`;
+}
+
+/* ---------- controls ---------- */
+const DEFAULTS={p_ban:"0.51",p_avo:"2.51",p_spi:"4.83",p_egg:"4.62",p_pep:"2.18",d_fee:"2.99",d_thr:"50",ss_amt:"0.00"};
+function resetPrices(){for(const k in DEFAULTS)document.getElementById(k).value=DEFAULTS[k];render();}
+function clearPrices(){["p_ban","p_avo","p_spi","p_egg","p_pep"].forEach(k=>document.getElementById(k).value="");render();}
+document.querySelectorAll('.prices input').forEach(i=>i.addEventListener('input',render));
+</script>
+<script>
+/* Added by the Common Errors viewer. Not part of the task: it marks the passage the example points at. */
+(function () {
+  var T = ["its catalog search returns nothing"];
+  var SKIP = {SCRIPT: 1, STYLE: 1, TEMPLATE: 1, NOSCRIPT: 1, MARK: 1};
+  var all = [], at = 0, found = 0;
+  function textTarget(t) {
+    var exact = t.charAt(0) === "=", s = exact ? t.slice(1) : t, hits = [];
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        return n.parentNode && SKIP[n.parentNode.nodeName] ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n, list = [];
+    while ((n = w.nextNode())) list.push(n);
+    list.forEach(function (node) {
+      var i = exact ? (node.data.trim() === s ? node.data.indexOf(s) : -1) : node.data.indexOf(s);
+      if (i < 0) return;
+      var r = document.createRange();
+      r.setStart(node, i); r.setEnd(node, i + s.length);
+      var m = document.createElement("mark");
+      m.style.cssText = "background:#ffe066;color:#111;outline:1.5px solid #ff4d63;border-radius:2px;padding:0 1px";
+      r.surroundContents(m);
+      hits.push(m);
+    });
+    return hits;
+  }
+  /* Scroll only this page, never the viewer around it: scrollIntoView would
+     move the dialog too and push the file name and the note out of sight. */
+  function reveal(el) {
+    var p = el.parentElement;
+    while (p && p !== document.body && p !== document.documentElement) {
+      var cs = getComputedStyle(p);
+      if (/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight > p.clientHeight) {
+        p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - p.clientHeight / 3;
+      }
+      p = p.parentElement;
+    }
+    window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - window.innerHeight / 3);
+  }
+  function post() {
+    try {
+      parent.postMessage({ceEvidence: document.title || "page", found: found, of: T.length,
+                          marks: all.length, at: at}, "*");
+    } catch (e) {}
+  }
+  /* The passage on show gets a heavier ring, so stepping is visible on a busy page. */
+  function go(i) {
+    if (!all.length) { post(); return; }
+    at = ((i % all.length) + all.length) % all.length;
+    all.forEach(function (el, k) {
+      el.style.boxShadow = k === at ? "0 0 0 3px #ff4d63, 0 0 0 8px rgba(255,77,99,.35)" : "";
+    });
+    reveal(all[at]);
+    post();
+  }
+  function mark() {
+    T.forEach(function (t) {
+      var hits = [];
+      if (t.indexOf("css:") === 0) {
+        hits = Array.prototype.slice.call(document.querySelectorAll(t.slice(4)));
+        hits.forEach(function (el) { el.style.outline = "4px solid #ff4d63"; el.style.outlineOffset = "4px"; });
+      } else {
+        hits = textTarget(t);
+      }
+      if (hits.length) found++;
+      all = all.concat(hits);
+    });
+    all.sort(function (a, b) { return a.compareDocumentPosition(b) & 4 ? -1 : 1; });
+    go(0);
+  }
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (d && typeof d.ceStep === "number" && e.source === parent) go(d.ceStep === 0 ? at : at + d.ceStep);
+  });
+  window.addEventListener("load", function () { setTimeout(mark, 300); });
+})();
+</script></body>
+</html>

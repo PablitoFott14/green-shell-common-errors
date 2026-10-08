@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The five minute close out nobody runs · Green Shell Common Errors</title>
+<meta name="description" content="Cheap checks, often skipped: stray files in the golden, a filename spelled two ways, a golden that stops short of the prompt, no preferred run, and criteria a grader must decode. A missing named file fails the task; a literal that matches nothing is Incorrect Criteria; the rest cost points.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css"><script src="../assets/viewer.js" defer></script>
+</head><body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="top"><a class="brand" href="../index.html"><span class="bd"></span>Green Shell · Common Errors</a>
+<nav><a href="../index.html">Slides</a></nav></header>
+<main class="wrap mpage" id="main">
+<div class="mtop"><p class="crumb"><a href="../index.html#11">Slides</a><span class="cs">/</span>Section 6: Closing the task · slide 11</p></div>
+<header class="mhead"><h1><span class="mnum">6.2</span>The five minute close out nobody runs</h1>
+<p class="sevline"><span class="bad fail">Fails the task</span><span class="dim">Golden Solution - Artifact Completeness · Trajectory - Golden/Preferred Run Selection</span></p></header>
+
+<section class="gist" aria-label="In short">
+  <div class="gw"><h2 class="gl">The mistake</h2><p>Cheap checks, often skipped: stray files in the golden, a filename spelled two ways, a golden that stops short of the prompt, no preferred run, and criteria a grader must decode. A missing named file fails the task; a literal that matches nothing is Incorrect Criteria; the rest cost points.</p></div>
+  <div class="gf"><h2 class="gl">Do this instead</h2><p>Remove anything the prompt does not name, clean build notes out with a Leg B cleanup turn, star the preferred run, match the prompt&#x27;s spelling, and copy every literal in a criterion from its source.</p></div>
+</section>
+
+<section class="blk"><div class="blkh"><h2>Where it happened in Red Shell</h2>
+<span class="hint">2 real Red Shell tasks. Each shows the spot and what it should have been; click any line to open the task there.</span></div>
+<p class="rsnote"><b>These examples come from Red Shell.</b> Each one is a real Red Shell task, shown exactly as the Red Shell course shows it, and it illustrates an issue that must not be repeated in Green Shell: the same quality standards and expectations still apply. The rule line under each one is the Green Shell rule the same mistake breaks.</p>
+<p class="legend"><span class="lg lg-y">the words at fault</span><span class="lg lg-r">the row or field at fault</span><span class="lg lg-m">missing from the task</span><span class="lg lg-g">what is right</span><span class="lg lg-b">a task file</span></p>
+<div class="exlist"><article class="excard" data-ex="closeout-mechanics-1" tabindex="0" aria-label="Example 25, from Red Shell"><div class="exh"><span class="exn">Example 25</span><span class="exm"><span class="rs">Red Shell</span>Visual Learning · 4 Leg A turns</span><span class="sp"></span><button type="button" class="btn exopen" data-ex="closeout-mechanics-1">Open the task</button></div><p class="exgist"><span class="xl">What is wrong</span>The golden archive holds five files where the Leg A prompts name three. <a class="ref" href="#x1p3ev" data-pane="3" data-row="x1p3ev" data-ex="closeout-mechanics-1">make_baseline_video.py</a> names each answer&#x27;s “<a class="ref q" href="#x1p3k0" data-pane="3" data-row="x1p3k0" data-ex="closeout-mechanics-1">Source of truth</a>”, and <a class="ref" href="#x1p5ev" data-pane="5" data-row="x1p5ev" data-ex="closeout-mechanics-1">baseline_quiz_page.jpg</a> is the input <a class="ref" href="#x1p5ev" data-pane="5" data-row="x1p5ev" data-ex="closeout-mechanics-1">IMG_4642.jpg</a> renamed.</p><p class="exctx">The four Leg A prompts name three files: <a class="ref" href="#x1p6ev" data-pane="6" data-row="x1p6ev" data-ex="closeout-mechanics-1">baseline_check.mp4</a>, <a class="ref" href="#x1p4ev" data-pane="4" data-row="x1p4ev" data-ex="closeout-mechanics-1">baseline_check_script.md</a>, which Rosalba prints for the instrument case, and <a class="ref" href="#x1p7ev" data-pane="7" data-row="x1p7ev" data-ex="closeout-mechanics-1">MEMORY.md</a>.</p><div class="dx"><section class="dxc dxw"><h3 class="dxl">Where it shows</h3><div class="dls"><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0f1" data-pane="0" data-row="x1p0f1" data-ex="closeout-mechanics-1">Golden archive</a></div><div class="dlt"><span class="dq"><a class="ref dm wrong" href="#x1p0k0" data-pane="0" data-row="x1p0k0" data-ex="closeout-mechanics-1">make_baseline_video.py</a></span><span class="dn">no prompt names it</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p3ev" data-pane="3" data-row="x1p3ev" data-ex="closeout-mechanics-1">make_baseline_video.py</a></div><div class="dlt"><span class="dq"><a class="ref dm wrong" href="#x1p3k0" data-pane="3" data-row="x1p3k0" data-ex="closeout-mechanics-1">Source of truth</a>: Abe&#x27;s book pages (IMG_4638, IMG_4639), the setup photo (IMG_4452)…</span><span class="dn">how each answer was reached</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0f2" data-pane="0" data-row="x1p0f2" data-ex="closeout-mechanics-1">Golden archive</a></div><div class="dlt"><span class="dq"><a class="ref dm wrong" href="#x1p0k1" data-pane="0" data-row="x1p0k1" data-ex="closeout-mechanics-1">baseline_quiz_page.jpg</a></span><span class="dn">the input IMG_4642.jpg under a new name</span></div></div></div></section><section class="dxc dxr"><h3 class="dxl">What it should have been</h3><div class="dls"><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x1p0h" data-pane="0" data-row="x1p0h" data-ex="closeout-mechanics-1">Golden archive</a></div><div class="dlt"><span class="df"><mark class="dm right">baseline_check.mp4 · baseline_check_script.md · MEMORY.md</mark></span></div></div><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x1p4ev" data-pane="4" data-row="x1p4ev" data-ex="closeout-mechanics-1">baseline_check_script.md</a></div><div class="dlt"><span class="df"><mark class="dm right">No rebuild instruction</mark>, cleaned out with a Leg B cleanup turn.</span></div></div></div></section></div><p class="dxwhy"><span class="xl">How it breaks the standard</span>The golden archive ships finished artifacts only. <a class="ref q" href="#x1p0k0" data-pane="0" data-row="x1p0k0" data-ex="closeout-mechanics-1">make_baseline_video.py</a> shows how the video was made, down to which input each answer came from, and <a class="ref q" href="#x1p0k1" data-pane="0" data-row="x1p0k1" data-ex="closeout-mechanics-1">baseline_quiz_page.jpg</a> is an input under a new name. The script Rosalba prints even tells her to run the generator. Model B, <a class="ref" href="#x1p2g0" data-pane="2" data-row="x1p2g0" data-ex="closeout-mechanics-1">Leg B turn 1</a>, announced it, and no Leg B turn removed it.</p><p class="dxrule"><span class="xl">The Green Shell rule it breaks</span><a class="rlink" href="#rule-0"><b>QC spec</b> · Golden Solution - Artifact Completeness</a> <q>artifacts only, no narration.</q> <span class="dxm">Narration of how the answer was reached is a Minor Golden Defect.</span></p></article><article class="excard" data-ex="closeout-mechanics-2" tabindex="0" aria-label="Example 26, from Red Shell"><div class="exh"><span class="exn">Example 26</span><span class="exm"><span class="rs">Red Shell</span>Commerce &amp; Product · 3 Leg A turns</span><span class="sp"></span><button type="button" class="btn exopen" data-ex="closeout-mechanics-2">Open the task</button></div><p class="exgist"><span class="xl">What is wrong</span><a class="ref" href="#x2p0r22" data-pane="0" data-row="x2p0r22" data-ex="closeout-mechanics-2">Objective criterion 22</a> asks for a fee of “%0.00” where $0.00 is meant, <a class="ref" href="#x2p0r7" data-pane="0" data-row="x2p0r7" data-ex="closeout-mechanics-2">objective criterion 7</a> omits the day, and <a class="ref" href="#x2p1r4" data-pane="1" data-row="x2p1r4" data-ex="closeout-mechanics-2">milestone 4</a> ends in a clause that does not parse.</p><p class="exctx"><a class="ref" href="#x2p2t1" data-pane="2" data-row="x2p2t1" data-ex="closeout-mechanics-2">Leg A turn 1</a> sets the order for Monday 29 June 2026, and <a class="ref" href="#x2p3t3" data-pane="3" data-row="x2p3t3" data-ex="closeout-mechanics-2">Leg A turn 3</a> moves it to Monday 6 July 2026.</p><div class="dx"><section class="dxc dxw"><h3 class="dxl">Where it shows</h3><div class="dls"><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x2p0r22" data-pane="0" data-row="x2p0r22" data-ex="closeout-mechanics-2">Criterion 22</a><span class="w w-hi">+5</span></div><div class="dlt"><span class="dq">pantry_audit.html shows a delivery fee of <mark class="dm wrong">%0.00</mark> for the Mon 6 Jul 2026 order.</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x2p0r7" data-pane="0" data-row="x2p0r7" data-ex="closeout-mechanics-2">Criterion 7</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq">pantry_audit.html gives the Free-Range Large Eggs listing the verdict fix <mark class="dm wrong">for the Mon Jul 2026 order</mark>.</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x2p1r4" data-pane="1" data-row="x2p1r4" data-ex="closeout-mechanics-2">Milestone 4</a><span class="f"><em>Leg A turn</em>1</span></div><div class="dlt"><span class="dq">…<mark class="dm wrong">an apartment the sheet doe snot marks keeps all the requests</mark>.</span></div></div></div></section><section class="dxc dxr"><h3 class="dxl">What it should have been</h3><div class="dls"><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x2p0r22" data-pane="0" data-row="x2p0r22" data-ex="closeout-mechanics-2">Criterion 22</a><span class="w w-hi">+5</span></div><div class="dlt"><span class="dq">pantry_audit.html shows a delivery fee of <mark class="dm right">$0.00</mark> for the Mon 6 Jul 2026 order.</span></div></div><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x2p0r7" data-pane="0" data-row="x2p0r7" data-ex="closeout-mechanics-2">Criterion 7</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq">pantry_audit.html gives the Free-Range Large Eggs listing the verdict fix <mark class="dm right">for the Mon 6 Jul 2026 order</mark>.</span></div></div><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x2p1r4" data-pane="1" data-row="x2p1r4" data-ex="closeout-mechanics-2">Milestone 4</a><span class="f"><em>Leg A turn</em>1</span></div><div class="dlt"><span class="dq">…<mark class="dm right">an apartment the sheet does not mark keeps all its requests</mark>.</span></div></div></div></section></div><p class="dxwhy"><span class="xl">How it breaks the standard</span>A grader must decode <a class="ref" href="#x2p0r22" data-pane="0" data-row="x2p0r22" data-ex="closeout-mechanics-2">objective criterion 22</a>&#x27;s “<a class="ref q" href="#x2p0k1" data-pane="0" data-row="x2p0k1" data-ex="closeout-mechanics-2">%0.00</a>” as $0.00, and piece <a class="ref" href="#x2p0r7" data-pane="0" data-row="x2p0r7" data-ex="closeout-mechanics-2">objective criterion 7</a>&#x27;s date together from <a class="ref" href="#x2p4r3" data-pane="4" data-row="x2p4r3" data-ex="closeout-mechanics-2">objective criterion 3</a>. In Leg B you judge Model B against <a class="ref" href="#x2p1r4" data-pane="1" data-row="x2p1r4" data-ex="closeout-mechanics-2">milestone 4</a>, and a user simulator replays it later: its broken clause leaves each to guess the meaning. These cost points.</p><p class="dxrule"><span class="xl">The Green Shell rule it breaks</span><a class="rlink" href="#rule-4"><b>Guidelines</b> · 5.1 Rubric Fundamentals</a> <q>Every filename, ID, value, date, or string referenced in a criterion must match the source exactly.</q></p></article></div>
+</section>
+
+<section class="blk catch">
+<h2>Catch it in your own task</h2>
+<p>Check the golden against the prompt&#x27;s filenames, the run picker for a preferred run, each filename character by character, and each criterion read straight through.</p>
+</section>
+
+<section class="blk">
+<div class="blkh"><h2>Where the Green Shell guidance is written</h2>
+<span class="hint">Section titles as they print in the Green Shell Guidelines and QC spec, so you can search for them.</span></div>
+<article class="rulecard" id="rule-0"><p class="rsrc"><b>QC spec</b> · Golden Solution - Artifact Completeness</p><blockquote>Every file named in the prompt exists with the filename spelled verbatim; every content rule is satisfied and every factual claim is grounded in the actual inputs; artifacts only, no narration.</blockquote><p class="rcm">The passing option. Narration of how the answer was reached is a Minor Golden Defect.</p></article><article class="rulecard" id="rule-1"><p class="rsrc"><b>QC spec</b> · Golden Solution - Artifact Completeness</p><blockquote>One or more files named in the prompt are missing.</blockquote><p class="rcm">The failing option, Fail - Missing Artifacts.</p></article><article class="rulecard" id="rule-2"><p class="rsrc"><b>QC spec</b> · Trajectory - Golden/Preferred Run Selection</p><blockquote>No preferred run is selected for the golden trajectory.</blockquote><p class="rcm">Non-Fail - No Run Selected: it costs points.</p></article><article class="rulecard" id="rule-3"><p class="rsrc"><b>Guidelines</b> · 3. Task Runner - Leg A</p><blockquote>If multiple complete runs exist and none is marked as preferred, the task becomes unusable because there is no reliable way to determine which run should be treated as the correct one.</blockquote></article><article class="rulecard" id="rule-4"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>Every filename, ID, value, date, or string referenced in a criterion must match the source exactly.</blockquote><p class="rcm">Literal matching, which applies just as rigorously to subjective rubrics.</p></article><article class="rulecard" id="rule-5"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>If a criterion references a literal that does not actually exist in the source, no run can satisfy it, and it must be treated as an Incorrect Criteria issue.</blockquote></article>
+</section>
+
+<details class="blk why">
+<summary>Why it matters</summary>
+<p>Artifact Completeness wants every file the prompt names present and spelled exactly as the prompt spells it, artifacts only, no narration: a script or build note left with the golden shows how the answer was reached. A missing star costs points on its own, and with several runs and none preferred there is no reliable way to tell which run is the right one. A criterion citing a value or a filename that exists nowhere cannot be satisfied by any run, and a grader who has to work out what a clause means is making the judgment the clause was supposed to make.</p>
+</details>
+</main>
+<div class="ovback" id="ex-closeout-mechanics-1" data-home="0" hidden>
+<div class="ov" role="dialog" aria-modal="true" aria-labelledby="ex-closeout-mechanics-1-t">
+  <header class="ovh"><div class="ovline">
+    <span class="ovnum">Example 25</span><span class="ovttl" id="ex-closeout-mechanics-1-t">The five minute close out nobody runs</span>
+    <span class="bad fail">Fails the task</span><span class="sp"></span><button type="button" class="btn q exnav" data-ex="closeout-mechanics-2">Example 26 →</button>
+    <button type="button" class="btn q ovwide">Expand</button>
+    <button type="button" class="btn ovclose" aria-label="Close">Close ✕</button>
+  </div><div class="ovmeta"><span class="oc rs">Red Shell task</span><span class="oc">Visual Learning</span><span class="oc">4 Leg A turns</span><span class="oc">task <code class="ovid">6aa34dd1625bb5b220c6b1be</code></span></div></header>
+  <div class="ovbody">
+    <aside class="ovrail" aria-label="The mistake in this task">
+      <div class="railh"><span class="eyebrow">The mistake, in this task</span><span class="sp"></span>
+        <button type="button" class="btn q railhide">Hide</button></div>
+      <div class="raillist"><section class="rsec wrongr"><h3 class="rl">What is wrong</h3><p>The golden archive holds five files where the Leg A prompts name three. <a class="ref" href="#x1p3ev" data-pane="3" data-row="x1p3ev">make_baseline_video.py</a> names each answer&#x27;s “<a class="ref q" href="#x1p3k0" data-pane="3" data-row="x1p3k0">Source of truth</a>”, and <a class="ref" href="#x1p5ev" data-pane="5" data-row="x1p5ev">baseline_quiz_page.jpg</a> is the input <a class="ref" href="#x1p5ev" data-pane="5" data-row="x1p5ev">IMG_4642.jpg</a> renamed.</p></section><section class="rsec ctx"><h3 class="rl">The task</h3><p>The four Leg A prompts name three files: <a class="ref" href="#x1p6ev" data-pane="6" data-row="x1p6ev">baseline_check.mp4</a>, <a class="ref" href="#x1p4ev" data-pane="4" data-row="x1p4ev">baseline_check_script.md</a>, which Rosalba prints for the instrument case, and <a class="ref" href="#x1p7ev" data-pane="7" data-row="x1p7ev">MEMORY.md</a>.</p></section><section class="rsec badr"><h3 class="rl">Where it shows</h3><div class="dls"><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0f1" data-pane="0" data-row="x1p0f1">Golden archive</a></div><div class="dlt"><span class="dq"><a class="ref dm wrong" href="#x1p0k0" data-pane="0" data-row="x1p0k0">make_baseline_video.py</a></span><span class="dn">no prompt names it</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p3ev" data-pane="3" data-row="x1p3ev">make_baseline_video.py</a></div><div class="dlt"><span class="dq"><a class="ref dm wrong" href="#x1p3k0" data-pane="3" data-row="x1p3k0">Source of truth</a>: Abe&#x27;s book pages (IMG_4638, IMG_4639), the setup photo (IMG_4452)…</span><span class="dn">how each answer was reached</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x1p0f2" data-pane="0" data-row="x1p0f2">Golden archive</a></div><div class="dlt"><span class="dq"><a class="ref dm wrong" href="#x1p0k1" data-pane="0" data-row="x1p0k1">baseline_quiz_page.jpg</a></span><span class="dn">the input IMG_4642.jpg under a new name</span></div></div></div></section><section class="rsec why"><h3 class="rl">How it breaks the standard</h3><p>The golden archive ships finished artifacts only. <a class="ref q" href="#x1p0k0" data-pane="0" data-row="x1p0k0">make_baseline_video.py</a> shows how the video was made, down to which input each answer came from, and <a class="ref q" href="#x1p0k1" data-pane="0" data-row="x1p0k1">baseline_quiz_page.jpg</a> is an input under a new name. The script Rosalba prints even tells her to run the generator. Model B, <a class="ref" href="#x1p2g0" data-pane="2" data-row="x1p2g0">Leg B turn 1</a>, announced it, and no Leg B turn removed it.</p><p class="dxrule"><span class="xl">The Green Shell rule it breaks</span><a class="rlink" href="#x1rr0"><b>QC spec</b> · Golden Solution - Artifact Completeness</a> <q>artifacts only, no narration.</q> <span class="dxm">Narration of how the answer was reached is a Minor Golden Defect.</span></p></section><section class="rsec goodr"><h3 class="rl">What it should have been</h3><div class="dls"><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x1p0h" data-pane="0" data-row="x1p0h">Golden archive</a></div><div class="dlt"><span class="df"><mark class="dm right">baseline_check.mp4 · baseline_check_script.md · MEMORY.md</mark></span></div></div><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x1p4ev" data-pane="4" data-row="x1p4ev">baseline_check_script.md</a></div><div class="dlt"><span class="df"><mark class="dm right">No rebuild instruction</mark>, cleaned out with a Leg B cleanup turn.</span></div></div></div></section><details class="rsec rrules"><summary><span class="rl">Where the Green Shell guidance is written</span><span class="rcount">6</span></summary><article class="railrule" id="x1rr0"><p class="rsrc"><b>QC spec</b> · Golden Solution - Artifact Completeness</p><blockquote>Every file named in the prompt exists with the filename spelled verbatim; every content rule is satisfied and every factual claim is grounded in the actual inputs; artifacts only, no narration.</blockquote><p class="rcm">The passing option. Narration of how the answer was reached is a Minor Golden Defect.</p></article><article class="railrule" id="x1rr1"><p class="rsrc"><b>QC spec</b> · Golden Solution - Artifact Completeness</p><blockquote>One or more files named in the prompt are missing.</blockquote><p class="rcm">The failing option, Fail - Missing Artifacts.</p></article><article class="railrule" id="x1rr2"><p class="rsrc"><b>QC spec</b> · Trajectory - Golden/Preferred Run Selection</p><blockquote>No preferred run is selected for the golden trajectory.</blockquote><p class="rcm">Non-Fail - No Run Selected: it costs points.</p></article><article class="railrule" id="x1rr3"><p class="rsrc"><b>Guidelines</b> · 3. Task Runner - Leg A</p><blockquote>If multiple complete runs exist and none is marked as preferred, the task becomes unusable because there is no reliable way to determine which run should be treated as the correct one.</blockquote></article><article class="railrule" id="x1rr4"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>Every filename, ID, value, date, or string referenced in a criterion must match the source exactly.</blockquote><p class="rcm">Literal matching, which applies just as rigorously to subjective rubrics.</p></article><article class="railrule" id="x1rr5"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>If a criterion references a literal that does not actually exist in the source, no run can satisfy it, and it must be treated as an Incorrect Criteria issue.</blockquote></article></details></div>
+    </aside>
+    <section class="ovev" aria-label="The task">
+      <nav class="ovtabs" role="tablist">
+        <button type="button" class="ovtab showrail">‹ The mistake</button><button type="button" class="ovtab on" data-pane="0" role="tab" aria-selected="true">Golden archive<span class="tn2" title="marked spots">2</span></button><button type="button" class="ovtab" data-pane="1" role="tab" aria-selected="false">Leg A prompts</button><button type="button" class="ovtab" data-pane="2" role="tab" aria-selected="false">Leg B turn 1</button><button type="button" class="ovtab evtabb" data-pane="3" title="make_baseline_video.py" role="tab" aria-selected="false">make_baseline_video.py<span class="tn2" title="marked spots">2</span></button><button type="button" class="ovtab evtabb" data-pane="4" title="baseline_check_script.md" role="tab" aria-selected="false">baseline_check_script.md<span class="tn2" title="marked spots">1</span></button><button type="button" class="ovtab evtabb" data-pane="5" title="Quiz page and its source" role="tab" aria-selected="false">Quiz page and its source</button><button type="button" class="ovtab evtabb" data-pane="6" title="baseline_check.mp4" role="tab" aria-selected="false">baseline_check.mp4</button><button type="button" class="ovtab evtabb" data-pane="7" title="MEMORY.md" role="tab" aria-selected="false">MEMORY.md</button>
+        <span class="sp"></span><span class="keys"><kbd>←</kbd> <kbd>→</kbd> tabs <kbd>Esc</kbd> close</span></nav>
+      <div class="ovpanes"><div class="ovpane on" data-pane="0" role="tabpanel"><div class="panel"><div class="ph" id="x1p0h"><span class="src">From the task</span><span class="pht">Golden artifacts archive</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb files"><div class="file" id="x1p0f0"><code>MEMORY.md</code><span class="fx">.md</span><span class="fs">1 KB</span><button type="button" class="evjump" data-pane="7" data-row="x1p7ev">Open it</button></div><div class="file" id="x1p0f1"><code><mark class="spot" id="x1p0k0">make_baseline_video.py</mark></code><span class="fx">.py</span><span class="fs">25 KB</span><button type="button" class="evjump" data-pane="3" data-row="x1p3ev">Open it</button></div><div class="file" id="x1p0f2"><code><mark class="spot" id="x1p0k1">baseline_quiz_page.jpg</mark></code><span class="fx">.jpg</span><span class="fs">213 KB</span><button type="button" class="evjump" data-pane="5" data-row="x1p5ev">Open it</button></div><div class="file" id="x1p0f3"><code>baseline_check.mp4</code><span class="fx">.mp4</span><span class="fs">7979 KB</span><button type="button" class="evjump" data-pane="6" data-row="x1p6ev">Open it</button></div><div class="file" id="x1p0f4"><code>baseline_check_script.md</code><span class="fx">.md</span><span class="fs">8 KB</span><button type="button" class="evjump" data-pane="4" data-row="x1p4ev">Open it</button></div></div></div></div><div class="ovpane" data-pane="1" role="tabpanel"><div class="panel"><div class="ph" id="x1p1h"><span class="src">From the task</span><span class="pht">Every Leg A prompt, to Model A</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb"><div class="turn" id="x1p1t1"><div class="tn">Leg A turn 1</div><div class="tt">The S6 came back from Lubbock in july and i ran it on  the baseline behind the shop the same afternoon, same as I do with anything that has been off the property. It passed . What brothers me is that I am the only one here who has ever run that check, and next time an instrument comes back from a bench it will not be me standing there. I want a short video the office can follow without me , saved as baseline_check.mp4 , and the script for it as baseline_check_script.md so Rosalba can print it and keep it in the case. It is for Estefana first and whoever comes after her. Open with where the baseline came from and what the S6 was on the bench for , then run the check end to end on my setup, and at every step show a good reading next to a bad one. Do the arithmetic on the screen , not in a spreadsheet afterwards. Feet to three places all the way through, nobody here reads millimetres. End with a set of readings they have to call before the video calls it, and the call has to be the one I would make. I will dig out the page for that. Attached are the pages from my book , the sheet came back in the case, and a photo of the setup. The sheet is nice to have . The sheet is not the check .Abe</div></div><div class="turn" id="x1p1t2"><div class="tn">Leg A turn 2</div><div class="tt">Dug out the April page, it is attached. That is what the S6 was reading before it went in, so that is your bad one. Put the real numbers in where you had to make some up and leave everything else where it is, it is right.</div></div><div class="turn" id="x1p1t3"><div class="tn">Leg A turn 3</div><div class="tt">This is the one for the end, attached. Loaner S5 from Llano, June, before I let it out on a job. I cut my arithmetic and my call off the bottom of the page on purpose. Show them the page, give them ten seconds, then work it on the screen and call it.</div></div><div class="turn" id="x1p1t4"><div class="tn">Leg A turn 4</div><div class="tt">Estefana watched it twice and came back with one question, which is more than I got from anyone else: why do we not just use the number on Talmadge&#x27;s sheet. Fair question. Put it in, his number worked out on the 812 next to mine, and one line on which one we use and why. One more thing while that is open, add the baseline number and my rule to MEMORY.md so next time nobody has to go looking for the book.</div></div></div></div></div><div class="ovpane" data-pane="2" role="tabpanel"><div class="panel"><div class="ph" id="x1p2h"><span class="src">From the task</span><span class="pht">From the Leg B conversation, with Model B</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb"><div class="gm" id="x1p2g0"><div class="gr">Model B · Leg B turn 1</div><div class="gt">Done, Abe. Both files are in `/app/outputs`:
+
+- **`baseline_check.mp4`** — 1080p, 1:45, plays anywhere (H.264/yuv420p, verified clean).
+- **`baseline_check_script.md`** — the print-and-keep-in-the-case version, matches the video step for step.
+- (Also left `make_baseline_video.py` so the video can be rebuilt when you swap in your quiz page.)
+
+**What the video does, in your order:**
+1. **Where the baseline came from** — BL-1→BL-2, published **812.000 ft**, BL-M midpoint at 406.000. &quot;Judge against this. Not the brochure.&quot;
+2. **What the S6 was on the bench for** — LEIS pulled the angles *and* the distance guts back into spec (HA collimation −19.4″→+0.6″, EDM additive −1.7mm→+0.2mm, EDM scale +2.6→+0.5ppm). Ends on &quot;the sheet is nice to have, the sheet is not the check.&quot;
+3. **Setup** — tripod both ends, over your actual photo; good vs. a pole.
+4. **Step 1 PPM** — good `812.005` (PPM +52) next to bad `811.962` (PPM 0), with the math on screen: `812 × 0.000052 = 0.042 ft short`.
+5. **Step 2 three sets** — tight spread (0.002, keep all) next to an outlier (`812.037`, strike and reshoot, never average).
+6. **Step 3 the call** — `2436.012 ÷ 3 = 812.004`, `−812.000 = +0.004 → GOOD` next to `+0.013 → GOES BACK`.
+7. **The real 16 Jul run**, worked end to end over your page photo.
+8. **The quiz** — 812.006 / **812.041** / 812.003, a 5-count, then the reveal.
+9. **Rule card** to freeze on.
+
+Everything is in **feet to three places**, every step shows good beside bad, and every number is worked on screen.
+
+**Two things to flag:**
+- **The quiz call:** the readings force the call I&#x27;m confident you&#x27;d make — Set 2 is 0.037 off, so it&#x27;s a *strike and reshoot, never average*, and the video shows the trap (averaging gives 812.017 → you&#x27;d send a good gun back over one bad set). You said you&#x27;d dig out your own page — when you do, the script.md marks exactly where to drop it in and the one line in the generator to change. If your page ends on a straight good/goes-back instead, that swaps in the same way.
+- I read &quot;back from LEIS&quot; as **Llano Estacado Instrument Service** (matches the sheet letterhead and the Lubbock trip). If that&#x27;s wrong, it&#x27;s one line to fix.</div></div></div></div></div><div class="ovpane" data-pane="3" role="tabpanel"><div class="panel"><div class="ph" id="x1p3h"><span class="src">Task file</span><span class="pht">make_baseline_video.py</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="evnote"><b>Look at</b> Shipped in the golden archive, though no prompt names it. Its docstring tells a grader which input each answer came from.</div><div class="pb ev" id="x1p3ev"><div class="evi evk-text"><div class="evh"><code>make_baseline_video.py</code><span class="evr">golden artifact</span></div><pre class="evtext">#!/usr/bin/env python3
+&quot;&quot;&quot;
+Builds baseline_check.mp4 — the office-follow-along video for the baseline check.
+
+<mark class="spot" id="x1p3k0">Source of truth</mark>: Abe&#x27;s book pages (IMG_4638, IMG_4639), the setup photo (IMG_4452),
+and Abe&#x27;s own mail + calendar (why the S6 went in; how the baseline was established).
+
+Everything on screen is in FEET to three places. No millimetres.
+
+To swap in Abe&#x27;s own quiz page: edit the QUIZ block near the bottom and <mark class="spot" id="x1p3k1">re-run</mark>:
+    python3 make_baseline_video.py
+&quot;&quot;&quot;
+
+import os
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+import imageio.v2 as imageio
+
+IN = &quot;/app/inputs&quot;
+OUT = &quot;/app/outputs&quot;
+FPS = 30
+W, H = 1920, 1080
+
+# ---- palette -------------------------------------------------------------
+BG     = (22, 24, 28)
+PANEL  = (32, 35, 41)
+INK    = (238, 240, 243)
+MUTED  = (154, 160, 170)
+GOOD   = (60, 196, 124)
+BAD    = (230, 88, 80)
+ACCENT = (247, 197, 42)   # instrument yellow
+LINE   = (72, 76, 86)
+GOODBG = (26, 46, 36)
+BADBG  = (52, 30, 30)
+
+FONTDIR = &quot;/usr/share/fonts/truetype/dejavu&quot;
+_cache = {}
+def font(kind, size):
+    key = (kind, size)
+    if key not in _cache:
+        f = {&quot;sans&quot;:&quot;DejaVuSans.ttf&quot;,&quot;bold&quot;:&quot;DejaVuSans-Bold.ttf&quot;,
+             &quot;mono&quot;:&quot;DejaVuSansMono.ttf&quot;,&quot;monob&quot;:&quot;DejaVuSansMono-Bold.ttf&quot;}[kind]
+        _cache[key] = ImageFont.truetype(os.path.join(FONTDIR, f), size)
+    return _cache[key]
+
+# ---- draw helpers --------------------------------------------------------
+def canvas(bg=BG):
+    im = Image.new(&quot;RGB&quot;, (W, H), bg)
+    return im, ImageDraw.Draw(im)
+
+def text(d, xy, s, fnt, fill=INK, anchor=&quot;la&quot;):
+    d.text(xy, s, font=fnt, fill=fill, anchor=anchor)
+
+def measure(fnt, s):
+    return fnt.getlength(s)
+
+def wrap(d, s, fnt, x, y, maxw, fill=INK, leading=1.35, center=False):
+    words, lines, cur = s.split(), [], &quot;&quot;
+    for w in words:
+        t = (cur + &quot; &quot; + w).strip()
+        if measure(fnt, t) &lt;= maxw:
+            cur = t
+        else:
+            if cur: lines.append(cur)
+            cur = w
+    if cur: lines.append(cur)
+    lh = int(fnt.size * leading)
+    for i, ln in enumerate(lines):
+        d.text((x, y+i*lh), ln, font=fnt, fill=fill, anchor=(&quot;ma&quot; if center else &quot;la&quot;))
+    return y + len(lines)*lh
+
+def panel(d, box, fill=PANEL, outline=None, width=2, radius=22):
+    d.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
+
+def chip(d, xy, s, fill, textcol=(15,16,18), fnt=None, pad=(22,12)):
+    fnt = fnt or font(&quot;bold&quot;, 34)
+    tw = measure(fnt, s); x, y = xy
+    box = (x, y, x+tw+pad[0]*2, y+fnt.size+pad[1]*2)
+    d.rounded_rectangle(box, radius=(box[3]-box[1])//2, fill=fill)
+    d.text((x+pad[0], y+pad[1]-2), s, font=fnt, fill=textcol)
+    return box
+
+def label_masked(d, cx, cy, s, fnt, fill, pad=12, bg=BG):
+    &quot;&quot;&quot;Center a label at (cx, cy top) with a background box so any line behind it stays readable.&quot;&quot;&quot;
+    w = measure(fnt, s)
+    d.rectangle((cx-w/2-pad, cy-4, cx+w/2+pad, cy+fnt.size+8), fill=bg)
+    d.text((cx, cy), s, font=fnt, fill=fill, anchor=&quot;ma&quot;)
+
+def footer(d, page=&quot;&quot;):
+    d.line((90, H-92, W-90, H-92), fill=LINE, width=2)
+    text(d, (90, H-70),
+         &quot;S6  SN 93441234   •   Baseline BL-1–BL-2  =  812.000 ft   •   feet to three places&quot;,
+         font(&quot;sans&quot;, 26), MUTED)
+    if page:
+        text(d, (W-90, H-70), page, font(&quot;bold&quot;, 26), MUTED, anchor=&quot;ra&quot;)
+
+def header(d, kicker, title, tcol=INK):
+    text(d, (90, 66), kicker, font(&quot;bold&quot;, 30), ACCENT)
+    # auto-fit title so it never clips the right edge
+    size = 72
+    while size &gt; 50 and measure(font(&quot;bold&quot;, size), title) &gt; (W-180):
+        size -= 2
+    text(d, (90, 114), title, font(&quot;bold&quot;, size), tcol)
+    d.line((90, 210, W-90, 210), fill=LINE, width=3)
+
+def goodbad_headers(d, lx, rx, top, w, badlabel=&quot;BAD&quot;):
+    d.rounded_rectangle((lx, top, lx+w, top+70), radius=14, fill=GOOD)
+    d.rounded_rectangle((rx, top, rx+w, top+70), radius=14, fill=BAD)
+    text(d, (lx+w//2, top+8), &quot;GOOD&quot;, font(&quot;bold&quot;, 44), (12,30,20), anchor=&quot;ma&quot;)
+    text(d, (rx+w//2, top+8), badlabel, font(&quot;bold&quot;, 44), (30,12,12), anchor=&quot;ma&quot;)
+
+def load_fit(path, box_w, box_h):
+    im = Image.open(path).convert(&quot;RGB&quot;)
+    r = min(box_w/im.width, box_h/im.height)
+    return im.resize((max(1,int(im.width*r)), max(1,int(im.height*r))), Image.LANCZOS)
+
+SLIDES = []
+def add(im, sec, fade=True): SLIDES.append((im, sec, fade))
+
+# =========================================================================
+# 0. TITLE
+# =========================================================================
+im, d = canvas()
+d.rectangle((0,0,W,12), fill=ACCENT)
+text(d, (W//2, 235), &quot;BASELINE CHECK&quot;, font(&quot;bold&quot;, 128), INK, anchor=&quot;ma&quot;)
+text(d, (W//2, 388), &quot;The whole thing, start to finish — so anyone can run it without Abe.&quot;,
+     font(&quot;sans&quot;, 40), MUTED, anchor=&quot;ma&quot;)
+panel(d, (W//2-580, 500, W//2+580, 770), fill=PANEL, outline=LINE)
+text(d, (W//2, 528), &quot;Any instrument back from a bench gets this before it goes out.&quot;,
+     font(&quot;sans&quot;, 36), INK, anchor=&quot;ma&quot;)
+text(d, (W//2, 596), &quot;Tripod both ends.  PPM every time.  Feet to three places.&quot;,
+     font(&quot;bold&quot;, 40), INK, anchor=&quot;ma&quot;)
+text(d, (W//2, 664), &quot;Inside 0.010 ft = good.   Over = it goes back.&quot;,
+     font(&quot;bold&quot;, 42), ACCENT, anchor=&quot;ma&quot;)
+text(d, (W//2, 720), &quot;Write it down.&quot;, font(&quot;bold&quot;, 36), INK, anchor=&quot;ma&quot;)
+text(d, (W//2, 870), &quot;Do the math on the screen, not in a spreadsheet after.&quot;,
+     font(&quot;sans&quot;, 34), MUTED, anchor=&quot;ma&quot;)
+add(im, 6.0)
+
+# =========================================================================
+# 1. WHERE THE BASELINE CAME FROM
+# =========================================================================
+im, d = canvas()
+header(d, &quot;FIRST — WHAT YOU ARE STANDING ON&quot;, &quot;Where our baseline came from&quot;)
+wrap(d, &quot;Abe set two brass caps behind the shop at 8710 Bowie in 2016 — 812.000 ft apart, with &quot;
+        &quot;the midpoint 406.000 out. He re-observes the line every spring to hold the 812.000. It is &quot;
+        &quot;our own baseline, and that 812.000 is the truth we judge against.&quot;,
+     font(&quot;sans&quot;, 38), 90, 244, W-180, MUTED)
+
+y = 590
+x1, x2 = 220, W-220
+xm = (x1+x2)//2
+d.line((x1, y, x2, y), fill=INK, width=6)
+for x, lab, sub in [(x1,&quot;BL-1&quot;,&quot;0.000&quot;),(xm,&quot;BL-M&quot;,&quot;406.000&quot;),(x2,&quot;BL-2&quot;,&quot;812.000&quot;)]:
+    d.line((x, y-34, x, y+34), fill=ACCENT, width=8)
+    text(d, (x, y-96), lab, font(&quot;bold&quot;, 46), INK, anchor=&quot;ma&quot;)
+    text(d, (x, y+52), sub, font(&quot;mono&quot;, 34), MUTED, anchor=&quot;ma&quot;)
+d.line((x1, y+150, xm, y+150), fill=LINE, width=3)
+d.line((xm, y+150, x2, y+150), fill=LINE, width=3)
+label_masked(d, (x1+xm)//2, y+134, &quot;406.000&quot;, font(&quot;mono&quot;, 30), MUTED)
+label_masked(d, (xm+x2)//2, y+134, &quot;406.000&quot;, font(&quot;mono&quot;, 30), MUTED)
+d.line((x1, y+238, x2, y+238), fill=ACCENT, width=4)
+label_masked(d, xm, y+214, &quot;812.000 ft  —  our hold since 2016&quot;, font(&quot;bold&quot;, 40), ACCENT)
+text(d, (xm, y+292), &quot;Two brass caps, set 2016  ·  re-observed every spring  ·  NOT the brochure.&quot;,
+     font(&quot;sans&quot;, 30), INK, anchor=&quot;ma&quot;)
+footer(d, &quot;1 / 9&quot;)
+add(im, 9.0)
+
+# =========================================================================
+# 2. WHY THE S6 WENT IN  (the story)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;WHY THE S6 WENT IN&quot;, &quot;What happened on 26-004&quot;)
+steps = [
+    (&quot;2 Jun&quot;, &quot;Deaf Smith County — the 640-acre pivot as-builts, job 26-004. Estefana on the rod.&quot;),
+    (&quot;&quot;,      &quot;The S6 lost the tracker at 2:20 and would not re-acquire. We finished the day on the R12i and a 100-ft tape.&quot;),
+    (&quot;3 Jun&quot;, &quot;Drove it to Llano Estacado Instrument Service in Lubbock. Talmadge Ruff opened it up: tracker board and Y servo. Six weeks on the bench.&quot;),
+    (&quot;16 Jul&quot;,&quot;Back four days early, sheet in the case.&quot;),
+]
+yy = 250
+for when, what in steps:
+    if when:
+        chip(d, (90, yy), when, ACCENT, fnt=font(&quot;bold&quot;, 30))
+    yy2 = wrap(d, what, font(&quot;sans&quot;, 38), 330, yy+6, W-420, INK)
+    yy = max(yy2, yy+90) + 14
+
+panel(d, (90, 800, W-90, 900), fill=(44,38,24), outline=ACCENT, width=2, radius=16)
+text(d, (W//2, 820), &quot;A bench can say it&#x27;s fixed. The baseline is how WE know —&quot;,
+     font(&quot;bold&quot;, 36), ACCENT, anchor=&quot;ma&quot;)
+text(d, (W//2, 862), &quot;before it goes back out on a job.&quot;, font(&quot;bold&quot;, 36), ACCENT, anchor=&quot;ma&quot;)
+footer(d, &quot;2 / 9&quot;)
+add(im, 11.0)
+
+# =========================================================================
+# 3. SETUP  (good vs bad) — center, level, both ends, constant
+# =========================================================================
+im, d = canvas()
+header(d, &quot;SET UP THE SAME WAY EVERY TIME&quot;, &quot;Set up both ends&quot;)
+photo = load_fit(os.path.join(IN, &quot;IMG_4452.jpg&quot;), 820, 600)
+im.paste(photo, (90, 252))
+text(d, (90, 252+photo.height+10), &quot;Abe&#x27;s setup behind the shop.&quot;, font(&quot;sans&quot;, 26), MUTED)
+
+gx, gw = 960, 880
+bf = font(&quot;sans&quot;, 30)
+d.rounded_rectangle((gx, 250, gx+gw, 318), radius=14, fill=GOOD)
+text(d, (gx+gw//2, 258), &quot;GOOD&quot;, font(&quot;bold&quot;, 40), (12,30,20), anchor=&quot;ma&quot;)
+panel(d, (gx, 326, gx+gw, 600), fill=GOODBG, outline=GOOD, width=2)
+for i,s in enumerate([
+    &quot;Instrument on a tripod over BL-1, legs firm.&quot;,
+    &quot;Center over the cap, then level.&quot;,
+    &quot;Prism on a tripod over BL-2, both level.&quot;,
+    &quot;Trimble 360 prism, constant 0.0.&quot;]):
+    text(d, (gx+30, 352+i*60), &quot;•  &quot;+s, bf, INK)
+
+d.rounded_rectangle((gx, 620, gx+gw, 688), radius=14, fill=BAD)
+text(d, (gx+gw//2, 628), &quot;BAD&quot;, font(&quot;bold&quot;, 40), (30,12,12), anchor=&quot;ma&quot;)
+panel(d, (gx, 696, gx+gw, 966), fill=BADBG, outline=BAD, width=2)
+for i,s in enumerate([
+    &quot;Prism on a hand pole — it rocks.&quot;,
+    &quot;Legs loose — the tripod walks.&quot;,
+    &quot;Off-center or off-level — reads off.&quot;,
+    &quot;Constant wrong — same bias every shot.&quot;]):
+    text(d, (gx+30, 722+i*60), &quot;•  &quot;+s, bf, INK)
+footer(d, &quot;3 / 9&quot;)
+add(im, 10.0)
+
+# =========================================================================
+# 4. STEP 1 - PPM  (title short; arithmetic clear of footer)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;STEP 1 — BEFORE THE FIRST SHOT, EVERY TIME&quot;, &quot;PPM off the shop gauge&quot;)
+wrap(d, &quot;Read the shop gauge. Punch temperature and pressure into the S6 so it sets PPM. &quot;
+        &quot;Forget it and the S6 reads short.&quot;,
+     font(&quot;sans&quot;, 38), 90, 244, W-180, MUTED)
+
+lx, rx, w, top = 120, 1030, 760, 388
+goodbad_headers(d, lx, rx, top, w)
+panel(d, (lx, top+80, lx+w, top+360), fill=GOODBG, outline=GOOD, width=2)
+panel(d, (rx, top+80, rx+w, top+360), fill=BADBG, outline=BAD, width=2)
+text(d, (lx+w//2, top+104), &quot;97°F   26.40 inHg   →  PPM +52&quot;, font(&quot;mono&quot;, 32), INK, anchor=&quot;ma&quot;)
+text(d, (lx+w//2, top+170), &quot;812.005&quot;, font(&quot;monob&quot;, 90), GOOD, anchor=&quot;ma&quot;)
+text(d, (lx+w//2, top+300), &quot;PPM set. Reads true.&quot;, font(&quot;sans&quot;, 32), INK, anchor=&quot;ma&quot;)
+text(d, (rx+w//2, top+104), &quot;PPM left at 0   (forgot it)&quot;, font(&quot;mono&quot;, 32), INK, anchor=&quot;ma&quot;)
+text(d, (rx+w//2, top+170), &quot;811.962&quot;, font(&quot;monob&quot;, 90), BAD, anchor=&quot;ma&quot;)
+text(d, (rx+w//2, top+300), &quot;Struck in July. Set PPM, shot again.&quot;, font(&quot;sans&quot;, 30), INK, anchor=&quot;ma&quot;)
+
+ay = 838   # arithmetic strip well above footer line at H-92 (=988)
+panel(d, (120, ay, W-120, ay+110), fill=PANEL, outline=LINE)
+text(d, (150, ay+16), &quot;On the screen:&quot;, font(&quot;bold&quot;, 28), ACCENT)
+text(d, (150, ay+56), &quot;812.000 ft × 0.000052 = 0.042 ft short   812.005 − 811.962 = 0.043 ft&quot;,
+     font(&quot;mono&quot;, 34), INK)
+footer(d, &quot;4 / 9&quot;)
+add(im, 9.0)
+
+# =========================================================================
+# 5. STEP 2 - THREE SETS + spread rule (good vs bad)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;STEP 2&quot;, &quot;Three sets, HD, feet — check the spread&quot;)
+wrap(d, &quot;Shoot three sets of horizontal distance. A set more than 0.005 off the other two is a &quot;
+        &quot;strike (a bump, or PPM). Strike it, shoot it again. Never average a strike.&quot;,
+     font(&quot;sans&quot;, 38), 90, 244, W-180, MUTED)
+lx, rx, w, top = 120, 1030, 760, 440
+goodbad_headers(d, lx, rx, top, w)
+panel(d, (lx, top+80, lx+w, top+460), fill=GOODBG, outline=GOOD, width=2)
+panel(d, (rx, top+80, rx+w, top+460), fill=BADBG, outline=BAD, width=2)
+for i,(lab,val) in enumerate([(&quot;Set 1&quot;,&quot;812.005&quot;),(&quot;Set 2&quot;,&quot;812.003&quot;),(&quot;Set 3&quot;,&quot;812.004&quot;)]):
+    text(d, (lx+40, top+108+i*70), lab, font(&quot;sans&quot;, 36), MUTED)
+    text(d, (lx+300, top+108+i*70), val, font(&quot;mono&quot;, 46), INK)
+text(d, (lx+40, top+328), &quot;spread = 0.002  (≤ 0.005)&quot;, font(&quot;mono&quot;, 34), GOOD)
+text(d, (lx+40, top+388), &quot;Keep all three.&quot;, font(&quot;bold&quot;, 36), GOOD)
+for i,(lab,val,c) in enumerate([(&quot;Set 1&quot;,&quot;812.004&quot;,INK),(&quot;Set 2&quot;,&quot;812.037&quot;,BAD),(&quot;Set 3&quot;,&quot;812.003&quot;,INK)]):
+    text(d, (rx+40, top+108+i*70), lab, font(&quot;sans&quot;, 36), MUTED)
+    text(d, (rx+300, top+108+i*70), val, font(&quot;mono&quot;, 46), c)
+text(d, (rx+40, top+328), &quot;Set 2 is 0.033 off  (&gt; 0.005)&quot;, font(&quot;mono&quot;, 34), BAD)
+text(d, (rx+40, top+388), &quot;Strike Set 2. Reshoot. Don&#x27;t average.&quot;, font(&quot;bold&quot;, 30), BAD)
+footer(d, &quot;5 / 9&quot;)
+add(im, 9.0)
+
+# =========================================================================
+# 6. STEP 3 - MEAN &amp; CALL (good vs bad)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;STEP 3&quot;, &quot;Mean of three, less 812.000 — make the call&quot;)
+wrap(d, &quot;Add the three good sets, divide by three, subtract 812.000. Inside 0.010 ft is good. &quot;
+        &quot;Over, it goes back. Tight sets can still fail — do the math.&quot;,
+     font(&quot;sans&quot;, 38), 90, 244, W-180, MUTED)
+lx, rx, w, top = 120, 1030, 760, 430
+goodbad_headers(d, lx, rx, top, w)
+panel(d, (lx, top+80, lx+w, top+470), fill=GOODBG, outline=GOOD, width=2)
+panel(d, (rx, top+80, rx+w, top+470), fill=BADBG, outline=BAD, width=2)
+text(d, (lx+40, top+96), &quot;S6 · 16 Jul · after repair&quot;, font(&quot;sans&quot;, 26), MUTED)
+text(d, (lx+40, top+134), &quot;812.005 + 812.003 + 812.004&quot;, font(&quot;mono&quot;, 32), INK)
+text(d, (lx+40, top+184), &quot;= 2436.012  ÷ 3  = 812.004&quot;, font(&quot;mono&quot;, 32), INK)
+text(d, (lx+40, top+244), &quot;812.004 − 812.000 = +0.004&quot;, font(&quot;mono&quot;, 36), INK)
+text(d, (lx+w//2, top+324), &quot;+0.004  ≤  0.010&quot;, font(&quot;monob&quot;, 48), GOOD, anchor=&quot;ma&quot;)
+chip(d, (lx+w//2-95, top+382), &quot;GOOD&quot;, GOOD)
+text(d, (rx+40, top+96), &quot;S6 · 18 Apr · before it went in&quot;, font(&quot;sans&quot;, 26), MUTED)
+text(d, (rx+40, top+134), &quot;812.012 + 812.015 + 812.012&quot;, font(&quot;mono&quot;, 32), INK)
+text(d, (rx+40, top+184), &quot;= 2436.039  ÷ 3  = 812.013&quot;, font(&quot;mono&quot;, 32), INK)
+text(d, (rx+40, top+244), &quot;812.013 − 812.000 = +0.013&quot;, font(&quot;mono&quot;, 36), INK)
+text(d, (rx+w//2, top+324), &quot;+0.013  &gt;  0.010&quot;, font(&quot;monob&quot;, 48), BAD, anchor=&quot;ma&quot;)
+chip(d, (rx+w//2-150, top+382), &quot;IT GOES BACK&quot;, BAD)
+footer(d, &quot;6 / 9&quot;)
+add(im, 9.0)
+
+# =========================================================================
+# 6b. WHY NOT TALMADGE&#x27;S NUMBER  (Estefana&#x27;s question)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;ESTEFANA&#x27;S QUESTION&quot;, &quot;Why not just use Talmadge&#x27;s number?&quot;)
+wrap(d, &quot;His sheet certifies the gun on a 3-pillar bench: ±(2 mm + 2 ppm). Work that at our &quot;
+        &quot;812.000 ft and set it beside the office limit.&quot;,
+     font(&quot;sans&quot;, 38), 90, 244, W-180, MUTED)
+lx, rx, w, top = 120, 1030, 760, 400
+# left — the brochure allowance
+d.rounded_rectangle((lx, top, lx+w, top+70), radius=14, fill=LINE)
+text(d, (lx+w//2, top+8), &quot;TALMADGE&#x27;S SHEET&quot;, font(&quot;bold&quot;, 40), INK, anchor=&quot;ma&quot;)
+panel(d, (lx, top+80, lx+w, top+440), fill=PANEL, outline=LINE, width=2)
+text(d, (lx+30, top+106), &quot;±(2 mm + 2 ppm), prism mode&quot;, font(&quot;mono&quot;, 30), INK)
+text(d, (lx+30, top+156), &quot;worked at our 812.000 ft:&quot;, font(&quot;sans&quot;, 28), MUTED)
+text(d, (lx+30, top+212), &quot;2 mm             → 0.007 ft&quot;, font(&quot;mono&quot;, 30), INK)
+text(d, (lx+30, top+260), &quot;2 ppm × 812.000  → 0.002 ft&quot;, font(&quot;mono&quot;, 30), INK)
+text(d, (lx+w//2, top+338), &quot;the pair  →  ±0.008 ft&quot;, font(&quot;monob&quot;, 44), INK, anchor=&quot;ma&quot;)
+text(d, (lx+w//2, top+400), &quot;(each rounded to 0.001 ft)&quot;, font(&quot;sans&quot;, 22), MUTED, anchor=&quot;ma&quot;)
+# right — the office limit
+d.rounded_rectangle((rx, top, rx+w, top+70), radius=14, fill=ACCENT)
+text(d, (rx+w//2, top+8), &quot;OUR OFFICE LIMIT&quot;, font(&quot;bold&quot;, 40), (30,26,12), anchor=&quot;ma&quot;)
+panel(d, (rx, top+80, rx+w, top+440), fill=(44,38,24), outline=ACCENT, width=2)
+text(d, (rx+w//2, top+170), &quot;±0.010 ft&quot;, font(&quot;monob&quot;, 84), ACCENT, anchor=&quot;ma&quot;)
+text(d, (rx+w//2, top+300), &quot;the number in the book&quot;, font(&quot;sans&quot;, 32), INK, anchor=&quot;ma&quot;)
+# the one line — which we use and why
+panel(d, (90, 866, W-90, 950), fill=GOODBG, outline=GOOD, width=2, radius=16)
+text(d, (W//2, 882), &quot;We use 0.010 — our field limit covers the whole setup on our line,&quot;,
+     font(&quot;bold&quot;, 32), INK, anchor=&quot;ma&quot;)
+text(d, (W//2, 920), &quot;not the gun alone on Talmadge&#x27;s bench.&quot;, font(&quot;bold&quot;, 32), INK, anchor=&quot;ma&quot;)
+footer(d, &quot;7 / 9&quot;)
+add(im, 11.0)
+
+# =========================================================================
+# 7. WRITE IT DOWN  (good vs bad)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;DON&#x27;T TRUST YOUR MEMORY&quot;, &quot;Write the check down&quot;)
+wrap(d, &quot;Same page every time, in the case. Date, gun, conditions, PPM, the three sets, the mean, &quot;
+        &quot;the deviation, and the call. Initial it.&quot;,
+     font(&quot;sans&quot;, 38), 90, 244, W-180, MUTED)
+lx, rx, w, top = 120, 1030, 760, 430
+goodbad_headers(d, lx, rx, top, w)
+panel(d, (lx, top+80, lx+w, top+470), fill=GOODBG, outline=GOOD, width=2)
+panel(d, (rx, top+80, rx+w, top+470), fill=BADBG, outline=BAD, width=2)
+good_note = [&quot;16 Jul 26   S6 93441234&quot;,&quot;BL-1-BL-2   812.000&quot;,&quot;97F  26.40  PPM +52&quot;,
+             &quot;1  812.005&quot;,&quot;2  812.003&quot;,&quot;3  812.004&quot;,&quot;mean 812.004   +0.004&quot;,&quot;GOOD - stays        AIQ&quot;]
+for i,ln in enumerate(good_note):
+    text(d, (lx+30, top+104+i*44), ln, font(&quot;mono&quot;, 30), INK)
+bad_note = [&quot;S6   93441234&quot;,&quot;(no ppm noted)&quot;,&quot;812.005  812.037  812.003&quot;,&quot;avg 812.015   ~ok&quot;]
+for i,ln in enumerate(bad_note):
+    text(d, (rx+30, top+104+i*52), ln, font(&quot;mono&quot;, 32), INK)
+text(d, (rx+30, top+332), &quot;No date. No PPM.&quot;, font(&quot;sans&quot;, 30), BAD)
+text(d, (rx+30, top+374), &quot;Averaged a strike (the 812.037).&quot;, font(&quot;sans&quot;, 30), BAD)
+text(d, (rx+30, top+416), &quot;+0.015 is over 0.010 — wrong call.&quot;, font(&quot;sans&quot;, 30), BAD)
+footer(d, &quot;8 / 9&quot;)
+add(im, 10.0)
+
+# =========================================================================
+# 8. THE REAL JULY RUN (worked end to end)
+# =========================================================================
+im, d = canvas()
+header(d, &quot;HOW IT WENT — 16 JUL&quot;, &quot;The real run, start to finish&quot;)
+jt = load_fit(os.path.join(IN, &quot;IMG_4639.jpg&quot;), 600, 700)
+im.paste(jt, (W-90-jt.width, 250))
+text(d, (W-90-jt.width, 250+jt.height+8), &quot;Abe&#x27;s page, 16 Jul.&quot;, font(&quot;sans&quot;, 26), MUTED)
+x, y, lh = 90, 262, 60
+lines = [
+    (&quot;Back from LEIS. Tripod both ends.&quot;, INK),
+    (&quot;97°F, 26.40  →  PPM +52.&quot;, INK),
+    (&quot;First shot PPM was 0 — 811.962. Struck it.&quot;, BAD),
+    (&quot;Set PPM. Shot again:&quot;, INK),
+    (&quot;   Set 1   812.005&quot;, INK),
+    (&quot;   Set 2   812.003&quot;, INK),
+    (&quot;   Set 3   812.004&quot;, INK),
+    (&quot;Mean      812.004&quot;, ACCENT),
+    (&quot;812.004 − 812.000 = +0.004&quot;, ACCENT),
+]
+for s,c in lines:
+    mono = any(k in s for k in (&quot;Set&quot;,&quot;Mean&quot;,&quot;812&quot;,&quot;→&quot;,&quot;First&quot;))
+    text(d, (x, y), s, font(&quot;mono&quot;, 42) if mono else font(&quot;sans&quot;, 42), c); y += lh
+chip(d, (x, y+16), &quot;+0.004 ≤ 0.010  —  GOOD, it stays&quot;, GOOD)
+footer(d, &quot;9 / 9&quot;)
+add(im, 10.0)
+
+# =========================================================================
+# QUIZ  --- Abe&#x27;s real loaner-S5 page. Arithmetic and call cut off on purpose. ---
+# To use a different page later, drop the image in as baseline_quiz_page.jpg and
+# update the three sets and the worked call below.
+# =========================================================================
+QPATH = os.path.join(OUT, &quot;baseline_quiz_page.jpg&quot;)
+
+# --- the page: read it, take ten seconds
+im, d = canvas()
+header(d, &quot;YOUR TURN — CALL IT BEFORE THE VIDEO DOES&quot;, &quot;Loaner S5, 22 Jun — before it goes out&quot;)
+qimg = load_fit(QPATH, 680, 770)
+im.paste(qimg, (90, 244))
+text(d, (90, 244+qimg.height+8), &quot;Abe&#x27;s page. Arithmetic and call cut off on purpose.&quot;,
+     font(&quot;sans&quot;, 24), MUTED)
+rx0 = 830
+wrap(d, &quot;This is the loaner S5 (SN 30712216) from Llano — checked before it went out on a job. &quot;
+        &quot;Read the page. Take ten seconds. Then work it and call it.&quot;,
+     font(&quot;sans&quot;, 34), rx0, 250, W-90-rx0, MUTED)
+panel(d, (rx0, 430, W-90, 902), fill=PANEL, outline=LINE)
+text(d, (rx0+30, 456), &quot;On the page:&quot;, font(&quot;bold&quot;, 30), ACCENT)
+for i,s in enumerate([
+    &quot;Published 812.000 · tripod both ends&quot;,
+    &quot;88°F   26.55   →   PPM +47&quot;,
+    &quot;1    812.008&quot;,
+    &quot;2    812.031 → leg in sand, reshot 812.010&quot;,
+    &quot;3    812.009&quot;]):
+    text(d, (rx0+30, 512+i*68), s, font(&quot;mono&quot;, 32), INK)
+text(d, (rx0+30, 852), &quot;Work the mean. Make the call.&quot;, font(&quot;bold&quot;, 36), INK)
+add(im, 7.0)
+
+# --- ten seconds
+for n in range(10, 0, -1):
+    im, d = canvas()
+    header(d, &quot;YOUR TURN — CALL IT&quot;, &quot;Ten seconds&quot;)
+    tw = load_fit(QPATH, 430, 560); im.paste(tw, (90, 260))
+    panel(d, (600, 300, 1300, 636), outline=LINE)
+    for i,(lab,val) in enumerate([(&quot;Set 1&quot;,&quot;812.008&quot;),(&quot;Set 2&quot;,&quot;812.010&quot;),(&quot;Set 3&quot;,&quot;812.009&quot;)]):
+        text(d, (640, 338+i*90), lab, font(&quot;sans&quot;, 42), MUTED)
+        text(d, (1260, 338+i*90), val, font(&quot;mono&quot;, 52), INK, anchor=&quot;ra&quot;)
+    text(d, (950, 600), &quot;Set 2 reshot after the leg moved.&quot;, font(&quot;sans&quot;, 26), MUTED, anchor=&quot;ma&quot;)
+    d.ellipse((1470, 380, 1710, 620), outline=ACCENT, width=8)
+    text(d, (1590, 392), str(n), font(&quot;bold&quot;, 150), ACCENT, anchor=&quot;ma&quot;)
+    add(im, 1.0, fade=False)   # hard cuts → the ten-count is exactly 10.0 s
+
+# --- work it on the screen and call it
+im, d = canvas()
+header(d, &quot;THE CALL&quot;, &quot;Loaner S5 — work it and call it&quot;, tcol=ACCENT)
+panel(d, (90, 250, 900, 650), outline=LINE)
+text(d, (130, 284), &quot;22 Jun · loaner S5 · SN 30712216&quot;, font(&quot;sans&quot;, 28), MUTED)
+for i,(lab,val) in enumerate([(&quot;Set 1&quot;,&quot;812.008&quot;),(&quot;Set 2&quot;,&quot;812.010&quot;),(&quot;Set 3&quot;,&quot;812.009&quot;)]):
+    text(d, (130, 342+i*80), lab, font(&quot;sans&quot;, 40), MUTED)
+    text(d, (760, 342+i*80), val, font(&quot;mono&quot;, 50), INK, anchor=&quot;ra&quot;)
+text(d, (130, 590), &quot;Set 2 first 812.031 — leg in the sand — struck, reshot.&quot;, font(&quot;sans&quot;, 26), MUTED)
+cxr = (960 + (W-90)) // 2
+panel(d, (960, 250, W-90, 650), fill=PANEL, outline=ACCENT, width=2)
+text(d, (990, 300), &quot;812.008 + 812.010 + 812.009&quot;, font(&quot;mono&quot;, 36), INK)
+text(d, (990, 364), &quot;= 2436.027  ÷ 3  =  812.009&quot;, font(&quot;mono&quot;, 36), INK)
+text(d, (990, 442), &quot;812.009 − 812.000 = +0.009&quot;, font(&quot;mono&quot;, 40), INK)
+text(d, (cxr, 522), &quot;+0.009  ≤  0.010&quot;, font(&quot;monob&quot;, 54), GOOD, anchor=&quot;ma&quot;)
+chip(d, (cxr-190, 590), &quot;GOOD — IT GOES OUT&quot;, GOOD)
+panel(d, (90, 690, W-90, 902), fill=GOODBG, outline=GOOD, width=2, radius=16)
+text(d, (120, 716), &quot;Inside 0.010 by a hair — still good.&quot;, font(&quot;bold&quot;, 34), INK)
+text(d, (120, 772), &quot;Set 2 was struck for the leg in the sand and reshot — never averaged.&quot;,
+     font(&quot;sans&quot;, 32), INK)
+text(d, (120, 828), &quot;Write it down: 22 Jun, S5, PPM +47, the three sets, mean 812.009, +0.009, GOOD.&quot;,
+     font(&quot;sans&quot;, 30), MUTED)
+add(im, 13.0)
+
+# =========================================================================
+# RULE CARD (keep in the case)
+# =========================================================================
+im, d = canvas()
+d.rectangle((0,0,W,12), fill=ACCENT)
+text(d, (W//2, 56), &quot;THE RULE CARD&quot;, font(&quot;bold&quot;, 66), INK, anchor=&quot;ma&quot;)
+text(d, (W//2, 146), &quot;Keep this in the case.&quot;, font(&quot;sans&quot;, 32), MUTED, anchor=&quot;ma&quot;)
+items = [
+    &quot;Any instrument back from a bench gets this before it goes out.&quot;,
+    &quot;BL-1 to BL-2 = 812.000 ft, set 2016, re-observed every spring. Tripod both ends, never a pole.&quot;,
+    &quot;Set up both ends: center, level, prism constant 0.0.&quot;,
+    &quot;PPM off the shop gauge before the first shot. Every time.&quot;,
+    &quot;Three sets, HD, feet.&quot;,
+    &quot;A set &gt; 0.005 off the other two = strike it, shoot it again. Never average.&quot;,
+    &quot;Mean of three, less 812.000:&quot;,
+    &quot;        inside 0.010 ft  →  GOOD&quot;,
+    &quot;        over 0.010 ft    →  IT GOES BACK&quot;,
+    &quot;Write it down: date, gun, conditions, PPM, three sets, mean, the call, initials.&quot;,
+    &quot;Judge against 812.000. NOT the brochure.&quot;,
+]
+y = 222
+maxw = W - 220
+for it in items:
+    col = ACCENT if &quot;GOOD&quot; in it else (BAD if &quot;GOES BACK&quot; in it else INK)
+    if &quot;→&quot; in it:                       # the indented pass/fail lines
+        text(d, (230, y), it.strip(), font(&quot;monob&quot;, 34), col); y += 56
+        continue
+    fnt = font(&quot;sans&quot;, 34)
+    pre = &quot;•  &quot;; prew = measure(fnt, pre)
+    words, line, first = it.split(), &quot;&quot;, True
+    for w0 in words:
+        t = (line + &quot; &quot; + w0).strip()
+        if measure(fnt, t) &lt;= (maxw - prew):
+            line = t
+        else:
+            text(d, (110 if first else 110+prew, y), (pre+line) if first else line, fnt, col)
+            y += 48; first = False; line = w0
+    text(d, (110 if first else 110+prew, y), (pre+line) if first else line, fnt, col)
+    y += 58
+text(d, (W//2, H-70), &quot;For Estefana, and whoever comes after.  — Abe&quot;, font(&quot;sans&quot;, 32), MUTED, anchor=&quot;ma&quot;)
+add(im, 9.0)
+
+# =========================================================================
+# ENCODE
+# =========================================================================
+def to_np(pil): return np.asarray(pil.convert(&quot;RGB&quot;), dtype=np.uint8)
+
+out_path = os.path.join(OUT, &quot;baseline_check.mp4&quot;)
+writer = imageio.get_writer(out_path, fps=FPS, codec=&quot;libx264&quot;, quality=8,
+                            macro_block_size=8, ffmpeg_params=[&quot;-pix_fmt&quot;,&quot;yuv420p&quot;])
+XFADE = 8
+prev, total = None, 0
+for pil, sec, fade in SLIDES:
+    arr = to_np(pil)
+    if prev is not None and fade:
+        for k in range(1, XFADE+1):
+            a = k/(XFADE+1)
+            writer.append_data((prev*(1-a)+arr*a).astype(np.uint8)); total += 1
+    for _ in range(int(round(sec*FPS))):
+        writer.append_data(arr); total += 1
+    prev = arr
+writer.close()
+print(f&quot;slides={len(SLIDES)} frames={total} dur={total/FPS:.1f}s -&gt; {out_path}&quot;)
+</pre></div></div></div></div><div class="ovpane" data-pane="4" role="tabpanel"><div class="panel"><div class="ph" id="x1p4h"><span class="src">Task file</span><span class="pht">baseline_check_script.md</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="evnote"><b>Look at</b> The document meant to be printed for the instrument case, carrying the same rebuild instruction.</div><div class="pb ev" id="x1p4ev"><div class="evi evk-text"><div class="evh"><code>baseline_check_script.md</code><span class="evr">golden artifact</span></div><pre class="evtext"># Baseline Check — Script &amp; Procedure
+
+**Instrument this was built for:** Trimble S6, SN 93441234
+**The line:** BL-1 → BL-2 behind the shop (8710 Bowie), **812.000 ft**, midpoint monument **BL-M at 406.000**
+**The rule, in one line:** mean of three sets less 812.000 — **inside 0.010 ft = good, over = it goes back.**
+
+&gt; **Print this and keep it in the case.** It matches the video `baseline_check.mp4` step for step.
+&gt; Whoever runs the check reads this; the video shows them what it looks like.
+&gt; Everything is in **feet to three places**. Nobody here reads millimetres.
+
+---
+
+## When you run this
+
+Any time an instrument comes back onto the property from a bench — repair, service,
+calibration, anywhere off-site — it gets this check **before it goes back out on a job.**
+Abe ran the S6 the same afternoon it came back from Lubbock. Same for everything else.
+
+**The sheet that came back in the case is nice to have. The sheet is not the check.**
+The baseline is the check.
+
+---
+
+## What you need
+
+- The instrument that came back, on a **tripod**.
+- Prism on a **tripod** at the far monument. **Never a hand-held pole** — a pole rocks and every set moves.
+- Trimble 360 prism, prism constant **0.0**.
+- The shop weather gauge (temperature + pressure).
+- The check page and a pen. Write the readings down as you go.
+
+---
+
+## The video, section by section (narration)
+
+Read it in this order if you ever need to walk someone through it without the screen.
+
+### 0 · Title
+&quot;This is the baseline check, start to finish, so anyone can run it without Abe. Any instrument
+back from a bench gets it before it goes out. Tripod both ends, PPM every time, feet to three
+places. Inside 0.010 is good, over goes back. Write it down. Do the math on the screen.&quot;
+
+### 1 · Where our baseline came from
+&quot;Abe set **two brass caps** behind the shop at 8710 Bowie in **2016** — **812.000 ft** apart, with
+the midpoint 406.000 out (BL-M). He **re-observes the line every spring** to hold the 812.000.
+It&#x27;s our own baseline, and that 812.000 is the truth we judge against. **Not the brochure.**&quot;
+
+### 2 · Why the S6 went in (the story)
+- **2 Jun** — Deaf Smith County, the 640-acre pivot as-builts, **job 26-004**. Estefana on the rod.
+- The **S6 lost the tracker at 2:20 and would not re-acquire.** We finished the day on the R12i and a 100-ft tape.
+- **3 Jun** — drove it to **Llano Estacado Instrument Service** in Lubbock. Talmadge Ruff opened it up: **tracker board and Y servo.** Six weeks on the bench.
+- **16 Jul** — back four days early, sheet in the case.
+
+&quot;A bench can say it&#x27;s fixed. **The baseline is how we know** — before it goes back out on a job.&quot;
+
+### 3 · Set up both ends
+
+| GOOD | BAD |
+|---|---|
+| Instrument on a tripod over BL-1, legs kicked in firm. | Prism on a hand pole — it rocks, every set moves. |
+| Center over the monument, then level (tribrach + comp). | Legs loose — the tripod walks between sets. |
+| Prism on a tripod over BL-2. Both tribrachs level. | Off-center or off-level — reads long or short. |
+| Trimble 360 prism, constant **0.0**. | Constant left wrong — same bias on every shot. |
+
+### 4 · Step 1 — PPM off the shop gauge, before the first shot
+Read the shop gauge. Punch temperature and pressure into the instrument so it sets PPM. **Every time.**
+
+| | GOOD | BAD |
+|---|---|---|
+| gauge | 97°F, 26.40 inHg → **PPM +52** | **PPM left at 0** (forgot it) |
+| reads | **812.005** | **811.962** |
+
+**On the screen:** `812.000 ft × 0.000052 = 0.042 ft short` and `812.005 − 811.962 = 0.043 ft`.
+Forget PPM and the instrument reads short by about that much. (This is the shot Abe struck in July,
+then set PPM and shot again.)
+
+### 5 · Step 2 — three sets, HD, feet — check the spread
+Shoot **three sets** of horizontal distance.
+
+- **GOOD:** 812.005 / 812.003 / 812.004 → spread **0.002** (≤ 0.005). Keep all three.
+- **BAD:** 812.004 / **812.037** / 812.003 → Set 2 is **0.033 off** (&gt; 0.005). That&#x27;s a strike
+  (a bump, or PPM). **Strike it, shoot it again. Never average a strike.**
+
+### 6 · Step 3 — mean of three, less 812.000 — make the call
+Add the three good sets, divide by three, subtract 812.000.
+
+- **GOOD — S6, 16 Jul, after repair:** `812.005 + 812.003 + 812.004 = 2436.012 ÷ 3 = 812.004`;
+  `812.004 − 812.000 = +0.004`. **+0.004 ≤ 0.010 → GOOD, it stays.**
+- **BAD — S6, 18 Apr, before it went in** (64°F, 26.70, PPM +35): `812.012 + 812.015 + 812.012 =
+  2436.039 ÷ 3 = 812.013`; `812.013 − 812.000 = +0.013`. **+0.013 &gt; 0.010 → IT GOES BACK.**
+  (Tracker was hunting on set 2 — the spring check first flagged it: &quot;call Talmadge, it does it again.&quot;
+  It finally went in after it quit on the pivot job on 2 Jun, dropped at Llano on 3 Jun.)
+
+### Why not just use Talmadge&#x27;s number? (Estefana&#x27;s question)
+His service sheet certifies the instrument on his 3-pillar bench: **±(2 mm + 2 ppm)**, prism mode.
+Worked at our baseline length, in feet to three places:
+
+- 2 mm → **0.007 ft** (the fixed part — exactly 0.0066 ft)
+- 2 ppm × 812.000 ft → **0.002 ft** (the scale part — exactly 0.0016 ft)
+- together → **±0.008 ft** (0.0082 ft, rounded to three places)
+
+**Office limit: ±0.010 ft.**
+
+**We use 0.010 — the office limit.** It&#x27;s a field limit for the *whole setup on our line* — tripods
+both ends, tribrachs, centering, PPM, and the baseline itself — not the instrument alone on
+Talmadge&#x27;s bench. His sheet is nice to have; the baseline against 0.010 ft is the check.
+
+### 7 · Write the check down
+Same page every time, in the case. Don&#x27;t trust your memory.
+
+**GOOD — the whole check on the page:**
+```
+16 Jul 26   S6 93441234
+BL-1-BL-2   812.000
+97F  26.40  PPM +52
+1  812.005
+2  812.003
+3  812.004
+mean 812.004   +0.004
+GOOD - stays        AIQ
+```
+
+**BAD — useless to Estefana in a year:**
+```
+S6   93441234
+(no ppm noted)
+812.005  812.037  812.003
+avg 812.015   ~ok
+```
+No date. No PPM. Averaged a strike (the 812.037). +0.015 is over 0.010 — wrong call.
+
+### 8 · The real run — 16 Jul
+- Back from Lubbock. Tripod both ends. 97°F, 26.40 → PPM +52.
+- First shot PPM was 0 → **811.962. Struck it.** Set PPM, shot again:
+  - Set 1 **812.005**
+  - Set 2 **812.003**
+  - Set 3 **812.004**
+- Mean **812.004**. `812.004 − 812.000 = +0.004`. **+0.004 ≤ 0.010 → GOOD, it stays.**
+
+---
+
+## The quiz — call it before the video does
+
+On screen: **Abe&#x27;s 22 Jun page for the loaner S5 (SN 30712216) from Llano** — checked before it
+went out on a job. The arithmetic and the call are cut off the bottom **on purpose**. Watch the
+page, take **ten seconds**, then work it and call it.
+
+**What&#x27;s on the page:**
+- Published **812.000** · tripod both ends
+- 88°F, 26.55 → **PPM +47**
+- Set 1 — **812.008**
+- Set 2 — 812.031 → *leg in the sand* — struck and reshot → **812.010**
+- Set 3 — **812.009**
+
+**Work it on the screen:**
+```
+812.008 + 812.010 + 812.009 = 2436.027 ÷ 3 = 812.009
+812.009 − 812.000 = +0.009
+```
+
+**The call:** **+0.009 ≤ 0.010 → GOOD. The loaner goes out.**
+Inside 0.010 by a hair — still good. And Set 2 was struck for the leg in the sand and reshot,
+never averaged. Write it down: 22 Jun, S5, PPM +47, the three sets, mean 812.009, +0.009, GOOD.
+
+&gt; The page image (`baseline_quiz_page.jpg`) sits alongside this script and in the video. To use a
+&gt; different page later, replace that image and the three sets / worked call above, then rebuild the
+&gt; video: `<mark class="spot" id="x1p4k0">python3 make_baseline_video.py</mark>`.
+
+---
+
+## The rule card (keep in the case)
+
+1. Any instrument back from a bench gets this **before** it goes out.
+2. BL-1 to BL-2 = **812.000 ft**, set 2016, re-observed every spring. Tripod both ends, never a pole.
+3. Set up both ends: **center, level, prism constant 0.0.**
+4. **PPM off the shop gauge before the first shot. Every time.**
+5. **Three sets, HD, feet.**
+6. A set **&gt; 0.005** off the other two = **strike it, shoot it again. Never average.**
+7. Mean of three, less 812.000:
+   - inside **0.010 ft → GOOD**
+   - over **0.010 ft → IT GOES BACK**
+8. **Write it down:** date, gun, conditions, PPM, three sets, mean, the call, initials.
+9. Judge against **812.000** and our **±0.010 ft**. **Not the brochure** — its ±(2 mm + 2 ppm) is only ≈ ±0.008 ft at our length, and it&#x27;s the gun alone on the bench.
+
+*For Estefana, and whoever comes after. — Abe*
+</pre></div></div></div></div><div class="ovpane" data-pane="5" role="tabpanel"><div class="panel"><div class="ph" id="x1p5h"><span class="src">Task file</span><span class="pht">Quiz page and its source</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="evnote"><b>Look at</b> The golden&#x27;s quiz page beside the input it came from. They are the same file, byte for byte, under a new name.</div><div class="pb ev evpair" id="x1p5ev"><div class="evi evk-image"><div class="evh"><code>baseline_quiz_page.jpg</code><span class="evr">golden artifact</span></div><button type="button" class="evimg" title="Click for full size"><img loading="lazy" src="../evidence/6aa34dd1625bb5b220c6b1be/baseline_quiz_page.jpg" width="1080" height="1143" alt="baseline_quiz_page.jpg"></button><div class="evcut">Click the image to see it at full size, and again to fit it back.</div></div><div class="evi evk-image"><div class="evh"><code>IMG_4642.jpg</code><span class="evr">input file</span></div><button type="button" class="evimg" title="Click for full size"><img loading="lazy" src="../evidence/6aa34dd1625bb5b220c6b1be/IMG_4642.jpg" width="1080" height="1143" alt="IMG_4642.jpg"></button><div class="evcut">Click the image to see it at full size, and again to fit it back.</div></div></div></div></div><div class="ovpane" data-pane="6" role="tabpanel"><div class="panel"><div class="ph" id="x1p6h"><span class="src">Task file</span><span class="pht">baseline_check.mp4</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb ev" id="x1p6ev"><div class="evi evk-video"><div class="evh"><code>baseline_check.mp4</code><span class="evr">golden artifact</span></div><video class="evmedia" controls playsinline preload="none" data-src="../evidence/6aa34dd1625bb5b220c6b1be/baseline_check.mp4"></video></div></div></div></div><div class="ovpane" data-pane="7" role="tabpanel"><div class="panel"><div class="ph" id="x1p7h"><span class="src">Task file</span><span class="pht">MEMORY.md</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb ev" id="x1p7ev"><div class="evi evk-text"><div class="evh"><code>MEMORY.md</code><span class="evr">golden artifact</span></div><pre class="evtext"># MEMORY
+
+## Shop calibration baseline (behind the shop, 8710 Bowie Street)
+- Two **brass caps**, monumented **2016**. **BL-1 to BL-2 = 812.000 ft** (the held length). Midpoint **BL-M at 406.000**.
+- **Re-observed every spring.**
+- Tripod both ends, never a pole. Trimble 360 prism, constant 0.0.
+
+## Office rule — baseline check
+Any instrument back from a bench gets this **before it goes out on a job**.
+
+1. Set **PPM off the shop gauge** before the first shot — every time.
+2. **Three sets**, horizontal distance (HD), **feet to three places**.
+3. A set **&gt; 0.005 ft** off the other two = a strike (a bump, or PPM). **Strike it, shoot it again. Never average a strike.**
+4. **Mean of three, less 812.000:**
+   - inside **0.010 ft → GOOD** (it stays / it goes out)
+   - over **0.010 ft → IT GOES BACK**
+5. **Write it down:** date, instrument + SN, conditions, PPM, the three sets, mean, deviation, the call, initials.
+
+## Why our 0.010 ft, not the manufacturer sheet
+The service sheet spec is **±(2 mm + 2 ppm)**, prism mode. Worked at 812.000 ft that is **≈ ±0.008 ft**
+(2 mm ≈ 0.007 ft + 2 ppm ≈ 0.002 ft). That is the instrument alone on the shop&#x27;s 3-pillar bench.
+Our **±0.010 ft** is a field limit that covers the whole setup on our line — tripods both ends,
+tribrachs, centering, PPM, and the baseline itself. **Judge against 0.010 ft. Not the brochure.**
+
+_Full procedure: `baseline_check.mp4` and `baseline_check_script.md` (kept in the instrument case)._
+</pre></div></div></div></div></div>
+    </section>
+  </div>
+</div></div><div class="ovback" id="ex-closeout-mechanics-2" data-home="0" hidden>
+<div class="ov" role="dialog" aria-modal="true" aria-labelledby="ex-closeout-mechanics-2-t">
+  <header class="ovh"><div class="ovline">
+    <span class="ovnum">Example 26</span><span class="ovttl" id="ex-closeout-mechanics-2-t">The five minute close out nobody runs</span>
+    <span class="bad fail">Fails the task</span><span class="sp"></span><button type="button" class="btn q exnav" data-ex="closeout-mechanics-1">← Example 25</button>
+    <button type="button" class="btn q ovwide">Expand</button>
+    <button type="button" class="btn ovclose" aria-label="Close">Close ✕</button>
+  </div><div class="ovmeta"><span class="oc rs">Red Shell task</span><span class="oc">Commerce &amp; Product</span><span class="oc">3 Leg A turns</span><span class="oc">task <code class="ovid">6aac6ee4f0c334e21057f9e6</code></span></div></header>
+  <div class="ovbody">
+    <aside class="ovrail" aria-label="The mistake in this task">
+      <div class="railh"><span class="eyebrow">The mistake, in this task</span><span class="sp"></span>
+        <button type="button" class="btn q railhide">Hide</button></div>
+      <div class="raillist"><section class="rsec wrongr"><h3 class="rl">What is wrong</h3><p><a class="ref" href="#x2p0r22" data-pane="0" data-row="x2p0r22">Objective criterion 22</a> asks for a fee of “%0.00” where $0.00 is meant, <a class="ref" href="#x2p0r7" data-pane="0" data-row="x2p0r7">objective criterion 7</a> omits the day, and <a class="ref" href="#x2p1r4" data-pane="1" data-row="x2p1r4">milestone 4</a> ends in a clause that does not parse.</p></section><section class="rsec ctx"><h3 class="rl">The task</h3><p><a class="ref" href="#x2p2t1" data-pane="2" data-row="x2p2t1">Leg A turn 1</a> sets the order for Monday 29 June 2026, and <a class="ref" href="#x2p3t3" data-pane="3" data-row="x2p3t3">Leg A turn 3</a> moves it to Monday 6 July 2026.</p></section><section class="rsec badr"><h3 class="rl">Where it shows</h3><div class="dls"><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x2p0r22" data-pane="0" data-row="x2p0r22">Criterion 22</a><span class="w w-hi">+5</span></div><div class="dlt"><span class="dq">pantry_audit.html shows a delivery fee of <mark class="dm wrong">%0.00</mark> for the Mon 6 Jul 2026 order.</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x2p0r7" data-pane="0" data-row="x2p0r7">Criterion 7</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq">pantry_audit.html gives the Free-Range Large Eggs listing the verdict fix <mark class="dm wrong">for the Mon Jul 2026 order</mark>.</span></div></div><div class="dl l-was"><div class="dlh"><a class="ref dlw" href="#x2p1r4" data-pane="1" data-row="x2p1r4">Milestone 4</a><span class="f"><em>Leg A turn</em>1</span></div><div class="dlt"><span class="dq">…<mark class="dm wrong">an apartment the sheet doe snot marks keeps all the requests</mark>.</span></div></div></div></section><section class="rsec why"><h3 class="rl">How it breaks the standard</h3><p>A grader must decode <a class="ref" href="#x2p0r22" data-pane="0" data-row="x2p0r22">objective criterion 22</a>&#x27;s “<a class="ref q" href="#x2p0k1" data-pane="0" data-row="x2p0k1">%0.00</a>” as $0.00, and piece <a class="ref" href="#x2p0r7" data-pane="0" data-row="x2p0r7">objective criterion 7</a>&#x27;s date together from <a class="ref" href="#x2p4r3" data-pane="4" data-row="x2p4r3">objective criterion 3</a>. In Leg B you judge Model B against <a class="ref" href="#x2p1r4" data-pane="1" data-row="x2p1r4">milestone 4</a>, and a user simulator replays it later: its broken clause leaves each to guess the meaning. These cost points.</p><p class="dxrule"><span class="xl">The Green Shell rule it breaks</span><a class="rlink" href="#x2rr4"><b>Guidelines</b> · 5.1 Rubric Fundamentals</a> <q>Every filename, ID, value, date, or string referenced in a criterion must match the source exactly.</q></p></section><section class="rsec goodr"><h3 class="rl">What it should have been</h3><div class="dls"><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x2p0r22" data-pane="0" data-row="x2p0r22">Criterion 22</a><span class="w w-hi">+5</span></div><div class="dlt"><span class="dq">pantry_audit.html shows a delivery fee of <mark class="dm right">$0.00</mark> for the Mon 6 Jul 2026 order.</span></div></div><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x2p0r7" data-pane="0" data-row="x2p0r7">Criterion 7</a><span class="w w-mid">+3</span></div><div class="dlt"><span class="dq">pantry_audit.html gives the Free-Range Large Eggs listing the verdict fix <mark class="dm right">for the Mon 6 Jul 2026 order</mark>.</span></div></div><div class="dl l-now"><div class="dlh"><a class="ref dlw" href="#x2p1r4" data-pane="1" data-row="x2p1r4">Milestone 4</a><span class="f"><em>Leg A turn</em>1</span></div><div class="dlt"><span class="dq">…<mark class="dm right">an apartment the sheet does not mark keeps all its requests</mark>.</span></div></div></div></section><details class="rsec rrules"><summary><span class="rl">Where the Green Shell guidance is written</span><span class="rcount">6</span></summary><article class="railrule" id="x2rr0"><p class="rsrc"><b>QC spec</b> · Golden Solution - Artifact Completeness</p><blockquote>Every file named in the prompt exists with the filename spelled verbatim; every content rule is satisfied and every factual claim is grounded in the actual inputs; artifacts only, no narration.</blockquote><p class="rcm">The passing option. Narration of how the answer was reached is a Minor Golden Defect.</p></article><article class="railrule" id="x2rr1"><p class="rsrc"><b>QC spec</b> · Golden Solution - Artifact Completeness</p><blockquote>One or more files named in the prompt are missing.</blockquote><p class="rcm">The failing option, Fail - Missing Artifacts.</p></article><article class="railrule" id="x2rr2"><p class="rsrc"><b>QC spec</b> · Trajectory - Golden/Preferred Run Selection</p><blockquote>No preferred run is selected for the golden trajectory.</blockquote><p class="rcm">Non-Fail - No Run Selected: it costs points.</p></article><article class="railrule" id="x2rr3"><p class="rsrc"><b>Guidelines</b> · 3. Task Runner - Leg A</p><blockquote>If multiple complete runs exist and none is marked as preferred, the task becomes unusable because there is no reliable way to determine which run should be treated as the correct one.</blockquote></article><article class="railrule" id="x2rr4"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>Every filename, ID, value, date, or string referenced in a criterion must match the source exactly.</blockquote><p class="rcm">Literal matching, which applies just as rigorously to subjective rubrics.</p></article><article class="railrule" id="x2rr5"><p class="rsrc"><b>Guidelines</b> · 5.1 Rubric Fundamentals</p><blockquote>If a criterion references a literal that does not actually exist in the source, no run can satisfy it, and it must be treated as an Incorrect Criteria issue.</blockquote></article></details></div>
+    </aside>
+    <section class="ovev" aria-label="The task">
+      <nav class="ovtabs" role="tablist">
+        <button type="button" class="ovtab showrail">‹ The mistake</button><button type="button" class="ovtab on" data-pane="0" role="tab" aria-selected="true">Criteria 7, 22<span class="tn2" title="marked spots">2</span></button><button type="button" class="ovtab" data-pane="1" role="tab" aria-selected="false">Milestones 4, 5<span class="tn2" title="marked spots">2</span></button><button type="button" class="ovtab" data-pane="2" role="tab" aria-selected="false">Leg A turn 1</button><button type="button" class="ovtab" data-pane="3" role="tab" aria-selected="false">Leg A turn 3</button><button type="button" class="ovtab" data-pane="4" role="tab" aria-selected="false">Criterion 3</button><button type="button" class="ovtab evtabb" data-pane="5" title="pantry_audit.html" role="tab" aria-selected="false">pantry_audit.html</button>
+        <span class="sp"></span><span class="keys"><kbd>←</kbd> <kbd>→</kbd> tabs <kbd>Esc</kbd> close</span></nav>
+      <div class="ovpanes"><div class="ovpane on" data-pane="0" role="tabpanel"><div class="panel"><div class="ph" id="x2p0h"><span class="src">From the task</span><span class="pht">Objective criteria 7, 22</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb rows"><div class="row flagged" id="x2p0r7"><div class="rn">7</div><div class="rc"><div class="rt">pantry_audit.html gives the Free-Range Large Eggs listing the verdict fix <mark class="spot" id="x2p0k0">for the Mon Jul 2026 order</mark>.</div><div class="rm"><span class="w w-mid">+3</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div><div class="row flagged" id="x2p0r22"><div class="rn">22</div><div class="rc"><div class="rt">pantry_audit.html shows a delivery fee of <mark class="spot" id="x2p0k1">%0.00</mark> for the Mon 6 Jul 2026 order.</div><div class="rm"><span class="w w-hi">+5</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div></div></div></div><div class="ovpane" data-pane="1" role="tabpanel"><div class="panel"><div class="ph" id="x2p1h"><span class="src">From the task</span><span class="pht">Milestones 4, 5</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb rows"><div class="row flagged" id="x2p1r4"><div class="rn">4</div><div class="rc"><div class="rt">The apartments that set a dietary preference on the sheet are handled the way the building rules say. Hint prompt: a couple of the pats orders still don&#x27;t line up with what they told us</div><div class="fields"><span class="f"><em>Leg A turn</em>1</span><span class="f"><em>modifier</em>opening</span><span class="f"><em>assets delivered</em>none</span></div><ul class="cont"><li>Each apartment the sheet marks that way is handled under the rules file&#x27;s rule for it, across every item that apartment asked for and not only the ones it flagged</li><li>the page does not substitute a different product for anything that rule removes</li><li><mark class="spot" id="x2p1k0">an apartment the sheet doe snot marks keeps all the requests</mark>.</li></ul></div></div><div class="row flagged" id="x2p1r5"><div class="rn">5</div><div class="rc"><div class="rt">The subscribe and Save the rules files names is checked against the week the order goes in, and the rules file&#x27;s adjustment for it is applied. Hint prompt: my own part of the order still doesn&#x27;t look right to me</div><div class="fields"><span class="f"><em>Leg A turn</em>1</span><span class="f"><em>modifier</em>opening</span><span class="f"><em>assets delivered</em>.png</span></div><ul class="cont"><li>The subscription&#x27;s real billing cycle is established from the service&#x27;s own record, with the card statement available to confirm it</li><li>the order week is bounded the way the rules file defines a week</li><li><mark class="spot" id="x2p1k1">that apartment&#x27;s quantity for the subscribes item is adjustment as the rules file says</mark> for that week, and left alone of the rules does not apply</li></ul></div></div></div></div></div><div class="ovpane" data-pane="2" role="tabpanel"><div class="panel"><div class="ph" id="x2p2h"><span class="src">From the task</span><span class="pht">Leg A prompt, turn 1, to Model A</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb"><div class="turn" id="x2p2t1"><div class="tn">Leg A turn 1</div><div class="tt">hey so our building fresh order goes in monday 6/29/26. tom threw together pantry_board_draft.png for the neighbors, signup_sheet.jpg is the sheet from the laundry room and the house rules are in pantry_rules.md. can you check his listings before anyone sees it and make me pantry_audit.html - verdict+fixed card for each listing. and what each apt owes. people should be able to pick the apt and only see their part</div></div></div></div></div><div class="ovpane" data-pane="3" role="tabpanel"><div class="panel"><div class="ph" id="x2p3h"><span class="src">From the task</span><span class="pht">Leg A prompt, turn 3, to Model A</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb"><div class="turn" id="x2p3t3"><div class="tn">Leg A turn 3</div><div class="tt">ugh fresh has no delivery slots this week so the order&#x27;s moving to monday 7/6/26. rosa texted me too chat_5D.png. update pantry_audit.html and give me settle_up.csv (household, items_total, fee_share, amount_due) so i can send out the payment requests</div></div></div></div></div><div class="ovpane" data-pane="4" role="tabpanel"><div class="panel"><div class="ph" id="x2p4h"><span class="src">From the task</span><span class="pht">Objective criterion 3</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb rows"><div class="row" id="x2p4r3"><div class="rn">3</div><div class="rc"><div class="rt">pantry_audit.html states the order date as Monday 6 July 2026.</div><div class="rm"><span class="w w-lo">+1</span><span class="mt"><em>target</em>Final answer/artifact</span><span class="mc"><em>category</em>Task Completion</span></div></div></div></div></div></div><div class="ovpane" data-pane="5" role="tabpanel"><div class="panel"><div class="ph" id="x2p5h"><span class="src">Task file</span><span class="pht">pantry_audit.html</span><span class="sp"></span><span class="stepper" hidden><button type="button" class="stp" data-d="-1" aria-label="Previous marked spot">‹</button><button type="button" class="stn" title="Show this spot again"></button><button type="button" class="stp" data-d="1" aria-label="Next marked spot">›</button></span></div><div class="pb ev" id="x2p5ev"><div class="evi evk-page"><div class="evh"><code>pantry_audit.html</code><span class="evr">golden artifact</span></div><div class="evframe"><iframe data-src="../evidence/6aac6ee4f0c334e21057f9e6/pantry_audit.html" sandbox="allow-scripts" referrerpolicy="no-referrer" title="pantry_audit.html" data-targets="0"></iframe></div></div></div></div></div></div>
+    </section>
+  </div>
+</div></div>
+
+<footer><p>Every example on these pages is a real Red Shell task, carried over exactly as the Red Shell Common Errors
+course shows it, under its number in this deck. Each one illustrates an issue that must not be repeated in Green Shell,
+because the same quality standards and expectations still apply; the rules beside it are quoted from the Green Shell
+Guidelines and QC spec. Nothing here identifies a contributor.</p></footer>
+</body></html>
