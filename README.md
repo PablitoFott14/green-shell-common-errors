@@ -60,7 +60,9 @@ checks every quote against the document before it writes a page.
 
 **The examples are Red Shell's, unchanged.** Each one is the Red Shell course's own example card and task, carried over
 as that course shows it; only its number in this deck, a Red Shell label and the rule line, which names the Green Shell
-rule the same mistake breaks, are new. The build checks each one against the Red Shell course's data. Nothing here
+rule the same mistake breaks, are new. The build checks each one against the Red Shell course's data. On top of each
+dialog, the viewer tags every marked row for what it is (the mistake, context, done right), repeats the fix under the row it
+corrects, and, on the three photos an example's note points into, boxes and zooms the exact region (`evmarks.py`). Nothing here
 identifies a contributor.
 
 ## Rebuilding

@@ -525,3 +525,54 @@ audio.evmedia{max-height:none;background:transparent;border:0}
 .rsnote{margin:10px 0 12px;padding:11px 15px;border-left:4px solid var(--red);background:var(--red-bg);border-radius:0 10px 10px 0;
   color:var(--ink2);font-size:14px;line-height:1.5;max-width:92ch}
 .rsnote b{color:var(--ink)}
+
+/* ─── what each marked spot is, said on the spot (viewer.js adds these beside the task's markup) ─
+   Every row a line of the diagnosis points at carries a tag: the mistake (red), context (blue) or
+   done right (green), and the fix for that row sits under it. */
+.ptr.ctx{background:var(--blue);color:#06122a}
+.ptr.ok{background:var(--green);color:#06122a}
+.file,.tile{position:relative}
+.file.flagged{border-color:var(--red-d);border-left:3px solid var(--red);background:var(--red-bg)}
+.turn.ctxr,.gm.ctxr,.turn.okr,.gm.okr{border-width:1px 1px 1px 3px;border-style:solid;border-radius:9px;padding:13px 14px;margin:4px 0}
+.row.ctxr,.turn.ctxr,.gm.ctxr,.file.ctxr{background:#0d1a2e;border-color:var(--blue-d);border-left:3px solid var(--blue)}
+.row.ctxr .rn{border-color:var(--blue-d);color:#9cc8ff}
+.row.okr,.turn.okr,.gm.okr,.file.okr{background:#0d1b1a;border-color:var(--green-d);border-left:3px solid var(--green)}
+.turn.flagged .tn,.turn.ctxr .tn,.turn.okr .tn{padding-top:4px}
+/* the fix, beside the mistake it corrects: the rail's own line, repeated where the row is */
+.fx{display:grid;gap:6px;margin:10px 0 2px}
+.gm .fx{margin-bottom:0}
+.ph+.fx,.evnote+.fx{margin:12px 14px 0}
+.tiles>.fx{grid-column:1/-1;margin:0}
+.files>.fx{margin:-2px 0 4px}
+.fxl{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;padding:8px 11px;border-radius:8px;font:13px/1.5 var(--sans);
+  border:1px solid var(--line);border-left:3px solid var(--line2);background:var(--card2);color:var(--ink2);white-space:normal}
+.fxl.was{border-color:var(--red-d);border-left-color:var(--red);background:var(--red-bg);color:#ffc9d2}
+.fxl.ctx{border-left-color:var(--blue);color:var(--ink2)}
+.fxl.now{border-color:var(--green-d);border-left-color:var(--green);background:var(--green-bg);color:var(--ink)}
+.fxk{flex:none;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-family:var(--sans)}
+.fxl.was .fxk{color:var(--red)}
+.fxl.ctx .fxk{color:var(--blue)}
+.fxl.now .fxk{color:var(--green)}
+.fxl .dlt{margin:0;flex:1 1 60%;font-size:13px;font-family:var(--sans)}
+.fxl .dn{display:inline;margin:0 0 0 6px;font-size:12px}
+.fxl .w,.fxl .f,.fxl .op{font-size:10.5px}
+
+/* ─── a photo, pointed into: zoomed crops of the regions the note names, then the photo with the
+   same regions boxed. Fractions of the image throughout, so the boxes hold at full size too. ── */
+.evzooms{display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px;margin:0 0 12px}
+.evzoom{position:relative;margin:0;max-width:100%;border:1px solid var(--red-d);border-radius:9px;overflow:hidden;
+  background:#05080f;cursor:default}
+.evzoom.cur{box-shadow:0 0 0 2px var(--red),0 0 0 6px rgba(255,77,99,.2)}
+.evcrop{position:relative;overflow:hidden;aspect-ratio:var(--ar);background:#fff}
+.evcrop img{position:absolute;display:block;max-width:none;max-height:none;height:auto;margin:0}
+.evzoom figcaption{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;background:var(--red-bg);color:#ffd3da;
+  font-size:12px;line-height:1.4;border-top:1px solid var(--red-d)}
+.evzoom b,.evbox b{flex:none;display:inline-block;background:var(--red);color:#fff;font:800 10.5px/1 var(--sans);
+  padding:3px 6px;border-radius:4px;letter-spacing:.04em}
+.evimg{text-align:center}
+.evpic{position:relative;display:block;margin:0 auto;width:min(100%,calc(68vh * var(--iar)))}
+.evpic img{display:block;width:100%;height:auto;max-width:none;max-height:none;margin:0}
+.evimg.full .evpic{width:var(--iw);max-width:none}
+.evbox{position:absolute;border:3px solid var(--red);border-radius:6px;
+  box-shadow:0 0 0 2px rgba(255,224,102,.9),0 0 16px rgba(255,77,99,.55)}
+.evbox b{position:absolute;left:-3px;top:-21px}

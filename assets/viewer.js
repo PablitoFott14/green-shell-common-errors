@@ -50,7 +50,10 @@
       if (/(auto|scroll)/.test(cs.overflowY) && p.scrollHeight > p.clientHeight + 1) {
         var r = el.getBoundingClientRect(), b = p.getBoundingClientRect();
         var room = Math.max(24, (p.clientHeight - Math.min(r.height, p.clientHeight)) / 3);
-        p.scrollTop += (r.top - b.top) - room;
+        // already in view, in the top half of the box: leave the box where it is, so what sits
+        // above the spot (a note, a header) stays readable
+        var seen = r.top >= b.top && r.bottom <= b.bottom && r.top - b.top < p.clientHeight / 2;
+        if (!seen) p.scrollTop += (r.top - b.top) - room;
       }
       if (p === stop) break;
       p = p.parentElement;
@@ -375,7 +378,116 @@
     document.documentElement.classList.add("fromslides");
   }
 
+  /* ── what each marked spot is, said on the spot ──────────────────────────────
+     The rail's lines each point at a place in the task: "Leg B turn 7", "Criterion 14". The
+     place a line points at is tagged for what it is there, the mistake, context, or done right,
+     and the fix the rail gives for that place is repeated under it, so the wrong words and the
+     right ones sit together instead of a rail's length apart. A fix with no place of its own
+     goes under the one missing row, or stays with the fix before it. Tags for the few places no
+     line points at come with the dialog (data-tags). The task's own markup is left as it is:
+     everything here is added beside it. */
+  var ROW = ".row, .turn, .gm, .file, .prow, .tile";
+
+  function decorate(d) {
+    if (d._decorated) return;
+    d._decorated = true;
+    var rail = d.querySelector(".ovrail");
+    if (!rail) return;
+    var at = {}, last = null;
+    function pin(id, kind, dl) {
+      if (!id) return;
+      (at[id] = at[id] || {was: [], ctx: [], now: []})[kind].push(dl);
+    }
+    all(".dl", rail).forEach(function (dl) {
+      var chip = dl.querySelector(".dlw"), id = chip && chip.getAttribute("data-row");
+      var kind = dl.classList.contains("l-now") ? "now" : dl.classList.contains("l-ctx") ? "ctx" : "was";
+      if (!id && kind === "now") {
+        var gaps = all(".ovpanes .row.gap", d);
+        if (gaps.length === 1) id = gaps[0].id;
+        else if (last) id = last;
+      }
+      if (id && kind === "now") last = id;
+      pin(id, kind, dl);
+    });
+    var manual = {};
+    (d.getAttribute("data-tags") || "").split(/\s+/).forEach(function (s) {
+      var i = s.indexOf(":");
+      if (i > 0) manual[s.slice(0, i)] = s.slice(i + 1).replace(/_/g, " ");
+    });
+
+    function fxl(kind, key, nodes) {
+      var l = document.createElement("div"), k = document.createElement("span");
+      l.className = "fxl " + kind;
+      k.className = "fxk";
+      k.textContent = key;
+      l.appendChild(k);
+      nodes.forEach(function (n) { l.appendChild(n); });
+      return l;
+    }
+    function note(dl) {
+      var n = dl.querySelector(".dn");
+      return n ? [document.createTextNode(n.textContent)] : null;
+    }
+    /* The lines about one place, as a box: its note on the mistake, the context it gives, and the
+       fix, badges (a new weight, a field, "Delete it") and words as the rail shows them. */
+    function callout(p) {
+      var box = document.createElement("div");
+      box.className = "fx";
+      p.was.forEach(function (dl) { var n = note(dl); if (n) box.appendChild(fxl("was", "✗", n)); });
+      p.ctx.forEach(function (dl) { var n = note(dl); if (n) box.appendChild(fxl("ctx", "context", n)); });
+      p.now.forEach(function (dl) {
+        var bits = all(".dlh > :not(.dlw)", dl).concat(all(":scope > .dlt", dl)).map(function (x) { return x.cloneNode(true); });
+        if (bits.length) box.appendChild(fxl("now", "✓ what it should have been", bits));
+      });
+      return box.children.length ? box : null;
+    }
+    function place(host, box) {
+      if (!box) return;
+      if (host.matches(".ph, .pb")) {          // a whole pane: under its header and note, above its content
+        var pb = host.matches(".pb") ? host : host.parentElement.querySelector(":scope > .pb, :scope > .evnote + .pb");
+        if (pb) pb.parentElement.insertBefore(box, pb); else host.insertAdjacentElement("afterend", box);
+      } else if (host.matches(".file, .tile, .prow")) host.insertAdjacentElement("afterend", box);
+      else (host.querySelector(":scope > .rc, :scope > .tt") || host).appendChild(box);
+    }
+    function tag(row, what) {
+      if (!what || row.querySelector(":scope > .ptr")) return;
+      var t = document.createElement("div");
+      t.className = "ptr" + (what === "context" ? " ctx" : what === "done right" ? " ok" : "");
+      t.textContent = what;
+      row.insertBefore(t, row.firstChild);
+      row.classList.add(what === "context" ? "ctxr" : what === "done right" ? "okr" : "flagged");
+    }
+    function hostOf(el) {
+      if (!el) return null;
+      if (el.matches(ROW + ", .ph, .pb")) return el;
+      return el.closest(ROW) || el.closest(".pb");
+    }
+    var done = [];
+    function settle(host, p, what) {
+      if (!host || done.indexOf(host) >= 0) return;
+      done.push(host);
+      if (!host.matches(".ph, .pb")) tag(host, what);
+      place(host, callout(p));
+    }
+    // first the places the rail points at, then every other marked spot
+    Object.keys(at).forEach(function (id) {
+      var p = at[id], host = hostOf(d.querySelector("#" + CSS.escape(id)));
+      settle(host, p, manual[id] || (p.was.length ? "the mistake" : p.ctx.length ? "context" : null));
+    });
+    all(".ovpane", d).forEach(function (pane) {
+      var head = pane.querySelector(".ph"), hp = head && at[head.id];
+      all(".spot, mark.good", pane).forEach(function (el) {
+        var host = hostOf(el);
+        if (!host || host.matches(".ph, .pb") || done.indexOf(host) >= 0) return;
+        var what = manual[host.id] || (hp && hp.was.length ? "the mistake" : hp && hp.ctx.length ? "context"
+          : el.classList.contains("good") && !host.querySelector(".spot") ? "done right" : null);
+        settle(host, {was: [], ctx: [], now: []}, what);
+      });
+    });
+  }
+
   function start() {
+    all(".ovback").forEach(decorate);
     backToSlides();
     fromHash();
   }
