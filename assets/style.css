@@ -1,0 +1,519 @@
+/* Green Shell · Common Errors viewer
+   Same palette as the slide deck so the course reads as one thing. Green #2ecc71 carries the
+   brand (the header, the slide counter, the current slide); the colours below keep their meaning.
+
+   One colour code everywhere:
+     red     the mistake: a flagged row, a field at fault, a criterion the task is missing
+     yellow  the exact words to look at, marked inside the task's own text
+     green   what it should have been, and task text that already does it right
+     blue    a task file you can open, and links
+   Task content sits on panels headed "From the task" or "Task file". Everything
+   else is the course talking about it. */
+:root{
+  --bg:#080d1a; --bg2:#0c1426; --card:#101a30; --card2:#0e1729; --paper:#0b1323;
+  --line:#1d2b47; --line2:#26375a;
+  --ink:#e8eefb; --ink2:#a9b8d4; --ink3:#7084a8;
+  --red:#ff5a6e; --red-d:#7a1b2b; --red-bg:#1e0f1a;
+  --blue:#5eb3ff; --blue-d:#1b3a6b;
+  --green:#2ecc71; --green-d:#1d6b45; --green-bg:#0c1f17;
+  --gs:#2ecc71; --gs-l:#8ef0b4; --gs-d:#1d6b45; --gs-bg:#0c1f17;
+  --amber:#ffb84d; --orange:#ff8a3d;
+  --spot:#ffe066; --spot-ink:#15171b;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.2;letter-spacing:-.02em}
+code{font-family:var(--mono);font-size:.88em}
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.sp{flex:1}
+.skip{position:absolute;left:-9999px;top:8px;z-index:99;background:var(--card);color:var(--ink);
+  padding:8px 12px;border-radius:8px}
+.skip:focus{left:12px}
+
+/* the exact words: yellow in every panel, as on a golden page */
+mark{border-radius:3px;padding:0 2px}
+mark.spot{background:var(--spot);color:var(--spot-ink);box-shadow:0 0 0 1px var(--red)}
+mark.spot.cur{box-shadow:0 0 0 2px var(--red),0 0 0 5px rgba(255,77,99,.3)}
+mark.good{background:rgba(46,204,113,.16);color:#d8f7e5;box-shadow:inset 0 -2px 0 var(--green)}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:12px 24px;background:rgba(8,13,26,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:650;letter-spacing:.01em;
+  white-space:nowrap}
+.bd{width:9px;height:9px;background:var(--gs);border-radius:2px;box-shadow:0 0 12px var(--gs)}
+.top nav{display:flex;gap:18px;font-size:13.5px;flex-wrap:wrap;justify-content:flex-end}
+.top nav a{color:var(--ink2)}
+.top nav a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--gs)}
+
+/* Back to slides, on every page reached from an example on the slides: fixed at the bottom left,
+   above the example and its evidence. The page and the dialog keep a strip free for it, so it
+   never covers anything, Expand included. */
+.toslides{position:fixed;left:16px;bottom:14px;z-index:60;display:inline-flex;align-items:center;gap:9px;
+  height:42px;padding:0 18px 0 13px;border-radius:999px;background:var(--blue);color:#06122a;
+  font:700 14px/1 var(--sans);text-decoration:none;white-space:nowrap;
+  box-shadow:0 10px 28px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.12) inset}
+.toslides:hover{background:#6aacff;text-decoration:none}
+.toslides:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.toslides svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round}
+.toslides small{font-size:12.5px;font-weight:650;padding-left:9px;border-left:1px solid rgba(6,18,42,.35)}
+html.fromslides body{padding-bottom:70px}
+html.fromslides .ovback,html.fromslides .ovback.wide{padding-bottom:70px}
+
+/* hero */
+.hero{padding:52px 24px 30px;max-width:1180px;margin:0 auto}
+.hero.slim{padding-bottom:10px}
+.eyebrow{margin:0 0 12px;color:var(--gs);font-size:11.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase}
+.hero h1{font-size:clamp(30px,5vw,48px);font-weight:800}
+.lede{max-width:68ch;color:var(--ink2);font-size:16px;margin:14px 0 0}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 80px}
+
+/* badges: what a mistake costs */
+.bad{flex:none;display:inline-block;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:4px 8px;border-radius:5px;white-space:nowrap;line-height:1.3}
+.bad.fail{background:var(--red-bg);color:var(--red);border:1px solid var(--red-d)}
+.bad.bleed{background:#1c1a2a;color:var(--amber);border:1px solid #4a3a1c}
+.bad.core{background:#1f140f;color:var(--orange);border:1px solid #5c3217}
+.mcf{display:inline-block;background:#1b1430;color:#c4a4ff;border:1px solid #4a3277;font-size:10px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;padding:3px 7px;border-radius:5px;white-space:nowrap}
+
+/* ─── a mistake's page ───────────────────────────────────────────────────── */
+.mpage{padding-top:26px}
+.mtop{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.crumb{flex:1;min-width:0;color:var(--ink3);font-size:12.5px;margin:0}
+.cs{margin:0 8px;color:var(--line2)}
+.mnav{display:flex;align-items:center;gap:12px;font-size:12.5px}
+.mnav .pos{color:var(--ink3);font-variant-numeric:tabular-nums}
+.mnav .off{color:var(--line2)}
+.mhead{margin-top:16px}
+.mhead h1{font-size:clamp(24px,3.4vw,34px);font-weight:800;max-width:30ch}
+.mnum{color:var(--ink3);font-family:var(--mono);font-size:.55em;font-weight:600;margin-right:12px;
+  vertical-align:.3em;letter-spacing:0}
+.sevline{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0 0}
+.dim{color:var(--blue);font-family:var(--mono);font-size:12px}
+
+/* the mistake and the fix, side by side */
+.gist{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.gw,.gf{border-radius:12px;padding:16px 18px;border:1px solid var(--line)}
+.gw{background:var(--red-bg);border-color:var(--red-d);border-top:3px solid var(--red)}
+.gf{background:var(--green-bg);border-color:var(--green-d);border-top:3px solid var(--green)}
+.gl{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:750}
+.gw .gl{color:var(--red)}
+.gf .gl{color:var(--green)}
+.gw .gl::before{content:"\2717  "}
+.gf .gl::before{content:"\2713  "}
+.gw p,.gf p{margin:8px 0 0;font-size:15px;line-height:1.55}
+.note{margin-top:12px;padding:11px 15px;border-radius:10px;background:#131c33;border:1px solid var(--blue-d);
+  color:var(--ink2);font-size:13.5px}
+.note b{color:var(--blue);margin-right:6px}
+
+.blk{margin-top:34px}
+.blkh{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.blk h2{font-size:19px;letter-spacing:-.01em}
+.hint{color:var(--ink3);font-size:13px}
+.catch p{margin:9px 0 0;color:var(--ink);font-size:14.5px;max-width:92ch;padding:12px 16px;
+  background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:10px}
+
+/* what the colours mean, once, beside the examples */
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 0 0;color:var(--ink3);font-size:12px}
+.lg::before{content:"";display:inline-block;width:18px;height:11px;margin-right:6px;border-radius:3px;vertical-align:-1px}
+.lg-y::before{background:var(--spot);box-shadow:0 0 0 1px var(--red)}
+.lg-r::before{background:var(--red-bg);border:1.5px solid var(--red)}
+.lg-m::before{border:1.5px dashed var(--red)}
+.lg-g::before{background:rgba(46,204,113,.16);box-shadow:inset 0 -2px 0 var(--green)}
+.lg-b::before{background:#0d1a33;border:1px solid var(--blue)}
+.lg-o::before{background:#0d1b1a;border-left:3px solid var(--green);border-radius:2px}
+
+/* the real tasks, one card each: each card is the diagnosis itself */
+.exlist{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+.excard{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
+  border-left:3px solid var(--red);border-radius:12px;padding:14px 16px 12px;color:var(--ink);cursor:pointer;
+  transition:.14s}
+.excard:hover{border-color:var(--line2);border-left-color:var(--red)}
+.exh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.exn{color:var(--red);font-size:11px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+.exm{color:var(--ink3);font-size:12px}
+.exctx{margin:8px 0 0;color:var(--ink2);font-size:13.5px;line-height:1.5}
+/* What is wrong: the mistake in a sentence or two, before anything else on the card and the rail */
+.exgist{margin:10px 0 0;color:var(--ink);font-size:14.5px;line-height:1.5;font-weight:500}
+.exgist .xl,.rsec.wrongr .rl{color:var(--red)}
+.rsec.wrongr p{color:var(--ink);font-size:14.5px;font-weight:500}
+.xl{display:block;color:var(--ink3);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:3px}
+.exf{display:flex;align-items:center;gap:14px;margin-top:10px}
+.exfull{font-size:12.5px}
+.btn{background:var(--card);border:1px solid var(--line2);color:var(--ink);border-radius:7px;
+  padding:5px 11px;font:inherit;font-size:12.5px;cursor:pointer}
+.btn:hover{background:var(--card2);border-color:var(--blue)}
+.btn.q{color:var(--ink2);border-color:var(--line)}
+.exopen{background:#14203b;border-color:var(--blue-d);color:var(--ink);font-weight:600}
+
+.jl{color:var(--ink3);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;margin-right:2px}
+.evjump{border-radius:6px;padding:3px 9px;font:inherit;font-size:12px;cursor:pointer;line-height:1.4;
+  background:#0d1a33;border:1px solid var(--blue-d);color:#9cc8ff}
+.evjump:hover{border-color:var(--blue);color:#fff}
+
+/* a reference inside the prose: jumps to what it names */
+.ref{background:none;border:0;padding:0;margin:0;font:inherit;color:#8fc0ff;cursor:pointer;
+  text-align:inherit;border-bottom:1px dotted #5f8fcf;line-height:inherit}
+.ref:hover{color:#fff;border-bottom-style:solid}
+.ref.q{color:inherit;border-bottom:1px solid rgba(255,224,102,.55);background:rgba(255,224,102,.07)}
+.ref.q:hover{background:rgba(255,224,102,.18)}
+
+/* ─── the diagnosis: where it shows beside what it should have been ────────
+   Each line names where it sits in the task (a chip that opens it there), the one
+   field at fault or the one that changes, and its words: the task's quoted, the
+   course's plain, the words at fault in yellow and the right ones in green. */
+.dx{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.dxc{min-width:0;border-radius:10px;padding:10px 12px 12px;border:1px solid var(--line)}
+.dxw{background:var(--red-bg);border-color:var(--red-d)}
+.dxr{background:var(--green-bg);border-color:var(--green-d)}
+.dxl{font-size:10.5px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;margin:0 0 9px}
+.dxw .dxl{color:var(--red)}
+.dxr .dxl{color:var(--green)}
+.dxw .dxl::before{content:"\2717  "}
+.dxr .dxl::before{content:"\2713  "}
+.dls{display:grid;gap:9px}
+.dl{min-width:0;border-left:3px solid var(--line2);padding:1px 0 1px 10px}
+.dl.l-was{border-left-color:var(--red)}
+.dl.l-ctx{border-left-color:var(--blue-d)}
+.dl.l-now{border-left-color:var(--green)}
+.dl.miss{border-left-style:dashed}
+.dlh{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.dlw{flex:none;font-size:11.5px;font-weight:650;color:var(--ink2);background:#0a1224;border:1px solid var(--line2);
+  border-radius:5px;padding:0 7px;line-height:1.55}
+a.ref.dlw{font-size:11.5px;font-weight:650;padding:0 7px;border-radius:5px;background:#0a1224;
+  color:#d7e7ff;border:1px solid var(--line2);line-height:1.55}
+a.ref.dlw::after{content:" \2197";color:var(--blue);font-weight:400}
+a.ref.dlw:hover{border-color:var(--blue);color:#fff;text-decoration:none}
+.dl.l-was .dlw{border-color:var(--red-d)}
+.dl.l-now .dlw{border-color:var(--green-d)}
+.dl.miss .dlw{border-style:dashed;border-color:var(--red)}
+.dlt{margin-top:4px;font-size:13.5px;line-height:1.55;overflow-wrap:anywhere}
+.dq{color:var(--ink)}
+.dq::before{content:"\201C";color:var(--ink3)}
+.dq::after{content:"\201D";color:var(--ink3)}
+.df{color:var(--ink2)}
+.dl.miss .df{color:#ffc2cc;font-style:italic}
+.dn{display:block;margin-top:2px;color:var(--ink3);font-size:12px}
+.dlt code,.dm code{font-size:.9em}
+mark.dm,a.dm{border-radius:3px;padding:0 2px}
+.dm.wrong{background:var(--spot);color:var(--spot-ink);box-shadow:0 0 0 1px var(--red)}
+.dm.right{background:rgba(46,204,113,.16);color:#d8f7e5;box-shadow:inset 0 -2px 0 var(--green)}
+a.ref.dm{border-bottom:0;line-height:inherit;padding:0 2px;border-radius:3px}
+a.ref.dm.wrong{color:var(--spot-ink)}
+a.ref.dm.right{color:#d8f7e5}
+a.ref.dm:hover{box-shadow:0 0 0 2px var(--blue);text-decoration:none}
+.dl .w,.dl .f{font-size:10.5px}
+.w.fixed,.f.fixed{border:1.5px solid var(--green);background:#0f2a1c;color:#d8f7e5;box-shadow:0 0 0 3px rgba(46,204,113,.15)}
+.f.fixed em{color:#8fe3bd}
+.dl .w.fault,.dl .f.fault{box-shadow:none}
+.op{font-size:10px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:1px 6px}
+.op-delete .op{background:#2c0f1a;color:#ff9aa9;border:1px solid var(--red-d)}
+.op-add .op{background:#0f2a20;color:#8fe3bd;border:1px solid var(--green-d)}
+.op-keep .op{background:#0a1224;color:var(--ink3);border:1px solid var(--line2)}
+.op-delete .dlw{text-decoration:line-through;text-decoration-color:var(--red)}
+.dxwhy{margin:12px 0 0;font-size:14px;line-height:1.55;color:var(--ink)}
+.dxrule{margin:10px 0 0;padding:8px 12px;border-left:3px solid var(--blue);background:#0d1730;border-radius:0 8px 8px 0;
+  font-size:13px;line-height:1.55;color:var(--ink2)}
+.rlink{color:var(--blue);font-family:var(--mono);font-size:12px}
+.rlink b{color:var(--ink2);font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.dxrule q{color:var(--ink)}
+.dxm{display:block;margin-top:3px;color:var(--ink3);font-size:12px}
+.rulecard.lit,.railrule.lit{border-color:var(--blue);box-shadow:0 0 0 3px rgba(94,179,255,.25)}
+
+/* the rules, quoted from the project's own documents */
+.rulecard{margin-top:12px;background:#0d1730;border:1px solid var(--line);
+  border-left:3px solid var(--blue);border-radius:11px;padding:14px 17px}
+.rsrc{margin:0 0 8px;color:var(--blue);font-family:var(--mono);font-size:12px}
+.rsrc b{color:var(--ink2);font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.rulecard blockquote,.railrule blockquote{margin:0;color:var(--ink);font-size:14.5px;line-height:1.6;max-width:94ch}
+.rcm{margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--line2);color:var(--ink2);font-size:13.5px;max-width:94ch}
+.morerules{margin-top:12px}
+.morerules>summary,.why>summary{cursor:pointer;color:var(--blue);font-size:13.5px;list-style:none}
+.morerules>summary::-webkit-details-marker,.why>summary::-webkit-details-marker,
+.rrules>summary::-webkit-details-marker,.xtoc summary::-webkit-details-marker{display:none}
+.morerules>summary::before,.why>summary::before,.rrules>summary::before{content:"\25B8";display:inline-block;
+  width:14px;transition:transform .12s}
+.morerules[open]>summary::before,.why[open]>summary::before,.rrules[open]>summary::before{transform:rotate(90deg)}
+.why{border-top:1px solid var(--line);padding-top:18px}
+.why>summary{color:var(--ink);font-size:16px;font-weight:650}
+.why p{margin:10px 0 0;color:var(--ink2);font-size:14.5px;max-width:92ch}
+
+footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--ink3);font-size:12.5px}
+
+/* ─── the task, opened over the error rather than on a page of its own ───── */
+.ovback{position:fixed;inset:0;z-index:50;background:rgba(4,7,15,.76);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:16px;animation:ovin .14s ease-out}
+@keyframes ovin{from{opacity:0}to{opacity:1}}
+.ov{display:flex;flex-direction:column;width:min(1380px,100%);height:min(100%,960px);min-height:0;
+  background:var(--bg);border:1px solid var(--line2);border-radius:14px;
+  box-shadow:0 24px 70px rgba(0,0,0,.6);overflow:hidden}
+.ovback.wide{padding:0}
+.ovback.wide .ov{width:100%;height:100%;border-radius:0}
+.ovh{flex:none;display:grid;gap:5px;padding:11px 16px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.ovline{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ovnum{color:var(--red);font-size:11.5px;font-weight:750;letter-spacing:.12em;text-transform:uppercase}
+.ovttl{font-weight:650;font-size:15px}
+.ovmeta{display:flex;flex-wrap:wrap;gap:14px;color:var(--ink3);font-size:12px}
+.ovid{font-family:var(--mono);background:#0a1224;border:1px solid var(--line);padding:1px 6px;
+  border-radius:5px;font-size:11px;color:var(--ink3)}
+.ovbody{flex:1;min-height:0;display:flex}
+
+/* the rail: the course talking about the task */
+.ovrail{flex:none;width:380px;overflow:auto;padding:14px 16px 20px;background:var(--bg2);
+  border-right:1px solid var(--line)}
+.ovbody.railoff .ovrail{display:none}
+.railh{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.railh .eyebrow{margin:0;font-size:10.5px}
+.raillist{display:grid;gap:12px}
+.rsec{margin:0}
+.rsec p{margin:5px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.rl{font-size:10.5px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.rsec.ctx p{font-size:13px;color:var(--ink3)}
+.tq{font-style:italic}
+.tqs{font-size:11.5px !important;margin-top:2px !important}
+.rsec.badr{background:var(--red-bg);border:1px solid var(--red-d);border-left:3px solid var(--red);
+  border-radius:10px;padding:10px 12px}
+.rsec.badr .rl{color:var(--red)}
+.rsec.badr .rl::before{content:"\2717  "}
+.rsec.badr p{color:var(--ink);font-size:14px}
+.rsec.goodr{background:var(--green-bg);border:1px solid var(--green-d);border-left:3px solid var(--green);
+  border-radius:10px;padding:10px 12px}
+.rsec.goodr .rl{color:var(--green)}
+.rsec.goodr .rl::before{content:"\2713  "}
+.rsec.goodr p{color:var(--ink)}
+.rsec.why p{color:var(--ink2)}
+.rrules{border-top:1px solid var(--line);padding-top:10px}
+.rrules>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+.rrules>summary .rl{color:var(--blue)}
+.rcount{background:#0d1a33;border:1px solid var(--blue-d);color:#9cc8ff;border-radius:4px;padding:0 6px;
+  font-size:10.5px;font-family:var(--mono)}
+.railrule{margin-top:9px;background:#0d1730;border:1px solid var(--line);border-left:3px solid var(--blue);
+  border-radius:9px;padding:10px 12px}
+.railrule .rsrc{font-size:10.5px;margin-bottom:6px}
+.railrule blockquote{font-size:12.5px;line-height:1.55}
+.railrule .rcm{margin:7px 0 0;font-size:12px}
+
+/* the task's own fields, tabbed */
+.ovev{flex:1;min-width:0;display:flex;flex-direction:column}
+.ovtabs{flex:none;display:flex;align-items:flex-end;gap:4px;overflow-x:auto;padding:9px 12px 0;
+  border-bottom:1px solid var(--line);scrollbar-width:thin}
+.ovtab{flex:none;background:transparent;border:1px solid transparent;border-bottom:0;color:var(--ink3);
+  border-radius:8px 8px 0 0;padding:7px 12px;font:inherit;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.ovtab:hover{color:var(--ink)}
+.ovtab.on{background:var(--card);border-color:var(--line);color:var(--ink);font-weight:600}
+.tn2{margin-left:7px;background:var(--red-bg);color:#ffc2cc;border:1px solid var(--red-d);
+  border-radius:4px;padding:0 5px;font-size:10px;font-family:var(--mono)}
+.evtabb{color:#8fbfff}
+.evtabb::before{content:"";display:inline-block;width:6px;height:6px;margin-right:7px;border-radius:50%;
+  background:var(--blue);vertical-align:middle}
+.showrail{display:none;color:var(--blue)}
+.ovbody.railoff .showrail{display:block}
+.keys{flex:none;color:var(--ink3);font-size:11px;padding:0 4px 8px;white-space:nowrap}
+kbd{font-family:var(--mono);font-size:10.5px;background:#0a1224;border:1px solid var(--line2);border-radius:4px;
+  padding:0 4px;color:var(--ink2)}
+.ovpanes{flex:1;min-height:0;overflow:auto;padding:12px}
+.ovpane{display:none}
+.ovpane.on{display:block}
+
+/* a panel of task content: headed so it cannot be mistaken for the course's words */
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:11px}
+.ph{position:sticky;top:-12px;z-index:3;display:flex;align-items:center;gap:10px;padding:8px 12px;
+  background:#0b1425;border-bottom:1px solid var(--line);border-radius:11px 11px 0 0}
+.src{flex:none;color:var(--bg);background:var(--ink3);font-size:9.5px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;padding:2px 7px;border-radius:4px}
+.pht{color:var(--ink2);font-size:12px;font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+.stepper{flex:none;display:inline-flex;align-items:center;border:1px solid var(--red-d);border-radius:7px;
+  overflow:hidden;background:var(--red-bg)}
+.stepper .stp,.stepper .stn{background:none;border:0;color:#ffc2cc;font:inherit;font-size:12px;cursor:pointer;
+  padding:3px 9px;line-height:1.4}
+.stepper .stp{font-size:15px;padding:1px 9px}
+.stepper .stp:hover:not(:disabled),.stepper .stn:hover{background:#2c1422;color:#fff}
+.stepper .stp:disabled{color:#6b3a47;cursor:default}
+.stepper .stn{border-left:1px solid var(--red-d);border-right:1px solid var(--red-d);font-variant-numeric:tabular-nums}
+.pb{padding:14px}
+.prose{color:var(--ink2);font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+
+.turn{position:relative;display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.turn:last-child{border-bottom:0;padding-bottom:0}
+.tn{flex:none;width:64px;color:var(--ink3);font-size:10.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;padding-top:2px}
+.tt{color:var(--ink2);font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+
+.rows{display:grid;gap:8px}
+.row{position:relative;display:flex;gap:12px;padding:11px 13px;background:var(--card2);
+  border:1px solid var(--line);border-left:3px solid var(--line2);border-radius:9px}
+.row.flagged,.turn.flagged,.gm.flagged{border-color:var(--red-d);border-left:3px solid var(--red);
+  background:var(--red-bg)}
+.turn.flagged,.gm.flagged{border-width:1px 1px 1px 3px;border-style:solid;border-radius:9px;padding:13px 14px;
+  margin:4px 0}
+.row.gap{background:transparent;border:1.5px dashed var(--red);border-left-width:3px}
+.row.gap .rt{color:#ffc2cc;font-style:italic}
+.rnote{margin:0 0 7px;color:#ffb3bf;font-size:12px;line-height:1.45}
+.rnote::before{content:"Marked ";color:var(--red);font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.ptr{position:absolute;top:-9px;right:12px;background:var(--red);color:#fff;font-size:9.5px;
+  font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:4px;
+  max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rn{flex:none;min-width:28px;height:22px;padding:0 4px;display:grid;place-items:center;background:#0a1224;
+  border:1px solid var(--line2);border-radius:5px;font-family:var(--mono);font-size:11.5px;color:var(--ink3)}
+.row.flagged .rn{border-color:var(--red-d);color:#ffc2cc}
+.rc{flex:1;min-width:0}
+.rt{font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+.rm{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;align-items:center;font-size:11px;color:var(--ink3)}
+.mt,.mc,.f{font-family:var(--mono);font-size:11px;background:#0a1224;border:1px solid var(--line);
+  padding:1px 7px;border-radius:5px;color:var(--ink)}
+.mt em,.mc em,.f em{color:var(--ink3);font-style:normal;margin-right:6px;font-size:9.5px;letter-spacing:.06em;
+  text-transform:uppercase;font-family:var(--sans)}
+.mc{color:#9cc8ff}
+.w{font-family:var(--mono);font-weight:700;font-size:11.5px;padding:1px 7px;border-radius:5px}
+.w-hi{background:#12283f;color:#7cc0ff;border:1px solid var(--blue-d)}
+.w-mid{background:#0f2133;color:#63a8e8;border:1px solid #1a3454}
+.w-lo{background:#101a2c;color:var(--ink3);border:1px solid var(--line)}
+.w-neg{background:#2a0f18;color:var(--red);border:1px solid var(--red-d)}
+/* the one field at fault on a row: ringed, the rest of the row left plain */
+.mt.fault,.mc.fault,.f.fault,.w.fault{border:1.5px solid var(--red);background:#2c0f1a;color:#fff;
+  box-shadow:0 0 0 3px rgba(255,77,99,.18)}
+.mt.fault em,.mc.fault em,.f.fault em{color:#ff9aa9}
+.fields{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+.cont{margin:9px 0 0;padding-left:18px;color:var(--ink2);font-size:12.5px}
+.cont li{margin:2px 0}
+.cont li.miss{list-style:none;margin:6px 0 0 -18px;padding:4px 9px;border:1.5px dashed var(--red);border-radius:7px;
+  color:#ffc2cc;font-style:italic}
+.cont li.miss::before{content:"missing  ";color:var(--red);font-style:normal;font-weight:800;font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase}
+.cont.empty{padding-left:0;color:var(--red);font-style:italic}
+
+.files{display:grid;gap:6px}
+.file{display:flex;align-items:center;gap:10px;padding:7px 11px;background:var(--card2);
+  border:1px solid var(--line);border-radius:8px;font-size:13px}
+.file code{color:var(--ink);flex:1;min-width:0;overflow-wrap:anywhere}
+.fx,.fs{flex:none;color:var(--ink3);font-size:11px;font-family:var(--mono)}
+.file .evjump{flex:none}
+
+.gm{position:relative;padding:10px 0;border-bottom:1px dashed var(--line)}
+.gm:last-child{border-bottom:0;padding-bottom:0}
+.gr{color:#9cc8ff;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.gt{color:var(--ink2);font-size:13.5px;white-space:pre-wrap;overflow-wrap:anywhere}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.tile{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.tile.fault{border:1.5px solid var(--red);background:var(--red-bg)}
+.tile.wide{grid-column:1/-1}
+.tv{font-size:21px;font-weight:750;font-variant-numeric:tabular-nums}
+.tile.fault .tv{color:var(--red)}
+.tl{color:var(--ink3);font-size:11px;margin-top:3px}
+.wsv{display:flex;flex-wrap:wrap;gap:12px;font-size:14px}
+.wsp{display:inline-flex;align-items:center;gap:5px}
+.wsp b{font-weight:600;color:var(--ink2);font-size:13px}
+
+/* the parameter sheet: the field, then the value as assigned */
+.prow{position:relative;display:grid;grid-template-columns:172px minmax(0,1fr);gap:14px;padding:10px 13px;
+  background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--line2);border-radius:9px}
+.prow.flagged{border-color:var(--red-d);border-left:3px solid var(--red);background:var(--red-bg)}
+.pk{color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding-top:2px}
+.prow.flagged .pk{color:#ffb3bf}
+.pk small{display:block;margin-top:2px;color:var(--ink3);font-size:10px;letter-spacing:.04em;text-transform:none;font-weight:500}
+.pv{font-size:13.5px;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+/* a row that already grades what the flagged one restates, and a row shown for context */
+.row.ok{border-left-color:var(--green);background:#0d1b1a}
+.row.ok .rn{border-color:var(--green-d);color:#9fe8c2}
+.row.ctxr{border-left-color:var(--blue)}
+.okt{position:absolute;top:-9px;right:12px;background:var(--green-d);color:#d8f7e5;font-size:9.5px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:4px}
+
+/* one shared note per panel, instead of the same banner on every row */
+.pnote{padding:9px 14px;background:var(--red-bg);border-bottom:1px solid var(--red-d);
+  color:#ffc9d2;font-size:12.5px;line-height:1.5}
+.pnote b,.evnote b{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-right:7px}
+.pnote b{color:var(--red)}
+.pmore{padding:9px 14px;border-top:1px dashed var(--line);color:var(--ink3);font-size:12px}
+
+/* the spot the stepper is on: rows, fields and figures get a ring, words get theirs above */
+.spot.cur:not(mark){box-shadow:0 0 0 2px var(--red),0 0 0 6px rgba(255,77,99,.2)}
+tr.spot.cur td{box-shadow:inset 0 2px 0 var(--red),inset 0 -2px 0 var(--red)}
+.pulse{animation:pulsering 1.6s ease-out}
+@keyframes pulsering{0%,100%{box-shadow:0 0 0 0 rgba(255,77,99,0)}
+  14%{box-shadow:0 0 0 5px rgba(255,77,99,.55)}60%{box-shadow:0 0 0 5px rgba(255,77,99,.2)}}
+mark.pulse{animation:markpulse 1.6s ease-out}
+@keyframes markpulse{0%,100%{box-shadow:0 0 0 2px var(--red),0 0 0 5px rgba(255,77,99,.3)}
+  20%{box-shadow:0 0 0 2px var(--red),0 0 0 10px rgba(255,224,102,.45)}}
+
+/* ─── evidence: the files an example turns on, opened where the claim is made ─ */
+.evnote{padding:10px 14px;background:#0f1a30;border-bottom:1px solid var(--blue-d);color:var(--ink2);
+  font-size:13px;line-height:1.5}
+.evnote b{color:var(--blue)}
+.ev{display:grid;gap:16px}
+.ev.evpair{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.evi{min-width:0}
+.evh{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.evh code{color:var(--ink);overflow-wrap:anywhere}
+.evr{flex:none;color:var(--ink3);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.evimg{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:9px;background:#05080f;
+  cursor:zoom-in;overflow:auto;max-height:70vh}
+.evimg img{display:block;max-width:100%;max-height:68vh;width:auto;height:auto;margin:0 auto}
+.evimg.full{cursor:zoom-out;max-height:none}
+.evimg.full img{max-width:none;max-height:none}
+/* a PDF, drawn page by page */
+.evpdf{display:grid;gap:14px}
+.evpg{margin:0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.evpg img{display:block;width:100%;height:auto}
+.evpg figcaption{padding:5px 10px;background:var(--bg2);color:var(--ink3);font-size:11.5px;border-top:1px solid var(--line)}
+.evmedia{display:block;width:100%;max-height:64vh;background:#000;border:1px solid var(--line);border-radius:9px}
+audio.evmedia{max-height:none;background:transparent;border:0}
+.evmarks{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.evmark{background:var(--red-bg);border:1px solid var(--red-d);color:var(--ink2);border-radius:6px;padding:5px 10px;
+  font:inherit;font-size:12px;cursor:pointer;text-align:left}
+.evmark:hover{border-color:var(--red);color:var(--ink)}
+.evmark b{color:#ffc2cc;font-family:var(--mono);font-weight:600;margin-right:8px}
+.evframe{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+.evframe iframe{display:block;width:100%;height:max(440px,62vh);border:0;background:#fff}
+.ovback.wide .evframe iframe{height:max(480px,calc(100vh - 230px))}
+.evtext{margin:0;max-height:64vh;overflow:auto;padding:12px 14px;background:#0a1224;border:1px solid var(--line);
+  border-radius:9px;color:var(--ink2);font:12.5px/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.evtab{max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:9px;background:#0a1224}
+.evtab table{border-collapse:collapse;font:11.5px/1.4 var(--mono);color:var(--ink2);min-width:100%}
+.evtab th{position:sticky;top:0;background:#0b1425;color:var(--ink3);text-align:left;font-weight:600;
+  padding:6px 9px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.evtab td{padding:4px 9px;border-bottom:1px solid var(--line);white-space:nowrap;max-width:260px;
+  overflow:hidden;text-overflow:ellipsis}
+.evtab tr.hit td{background:var(--spot);color:var(--spot-ink)}
+.evtab td.nil{color:var(--red);font-style:italic;outline:2px dashed var(--red);outline-offset:-3px;background:#fff3b0}
+.evcut{margin-top:7px;color:var(--ink3);font-size:11.5px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+}
+
+/* ─── narrow screens ─────────────────────────────────────────────────────── */
+@media (max-width:980px){
+  .ovback{padding:0}
+  .ov{border-radius:0;height:100%;width:100%}
+  .ovbody{flex-direction:column}
+  .ovrail{width:auto;max-height:42%;border-right:0;border-bottom:1px solid var(--line)}
+  .keys{display:none}
+}
+@media (max-width:760px){
+  .gist,.dx{grid-template-columns:1fr}
+  .prow{grid-template-columns:1fr;gap:4px}
+  .exlist{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .hero{padding:32px 16px 20px}.wrap{padding:0 16px 56px}.top{padding:10px 16px}
+  .top{flex-direction:column;align-items:flex-start;gap:6px}
+  .ovh{padding:10px 12px}
+  .ovline .ovwide{display:none}
+}

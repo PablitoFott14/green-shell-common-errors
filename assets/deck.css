@@ -1,0 +1,92 @@
+/* The slides: one slide at a time at 16:9, with a strip of every slide under it.
+   The page shell (header, colours, type) is the site's own style.css; this adds only the deck,
+   and every rule is scoped to it, so nothing here reaches the rest of the site. */
+.deckpage{min-height:100vh;display:flex;flex-direction:column}
+.deck{flex:1;width:100%;max-width:1720px;margin:0 auto;padding:16px 24px 18px;
+  display:flex;flex-direction:column;align-items:center;gap:14px}
+
+.dk-bar{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px 20px;flex-wrap:wrap}
+.dk-where{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 360px}
+.dk-count{flex:none;font:700 13px/1 var(--mono);color:var(--gs);background:var(--gs-bg);
+  border:1px solid var(--gs-d);border-radius:6px;padding:6px 8px;font-variant-numeric:tabular-nums}
+.dk-name{min-width:0;display:flex;flex-direction:column;gap:2px}
+.dk-title{margin:0;font-size:19px;font-weight:650;line-height:1.25;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dk-part{color:var(--ink3);font-size:12.5px;letter-spacing:.04em}
+.dk-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dk-btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border-radius:8px;
+  border:1px solid var(--line2);background:var(--card);color:var(--ink);font:600 13px/1 var(--sans);
+  cursor:pointer;text-decoration:none;white-space:nowrap}
+.dk-btn:hover{border-color:#3a5283;background:#13203b;text-decoration:none;color:var(--ink)}
+.dk-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.dk-btn:disabled{opacity:.38;cursor:default;background:var(--card);border-color:var(--line2)}
+.dk-btn svg{width:15px;height:15px;flex:none}
+.dk-btn.dl{color:#cfe0ff}
+.dk-btn.dl small{color:var(--ink3);font-weight:500;font-size:12px}
+.dk-sep{width:1px;height:22px;background:var(--line);margin:0 2px}
+
+.dk-stagewrap{width:100%;display:flex;justify-content:center;align-items:center}
+/* The frame is drawn outside the box (a shadow, not a border), and the corners stay square, so the
+   box is exactly 16:9 and the slide fills it to the pixel with nothing of it trimmed. */
+.dk-stage{position:relative;width:100%;aspect-ratio:16/9;background:#05080f;overflow:hidden;
+  box-shadow:0 0 0 1px var(--line),0 18px 50px rgba(0,0,0,.45);touch-action:pan-y}
+.dk-img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;
+  user-select:none;-webkit-user-drag:none}
+
+/* the example numbers on the slide: a link over each, unseen until pointed at, placed as a share of
+   the slide so it stays on its number at any size */
+.dk-hots{position:absolute;inset:0;pointer-events:none}
+.dk-hot{position:absolute;pointer-events:auto;border-radius:5px;cursor:pointer}
+.dk-hot:hover,.dk-hot.on{background:rgba(126,184,255,.14);box-shadow:0 0 0 2px rgba(126,184,255,.9)}
+
+/* back from an example that was opened in full screen: how to go full screen again, for a moment */
+.dk-hint{position:absolute;left:50%;bottom:5%;transform:translateX(-50%);margin:0;padding:8px 14px;
+  border-radius:8px;background:rgba(5,8,15,.9);border:1px solid var(--line2);color:var(--ink);
+  font:600 13px/1.2 var(--sans);white-space:nowrap;pointer-events:none;animation:dkhint 4s ease forwards}
+@keyframes dkhint{0%,80%{opacity:1}100%{opacity:0}}
+
+/* and the same examples under the slide, one button each */
+.dk-ex{width:100%;min-height:30px;display:flex;align-items:center;justify-content:center;gap:8px 14px;flex-wrap:wrap}
+.dk-ex[data-empty]{visibility:hidden}
+.dk-exlab{color:var(--ink3);font-size:11.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.dk-exl{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.dk-exl li.brk{margin-left:12px}
+.dk-exa{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:7px;
+  border:1px solid #24406b;background:#0f1d38;color:#7cc0ff;font:700 12.5px/1 var(--sans);
+  text-decoration:none;white-space:nowrap}
+.dk-exa svg{width:10px;height:10px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.dk-exa:hover,.dk-exa.on{background:#16294d;border-color:#7cc0ff;color:#cfe6ff;text-decoration:none}
+.dk-exa:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.dk-strip{list-style:none;margin:0;padding:4px 2px 8px;width:100%;display:flex;gap:10px;overflow-x:auto;
+  scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.dk-strip li{flex:none}
+.dk-strip button{position:relative;display:block;padding:0;border:2px solid transparent;border-radius:8px;
+  background:none;cursor:pointer;overflow:hidden;opacity:.72}
+.dk-strip button:hover{opacity:1}
+.dk-strip button[aria-current]{border-color:var(--gs);opacity:1}
+.dk-strip button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.dk-strip img{display:block;width:136px;height:auto;aspect-ratio:16/9;border-radius:6px}
+.dk-strip span{position:absolute;left:5px;bottom:5px;font:700 11px/1 var(--mono);color:#fff;
+  background:rgba(5,8,15,.82);border-radius:4px;padding:3px 5px}
+
+.dk-help{margin:0;color:var(--ink3);font-size:12.5px;text-align:center}
+.dk-help kbd{font:600 11px/1 var(--mono);color:var(--ink2);background:var(--card);border:1px solid var(--line2);
+  border-bottom-width:2px;border-radius:4px;padding:2px 5px}
+
+/* full screen: the slide alone, as large as the screen allows; a click steps, the left third back */
+.dk-stagewrap:fullscreen{background:#000}
+.dk-stagewrap:fullscreen .dk-stage{box-shadow:none;cursor:pointer}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);
+  white-space:nowrap;border:0}
+
+@media (max-width:760px){
+  .deck{padding:12px 12px 16px;gap:12px}
+  .dk-title{font-size:16px;white-space:normal}
+  .dk-btn .lab{display:none}
+  .dk-btn{padding:0 11px}
+  .dk-strip img{width:104px}
+  .dk-help{display:none}
+}
